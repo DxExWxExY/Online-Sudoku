@@ -133,4 +133,8 @@ class HistoryNode {
     int size() {
         return board.size();
     }
+
+    void setWasSolved() {
+        board.setWasSolved();
+    }
 }

@@ -197,7 +197,7 @@ public class BoardPanel extends JPanel{
             playSound();
             Object[] options = {"New Game", "Exit"};
             int solved = JOptionPane.showOptionDialog(null, "You Won!",
-                    "Congratulations", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    "Congratulations", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     null, options, options[1]);
             if (solved == JOptionPane.YES_OPTION) {
                 board.reset(board.size());

@@ -344,17 +344,16 @@ public class SudokuDialog extends JFrame {
      * Method called when the solve button is pressed.
      * */
     private void solve() {
-        Board test = history.getBoard().cloneBoard();
-        if (test.isSolvable()) {
-            test.setWasSolved();
+        if (history.getBoard().isSolvable()) {
             createHistory();
-            history.setBoard(test);
+            history.setWasSolved();
+            history.setBoard(history.getBoard());
             boardPanel.setBoard(history.getBoard());
-            test.solveSudoku();
+            history.getBoard().solveSudoku();
             boardPanel.repaint();
         }
         else {
-            JOptionPane.showMessageDialog(null, "This boars cannot be solved.", "Can It Be Solved?", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "This board cannot be solved.", "Can It Be Solved?", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -362,9 +361,8 @@ public class SudokuDialog extends JFrame {
      * Method called when the can solve button is called.
      * */
     private void isSolvable() {
-        Board test = history.getBoard().cloneBoard();
-        if (!test.isSolved()) {
-            if (test.isSolvable()) {
+        if (!history.getBoard().isSolved()) {
+            if (history.getBoard().isSolvable()) {
                 JOptionPane.showMessageDialog(null, "This board CAN be solved.", "Can It Be Solved?", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "This board CANNOT be solved.", "Can It Be Solved?", JOptionPane.INFORMATION_MESSAGE);

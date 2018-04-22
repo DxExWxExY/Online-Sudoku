@@ -9,15 +9,17 @@ class Solver {
 
     Solver(Board original) {
         this.original = original;
-        this.clone = this.original.cloneBoard();
     }
 
-    Board generateBoard() {
+    void generateBoard() {
         ExecutorService service = Executors.newSingleThreadExecutor();
         original.fillBoard();
         try {
             final Future f = service.submit(() -> {
-                while (!clone.solveSudoku());
+                clone = this.original.cloneBoard();
+                while (true) {
+                    if (clone.solveSudoku()) break;
+                }
             });
             f.get(1000, TimeUnit.MILLISECONDS);
         } catch (final TimeoutException e) {
@@ -28,15 +30,14 @@ class Solver {
         } finally {
             service.shutdown();
         }
-        return original;
     }
 
     boolean isSolvable() {
         ExecutorService service = Executors.newSingleThreadExecutor();
         try {
             final Future<Boolean> f = service.submit(() -> {
-                while (!clone.solveSudoku());
-                return true;
+                this.clone = this.original.cloneBoard();
+                return clone.solveSudoku();
             });
             f.get(1000, TimeUnit.MILLISECONDS);
         } catch (final TimeoutException e) {
@@ -46,6 +47,27 @@ class Solver {
         } finally {
             service.shutdown();
         }
-        return false;
+        return true;
+    }
+
+    boolean solveSudoku() {
+        for (int row = 0; row < original.size(); row++) {
+            for (int col = 0; col < original.size(); col++) {
+                if (original.getElement(row, col) == 0 && original.isMutable(row,col)) {
+                    for (int number = 1; number <= original.size(); number++) {
+                        if (original.ruleChecker(row, col, number)) {
+                            original.setElement(row, col, number);
+                            if (solveSudoku()) {
+                                return true;
+                            } else {
+                                original.deleteElement(row, col);
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

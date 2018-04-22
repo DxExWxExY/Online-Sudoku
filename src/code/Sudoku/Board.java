@@ -90,7 +90,23 @@ class  Board implements Cloneable{
      * Method that creates a solvable board by backtracking.
      * */
     void generateBoard() {
-        new Solver(this).generateBoard().cloneBoard();
+        new Solver(this).generateBoard();
+    }
+
+    /**
+     * Backtracking method that determines if a configuration is solvable.
+     * */
+    boolean isSolvable() {
+        return new Solver(this).isSolvable();
+    }
+
+    /**
+     * This is a back-tracking method to fill a partially generated board.
+     *
+     * @return Determines if the board can be solvable or not.
+     */
+    boolean solveSudoku() {
+        return new Solver(this).solveSudoku();
     }
 
     /**
@@ -108,41 +124,6 @@ class  Board implements Cloneable{
                 mutable[i][j] = true;
             }
         }
-    }
-
-    /**
-     * Backtracking method that determines if a configuration is solvable.
-     * */
-    boolean isSolvable() {
-        return new Solver(this).isSolvable();
-    }
-
-    /**
-     * This is a back-tracking method to fill a partially generated board.
-     *
-     * @return Determines if the board can be solvable or not.
-     */
-    boolean solveSudoku() {
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                if (board[row][col] == 0 && isMutable(row,col)) {
-                    for (int number = 1; number <= size; number++) {
-                        if (ruleChecker(row, col, number)) {
-                            board[row][col] = number;
-                            valid[row][col] = true;
-                            if (solveSudoku()) {
-                                return true;
-                            } else {
-                                board[row][col] = 0;
-                                valid[row][col] = false;
-                            }
-                        }
-                    }
-                return false;
-                }
-            }
-        }
-        return true;
     }
 
     /**
@@ -322,5 +303,15 @@ class  Board implements Cloneable{
      * */
     boolean getWasSolved(){
         return this.wasSolved;
+    }
+
+    void print(String msg) {
+        System.out.println("==== "+msg+" ====");
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                System.out.print(board[i][j]+" ");
+            }
+            System.out.println();
+        }
     }
 }
