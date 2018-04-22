@@ -1,4 +1,4 @@
-package code;
+package code.Sudoku;
 
 import java.util.Random;
 import java.util.concurrent.*;

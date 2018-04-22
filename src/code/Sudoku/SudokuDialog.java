@@ -1,4 +1,4 @@
-package code;
+package code.Sudoku;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

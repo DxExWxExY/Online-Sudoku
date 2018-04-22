@@ -1,4 +1,4 @@
-package code;
+package code.Sudoku;
 
 public interface ClickListener {
     /**

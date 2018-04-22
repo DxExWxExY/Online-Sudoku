@@ -1,4 +1,4 @@
-package sudoku.p2p.net;
+package code.Network;
 
 import java.io.BufferedReader;
 import java.io.IOException;
