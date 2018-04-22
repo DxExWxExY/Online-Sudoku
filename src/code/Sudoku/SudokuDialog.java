@@ -23,10 +23,10 @@ public class SudokuDialog extends JFrame {
     private final static String IMAGE_DIR = "/image/";
     final static Color BACKGROUND = new Color(47,76,76);
 
-    /** Sudoku historyIterator. */
-    private HistoryNode historyIterator;
+    /** Sudoku history. */
+    private HistoryNode history;
 
-    /** Special panel to display a Sudoku historyIterator. */
+    /** Special panel to display a Sudoku history. */
     private BoardPanel boardPanel;
 
     /** Message bar to display various messages. */
@@ -49,7 +49,7 @@ public class SudokuDialog extends JFrame {
         setLocation(dim.width/2-155, dim.height/2-225);
         setSize(DEFAULT_SIZE);
         initHistory();
-        boardPanel = new BoardPanel(historyIterator.getBoard(), this::boardClicked);
+        boardPanel = new BoardPanel(history.getBoard(), this::boardClicked);
         configureMenu();
         configureUI();
         setResizable(false);
@@ -59,7 +59,7 @@ public class SudokuDialog extends JFrame {
     }
 
     /**
-     * Callback to be invoked when a square of the historyIterator is clicked.
+     * Callback to be invoked when a square of the history is clicked.
      *
      * @param x 0-based row index of the clicked square.
      * @param y 0-based column index of the clicked square.
@@ -83,18 +83,18 @@ public class SudokuDialog extends JFrame {
      * @param number Clicked number (1-9), or 0 for "X".
      */
     private void numberClicked(int number) {
-        if (historyIterator.isMutable(boardPanel.sy, boardPanel.sx)) {
+        if (history.isMutable(boardPanel.sy, boardPanel.sx)) {
             createHistory();
             if (number == 0) {
-                historyIterator.deleteElement(boardPanel.sy, boardPanel.sx);
+                history.deleteElement(boardPanel.sy, boardPanel.sx);
                 showMessage("Number Deleted");
             }
             else {
-                historyIterator.setElement(boardPanel.sy, boardPanel.sx, number);
-                boardPanel.invalid = !historyIterator.isValid(boardPanel.sy, boardPanel.sx);
+                history.setElement(boardPanel.sy, boardPanel.sx, number);
+                boardPanel.invalid = !history.isValid(boardPanel.sy, boardPanel.sx);
                 showMessage(String.format("Inserted Number %d", number));
             }
-            boardPanel.setBoard(historyIterator.getBoard());
+            boardPanel.setBoard(history.getBoard());
         }
         else {
             boardPanel.invalid = true;
@@ -145,13 +145,13 @@ public class SudokuDialog extends JFrame {
                     null, options, options[2]);
             switch (n) {
                 case JOptionPane.YES_OPTION:
-                    historyIterator.reset(4);
+                    history.reset(4);
                     content.remove(numberButtons);
                     numberButtons = makeNumberButtons();
                     content.add(numberButtons);
                     break;
                 case JOptionPane.NO_OPTION:
-                    historyIterator.reset(9);
+                    history.reset(9);
                     content.remove(numberButtons);
                     numberButtons = makeNumberButtons();
                     content.add(numberButtons);
@@ -161,7 +161,7 @@ public class SudokuDialog extends JFrame {
                     break;
             }
             boardPanel.reset = true;
-            historyIterator.generateBoard();
+            history.generateBoard();
             content.revalidate();
             repaint();
         });
@@ -179,12 +179,12 @@ public class SudokuDialog extends JFrame {
         buttons.setBorder(BorderFactory.createEmptyBorder(10, 16, 0, 16));
         buttons.setBackground(BACKGROUND);
         add(buttons, BorderLayout.NORTH);
-        JPanel historyIterator = new JPanel();
-        historyIterator.setBorder(BorderFactory.createEmptyBorder(10, 16, 0, 16));
-        historyIterator.setLayout(new GridLayout(1, 1));
-        historyIterator.add(boardPanel);
-        historyIterator.setBackground(BACKGROUND);
-        add(historyIterator, BorderLayout.CENTER);
+        JPanel history = new JPanel();
+        history.setBorder(BorderFactory.createEmptyBorder(10, 16, 0, 16));
+        history.setLayout(new GridLayout(1, 1));
+        history.add(boardPanel);
+        history.setBackground(BACKGROUND);
+        add(history, BorderLayout.CENTER);
         msgBar.setBorder(BorderFactory.createEmptyBorder(10, 16, 10, 0));
         msgBar.setBackground(BACKGROUND);
         //add(msgBar, BorderLayout.SOUTH);
@@ -266,14 +266,14 @@ public class SudokuDialog extends JFrame {
      * */
     private JPanel makeNumberButtons() {
         JPanel numberButtons = new JPanel(new FlowLayout());
-        int maxNumber = historyIterator.size() + 1;
+        int maxNumber = history.size() + 1;
         for (int i = 1; i <= maxNumber; i++) {
             int number = i % maxNumber;
             JButton button = new JButton(number == 0 ? "X" : String.valueOf(number));
             button.setFocusPainted(false);
             button.setMargin(new Insets(0, 2, 0, 2));
             button.addActionListener(e -> numberClicked(number));
-            if (!historyIterator.ruleChecker(boardPanel.sy,boardPanel.sx,i) && number != 0) {
+            if (!history.ruleChecker(boardPanel.sy,boardPanel.sx,i) && number != 0) {
                 button.setEnabled(false);
             }
             numberButtons.add(button);
@@ -300,19 +300,19 @@ public class SudokuDialog extends JFrame {
      */
     private void createHistory() {
         try {
-            historyIterator.setNext(new HistoryNode(historyIterator.getBoard().clone(), historyIterator));
+            history.setNext(new HistoryNode(history.getBoard().clone(), history));
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        historyIterator = historyIterator.getNext();
+        history = history.getNext();
     }
 
     /**
      * Method used to create a HistoryNode for undo and redo.
      * */
     private void initHistory() {
-        historyIterator = new HistoryNode(new Board(4));
-        historyIterator.generateBoard();
+        history = new HistoryNode(new Board(4));
+        history.generateBoard();
 
     }
 
@@ -320,9 +320,9 @@ public class SudokuDialog extends JFrame {
      * Goes back to previous game state, essentially "undoing" a move if possible
      */
     private void undo() {
-        if(historyIterator.getPrevious() != null) {
-            historyIterator = historyIterator.getPrevious();
-            boardPanel.setBoard(historyIterator.getBoard());
+        if(history.getPrevious() != null) {
+            history = history.getPrevious();
+            boardPanel.setBoard(history.getBoard());
             boardPanel.highlightSqr = false;
             boardPanel.repaint();
         }
@@ -332,10 +332,10 @@ public class SudokuDialog extends JFrame {
      * Goes forward to next game state, essentially "redoing" a move if possible
      */
     private void redo() {
-        if(historyIterator.getNext() != null) {
-            historyIterator = historyIterator.getNext();
+        if(history.getNext() != null) {
+            history = history.getNext();
             boardPanel.highlightSqr = false;
-            boardPanel.setBoard(historyIterator.getBoard());
+            boardPanel.setBoard(history.getBoard());
             boardPanel.repaint();
         }
     }
@@ -344,12 +344,12 @@ public class SudokuDialog extends JFrame {
      * Method called when the solve button is pressed.
      * */
     private void solve() {
-        Board test = historyIterator.getBoard().cloneBoard();
+        Board test = history.getBoard().cloneBoard();
         if (test.isSolvable()) {
             test.setWasSolved();
             createHistory();
-            historyIterator.setBoard(test);
-            boardPanel.setBoard(historyIterator.getBoard());
+            history.setBoard(test);
+            boardPanel.setBoard(history.getBoard());
             test.solveSudoku();
             boardPanel.repaint();
         }
@@ -362,7 +362,7 @@ public class SudokuDialog extends JFrame {
      * Method called when the can solve button is called.
      * */
     private void isSolvable() {
-        Board test = historyIterator.getBoard().cloneBoard();
+        Board test = history.getBoard().cloneBoard();
         if (!test.isSolved()) {
             if (test.isSolvable()) {
                 JOptionPane.showMessageDialog(null, "This board CAN be solved.", "Can It Be Solved?", JOptionPane.INFORMATION_MESSAGE);

@@ -90,28 +90,13 @@ class  Board implements Cloneable{
      * Method that creates a solvable board by backtracking.
      * */
     void generateBoard() {
-        ExecutorService service = Executors.newSingleThreadExecutor();
-        fillBoard();
-        try {
-            final Future f = service.submit(() -> {
-                Board init = this.cloneBoard();
-                while (!init.solveSudoku());
-            });
-            f.get(100, TimeUnit.MILLISECONDS);
-        } catch (final TimeoutException e) {
-            reset(this.size);
-            generateBoard();
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            service.shutdown();
-        }
+        new Solver(this).generateBoard().cloneBoard();
     }
 
     /**
      * This method generates a board preset with a given difficulty.
      */
-    private void fillBoard() {
+    void fillBoard() {
         Random rand = new Random();
         for (int placed = (size == 4) ? 4 : 26; placed > 0; placed--){
             int n = rand.nextInt(size);
@@ -129,21 +114,7 @@ class  Board implements Cloneable{
      * Backtracking method that determines if a configuration is solvable.
      * */
     boolean isSolvable() {
-        ExecutorService service = Executors.newSingleThreadExecutor();
-        try {
-            final Future<Boolean> f = service.submit(() -> {
-                Board init = this.cloneBoard();
-                return init.solveSudoku();
-            });
-            f.get(100, TimeUnit.MILLISECONDS);
-        } catch (final TimeoutException e) {
-            return false;
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            service.shutdown();
-        }
-        return true;
+        return new Solver(this).isSolvable();
     }
 
     /**
