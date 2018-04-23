@@ -305,6 +305,7 @@ class  Board implements Cloneable{
         return this.wasSolved;
     }
 
+    //useless
     void print(String msg) {
         System.out.println("==== "+msg+" ====");
         for (int i = 0; i < size; i++) {
