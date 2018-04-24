@@ -145,13 +145,13 @@ public class SudokuDialog extends JFrame {
                     null, options, options[2]);
             switch (n) {
                 case JOptionPane.YES_OPTION:
-                    history.reset(4);
+                    newHistory(4);
                     content.remove(numberButtons);
                     numberButtons = makeNumberButtons();
                     content.add(numberButtons);
                     break;
                 case JOptionPane.NO_OPTION:
-                    history.reset(9);
+                    newHistory(9);
                     content.remove(numberButtons);
                     numberButtons = makeNumberButtons();
                     content.add(numberButtons);
@@ -161,6 +161,7 @@ public class SudokuDialog extends JFrame {
                     break;
             }
             boardPanel.reset = true;
+            boardPanel.setBoard(history.getBoard());
             history.generateBoard();
             content.revalidate();
             repaint();
@@ -313,7 +314,14 @@ public class SudokuDialog extends JFrame {
     private void initHistory() {
         history = new HistoryNode(new Board(4));
         history.generateBoard();
+    }
 
+    /**
+     * Method called when a new game is created.
+     * */
+    private void newHistory(int size) {
+        history = new HistoryNode(new Board(size));
+        history.generateBoard();
     }
 
     /**
