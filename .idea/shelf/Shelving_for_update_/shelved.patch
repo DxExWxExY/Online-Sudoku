@@ -1,0 +1,395 @@
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectModuleManager\">\n    <modules>\n      <module fileurl=\"file://$PROJECT_DIR$/Online Sudoku.iml\" filepath=\"$PROJECT_DIR$/Online Sudoku.iml\" />\n    </modules>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(revision 3cf9b4f958147e60bb168bdfc48fd3680f04f0ee)
++++ .idea/modules.xml	(date 1524601632569)
+@@ -2,7 +2,7 @@
+ <project version="4">
+   <component name="ProjectModuleManager">
+     <modules>
+-      <module fileurl="file://$PROJECT_DIR$/Online Sudoku.iml" filepath="$PROJECT_DIR$/Online Sudoku.iml" />
++      <module fileurl="file://$PROJECT_DIR$/Online-Sudoku.iml" filepath="$PROJECT_DIR$/Online-Sudoku.iml" />
+     </modules>
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/out\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 3cf9b4f958147e60bb168bdfc48fd3680f04f0ee)
++++ .idea/misc.xml	(date 1524601629639)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"72533dc4-f5d0-4df8-8a17-051696a9b3ef\" name=\"Default\" comment=\"\">\n      <change afterPath=\"$PROJECT_DIR$/src/code/Sudoku/Solver.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/code/Sudoku/Board.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/code/Sudoku/Board.java\" afterDir=\"false\" />\n    </list>\n    <ignored path=\"$PROJECT_DIR$/out/\" />\n    <option name=\"EXCLUDED_CONVERTED_TO_IGNORED\" value=\"true\" />\n    <option name=\"TRACKING_ENABLED\" value=\"true\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileEditorManager\">\n    <leaf>\n      <file leaf-file-name=\"Solver.java\" pinned=\"false\" current-in-tab=\"true\">\n        <entry file=\"file://$PROJECT_DIR$/src/code/Sudoku/Solver.java\">\n          <provider selected=\"true\" editor-type-id=\"text-editor\">\n            <state relative-caret-position=\"72\">\n              <caret line=\"4\" selection-start-line=\"4\" selection-end-line=\"4\" />\n            </state>\n          </provider>\n        </entry>\n      </file>\n      <file leaf-file-name=\"Board.java\" pinned=\"false\" current-in-tab=\"false\">\n        <entry file=\"file://$PROJECT_DIR$/src/code/Sudoku/Board.java\">\n          <provider selected=\"true\" editor-type-id=\"text-editor\">\n            <state relative-caret-position=\"198\">\n              <caret line=\"92\" column=\"8\" selection-start-line=\"92\" selection-start-column=\"8\" selection-end-line=\"92\" selection-end-column=\"8\" />\n              <folding>\n                <element signature=\"e#2293#2294#0\" expanded=\"true\" />\n                <element signature=\"e#2354#2355#0\" expanded=\"true\" />\n                <element signature=\"e#3494#3495#0\" expanded=\"true\" />\n                <element signature=\"e#3528#3529#0\" expanded=\"true\" />\n              </folding>\n            </state>\n          </provider>\n        </entry>\n      </file>\n    </leaf>\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\n      </map>\n    </option>\n  </component>\n  <component name=\"IdeDocumentHistory\">\n    <option name=\"CHANGED_PATHS\">\n      <list>\n        <option value=\"$PROJECT_DIR$/src/code/Network/NetworkAdapter.java\" />\n        <option value=\"$PROJECT_DIR$/src/code/Network/NetworkAdapterTest.java\" />\n        <option value=\"$PROJECT_DIR$/src/code/Sudoku/BoardPanel.java\" />\n        <option value=\"$PROJECT_DIR$/src/code/Sudoku/ClickListener.java\" />\n        <option value=\"$PROJECT_DIR$/src/code/Sudoku/HistoryNode.java\" />\n        <option value=\"$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java\" />\n        <option value=\"$PROJECT_DIR$/src/code/Sudoku/Board.java\" />\n        <option value=\"$PROJECT_DIR$/src/code/Sudoku/Solver.java\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"ProjectFrameBounds\" extendedState=\"6\">\n    <option name=\"x\" value=\"260\" />\n    <option name=\"y\" value=\"20\" />\n    <option name=\"width\" value=\"1400\" />\n    <option name=\"height\" value=\"1000\" />\n  </component>\n  <component name=\"ProjectView\">\n    <navigator proportions=\"\" version=\"1\">\n      <foldersAlwaysOnTop value=\"true\" />\n    </navigator>\n    <panes>\n      <pane id=\"PackagesPane\" />\n      <pane id=\"AndroidView\" />\n      <pane id=\"Scope\" />\n      <pane id=\"ProjectPane\">\n        <subPane>\n          <expand>\n            <path>\n              <item name=\"Online Sudoku\" type=\"b2602c69:ProjectViewProjectNode\" />\n              <item name=\"Online Sudoku\" type=\"462c0819:PsiDirectoryNode\" />\n            </path>\n            <path>\n              <item name=\"Online Sudoku\" type=\"b2602c69:ProjectViewProjectNode\" />\n              <item name=\"Online Sudoku\" type=\"462c0819:PsiDirectoryNode\" />\n              <item name=\"src\" type=\"462c0819:PsiDirectoryNode\" />\n            </path>\n            <path>\n              <item name=\"Online Sudoku\" type=\"b2602c69:ProjectViewProjectNode\" />\n              <item name=\"Online Sudoku\" type=\"462c0819:PsiDirectoryNode\" />\n              <item name=\"src\" type=\"462c0819:PsiDirectoryNode\" />\n              <item name=\"code\" type=\"462c0819:PsiDirectoryNode\" />\n            </path>\n            <path>\n              <item name=\"Online Sudoku\" type=\"b2602c69:ProjectViewProjectNode\" />\n              <item name=\"Online Sudoku\" type=\"462c0819:PsiDirectoryNode\" />\n              <item name=\"src\" type=\"462c0819:PsiDirectoryNode\" />\n              <item name=\"code\" type=\"462c0819:PsiDirectoryNode\" />\n              <item name=\"Network\" type=\"462c0819:PsiDirectoryNode\" />\n            </path>\n            <path>\n              <item name=\"Online Sudoku\" type=\"b2602c69:ProjectViewProjectNode\" />\n              <item name=\"Online Sudoku\" type=\"462c0819:PsiDirectoryNode\" />\n              <item name=\"src\" type=\"462c0819:PsiDirectoryNode\" />\n              <item name=\"code\" type=\"462c0819:PsiDirectoryNode\" />\n              <item name=\"Sudoku\" type=\"462c0819:PsiDirectoryNode\" />\n            </path>\n          </expand>\n          <select />\n        </subPane>\n      </pane>\n    </panes>\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"project.structure.last.edited\" value=\"Modules\" />\n    <property name=\"project.structure.proportion\" value=\"0.0\" />\n    <property name=\"project.structure.side.proportion\" value=\"0.0\" />\n  </component>\n  <component name=\"RunDashboard\">\n    <option name=\"ruleStates\">\n      <list>\n        <RuleState>\n          <option name=\"name\" value=\"ConfigurationTypeDashboardGroupingRule\" />\n        </RuleState>\n        <RuleState>\n          <option name=\"name\" value=\"StatusDashboardGroupingRule\" />\n        </RuleState>\n      </list>\n    </option>\n  </component>\n  <component name=\"RunManager\">\n    <configuration name=\"Sudoku\" type=\"Application\" factoryName=\"Application\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"code.Sudoku.SudokuDialog\" />\n      <module name=\"Online Sudoku\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"file://$PROJECT_DIR$\" />\n    </configuration>\n    <configuration default=\"true\" type=\"Application\" factoryName=\"Application\">\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\n    </configuration>\n    <configuration default=\"true\" type=\"JUnit\" factoryName=\"JUnit\">\n      <option name=\"ALTERNATIVE_JRE_PATH_ENABLED\" value=\"false\" />\n      <option name=\"ALTERNATIVE_JRE_PATH\" />\n      <option name=\"PACKAGE_NAME\" />\n      <option name=\"MAIN_CLASS_NAME\" />\n      <option name=\"METHOD_NAME\" />\n      <option name=\"TEST_OBJECT\" value=\"class\" />\n      <option name=\"VM_PARAMETERS\" value=\"-ea\" />\n      <option name=\"PARAMETERS\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"%MODULE_WORKING_DIR%\" />\n      <option name=\"PASS_PARENT_ENVS\" value=\"true\" />\n      <option name=\"TEST_SEARCH_SCOPE\">\n        <value defaultName=\"singleModule\" />\n      </option>\n      <patterns />\n    </configuration>\n    <configuration default=\"true\" type=\"TestNG\" factoryName=\"TestNG\">\n      <option name=\"ALTERNATIVE_JRE_PATH_ENABLED\" value=\"false\" />\n      <option name=\"ALTERNATIVE_JRE_PATH\" />\n      <option name=\"SUITE_NAME\" />\n      <option name=\"PACKAGE_NAME\" />\n      <option name=\"MAIN_CLASS_NAME\" />\n      <option name=\"METHOD_NAME\" />\n      <option name=\"GROUP_NAME\" />\n      <option name=\"TEST_OBJECT\" value=\"CLASS\" />\n      <option name=\"VM_PARAMETERS\" value=\"-ea\" />\n      <option name=\"PARAMETERS\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"%MODULE_WORKING_DIR%\" />\n      <option name=\"OUTPUT_DIRECTORY\" />\n      <option name=\"PASS_PARENT_ENVS\" value=\"true\" />\n      <option name=\"TEST_SEARCH_SCOPE\">\n        <value defaultName=\"singleModule\" />\n      </option>\n      <option name=\"USE_DEFAULT_REPORTERS\" value=\"false\" />\n      <option name=\"PROPERTIES_FILE\" />\n      <properties />\n      <listeners />\n    </configuration>\n  </component>\n  <component name=\"SvnConfiguration\">\n    <configuration />\n  </component>\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"72533dc4-f5d0-4df8-8a17-051696a9b3ef\" name=\"Default\" comment=\"\" />\n      <created>1523994778591</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1523994778591</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Fixed Package Declarations\">\n      <created>1524367513356</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1524367513356</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"2\" />\n    <servers />\n  </component>\n  <component name=\"ToolWindowManager\">\n    <frame x=\"-7\" y=\"-7\" width=\"1550\" height=\"848\" extended-state=\"6\" />\n    <editor active=\"true\" />\n    <layout>\n      <window_info anchor=\"right\" id=\"Palette\" order=\"3\" />\n      <window_info anchor=\"bottom\" id=\"TODO\" order=\"5\" />\n      <window_info anchor=\"right\" id=\"Palette&#9;\" order=\"4\" />\n      <window_info id=\"Image Layers\" order=\"5\" />\n      <window_info anchor=\"right\" id=\"Capture Analysis\" order=\"5\" />\n      <window_info anchor=\"bottom\" id=\"Event Log\" order=\"7\" side_tool=\"true\" />\n      <window_info anchor=\"right\" id=\"Maven Projects\" order=\"6\" />\n      <window_info anchor=\"bottom\" id=\"Version Control\" order=\"8\" />\n      <window_info anchor=\"right\" x=\"1483\" y=\"126\" width=\"1920\" height=\"302\" id=\"Run\" order=\"8\" weight=\"0.31875\" />\n      <window_info anchor=\"bottom\" id=\"Terminal\" order=\"9\" />\n      <window_info id=\"Capture Tool\" order=\"2\" />\n      <window_info id=\"Designer\" order=\"3\" />\n      <window_info active=\"true\" content_ui=\"combo\" id=\"Project\" order=\"0\" visible=\"true\" weight=\"0.123697914\" />\n      <window_info id=\"Structure\" order=\"1\" side_tool=\"true\" weight=\"0.25\" />\n      <window_info anchor=\"right\" id=\"Ant Build\" order=\"1\" weight=\"0.25\" />\n      <window_info id=\"UI Designer\" order=\"4\" />\n      <window_info anchor=\"right\" id=\"Theme Preview\" order=\"7\" />\n      <window_info id=\"Favorites\" order=\"6\" side_tool=\"true\" />\n      <window_info anchor=\"bottom\" id=\"Debug\" order=\"2\" weight=\"0.4\" />\n      <window_info anchor=\"right\" content_ui=\"combo\" id=\"Hierarchy\" order=\"2\" weight=\"0.25\" />\n      <window_info anchor=\"right\" id=\"Commander\" order=\"0\" weight=\"0.4\" />\n      <window_info anchor=\"bottom\" id=\"Find\" order=\"1\" />\n      <window_info anchor=\"bottom\" id=\"Inspection\" order=\"4\" weight=\"0.4\" />\n      <window_info anchor=\"bottom\" id=\"Cvs\" order=\"3\" weight=\"0.25\" />\n      <window_info anchor=\"bottom\" id=\"Message\" order=\"0\" />\n      <window_info anchor=\"bottom\" id=\"Messages\" order=\"6\" weight=\"0.3293348\" />\n    </layout>\n  </component>\n  <component name=\"VcsContentAnnotationSettings\">\n    <option name=\"myLimit\" value=\"2678400000\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Fixed Package Declarations\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Fixed Package Declarations\" />\n  </component>\n  <component name=\"editorHistoryManager\">\n    <entry file=\"file://$PROJECT_DIR$/src/code/Network/NetworkAdapter.java\">\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\n        <state>\n          <caret selection-end-column=\"21\" />\n        </state>\n      </provider>\n    </entry>\n    <entry file=\"file://$PROJECT_DIR$/src/code/Network/NetworkAdapterTest.java\">\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\n        <state relative-caret-position=\"-3204\">\n          <caret line=\"2\" column=\"21\" selection-start-line=\"2\" selection-start-column=\"21\" selection-end-line=\"2\" selection-end-column=\"21\" />\n        </state>\n      </provider>\n    </entry>\n    <entry file=\"file://$PROJECT_DIR$/src/code/Sudoku/BoardPanel.java\">\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\n        <state>\n          <caret column=\"20\" selection-start-column=\"20\" selection-end-column=\"20\" />\n        </state>\n      </provider>\n    </entry>\n    <entry file=\"file://$PROJECT_DIR$/src/code/Sudoku/ClickListener.java\">\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\n        <state>\n          <caret column=\"20\" selection-start-column=\"20\" selection-end-column=\"20\" />\n        </state>\n      </provider>\n    </entry>\n    <entry file=\"file://$PROJECT_DIR$/src/code/Sudoku/HistoryNode.java\">\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\n        <state>\n          <caret column=\"20\" selection-start-column=\"20\" selection-end-column=\"20\" />\n        </state>\n      </provider>\n    </entry>\n    <entry file=\"file://$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java\">\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\n        <state>\n          <caret column=\"20\" selection-start-column=\"20\" selection-end-column=\"20\" />\n        </state>\n      </provider>\n    </entry>\n    <entry file=\"file://$PROJECT_DIR$/src/code/Sudoku/Board.java\">\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\n        <state relative-caret-position=\"198\">\n          <caret line=\"92\" column=\"8\" selection-start-line=\"92\" selection-start-column=\"8\" selection-end-line=\"92\" selection-end-column=\"8\" />\n          <folding>\n            <element signature=\"e#2293#2294#0\" expanded=\"true\" />\n            <element signature=\"e#2354#2355#0\" expanded=\"true\" />\n            <element signature=\"e#3494#3495#0\" expanded=\"true\" />\n            <element signature=\"e#3528#3529#0\" expanded=\"true\" />\n          </folding>\n        </state>\n      </provider>\n    </entry>\n    <entry file=\"file://$PROJECT_DIR$/src/code/Sudoku/Solver.java\">\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\n        <state relative-caret-position=\"72\">\n          <caret line=\"4\" selection-start-line=\"4\" selection-end-line=\"4\" />\n        </state>\n      </provider>\n    </entry>\n  </component>\n  <component name=\"masterDetails\">\n    <states>\n      <state key=\"ArtifactsStructureConfigurable.UI\">\n        <settings>\n          <artifact-editor />\n          <splitter-proportions>\n            <option name=\"proportions\">\n              <list>\n                <option value=\"0.2\" />\n              </list>\n            </option>\n          </splitter-proportions>\n        </settings>\n      </state>\n      <state key=\"FacetStructureConfigurable.UI\">\n        <settings>\n          <last-edited>No facets are configured</last-edited>\n          <splitter-proportions>\n            <option name=\"proportions\">\n              <list>\n                <option value=\"0.2\" />\n              </list>\n            </option>\n          </splitter-proportions>\n        </settings>\n      </state>\n      <state key=\"GlobalLibrariesConfigurable.UI\">\n        <settings>\n          <splitter-proportions>\n            <option name=\"proportions\">\n              <list>\n                <option value=\"0.2\" />\n              </list>\n            </option>\n          </splitter-proportions>\n        </settings>\n      </state>\n      <state key=\"JdkListConfigurable.UI\">\n        <settings>\n          <last-edited>1.8</last-edited>\n          <splitter-proportions>\n            <option name=\"proportions\">\n              <list>\n                <option value=\"0.2\" />\n              </list>\n            </option>\n          </splitter-proportions>\n        </settings>\n      </state>\n      <state key=\"ModuleStructureConfigurable.UI\">\n        <settings>\n          <last-edited>Online Sudoku</last-edited>\n          <splitter-proportions>\n            <option name=\"proportions\">\n              <list>\n                <option value=\"0.2\" />\n                <option value=\"0.6\" />\n              </list>\n            </option>\n          </splitter-proportions>\n        </settings>\n      </state>\n      <state key=\"ProjectLibrariesConfigurable.UI\">\n        <settings>\n          <splitter-proportions>\n            <option name=\"proportions\">\n              <list>\n                <option value=\"0.2\" />\n              </list>\n            </option>\n          </splitter-proportions>\n        </settings>\n      </state>\n    </states>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision 3cf9b4f958147e60bb168bdfc48fd3680f04f0ee)
++++ .idea/workspace.xml	(date 1524601632510)
+@@ -1,151 +1,28 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ChangeListManager">
+-    <list default="true" id="72533dc4-f5d0-4df8-8a17-051696a9b3ef" name="Default" comment="">
+-      <change afterPath="$PROJECT_DIR$/src/code/Sudoku/Solver.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/code/Sudoku/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/Sudoku/Board.java" afterDir="false" />
+-    </list>
+-    <ignored path="$PROJECT_DIR$/out/" />
+-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+-    <option name="TRACKING_ENABLED" value="true" />
+-    <option name="SHOW_DIALOG" value="false" />
+-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-    <option name="LAST_RESOLUTION" value="IGNORE" />
+-  </component>
+-  <component name="FileEditorManager">
+-    <leaf>
+-      <file leaf-file-name="Solver.java" pinned="false" current-in-tab="true">
+-        <entry file="file://$PROJECT_DIR$/src/code/Sudoku/Solver.java">
+-          <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="72">
+-              <caret line="4" selection-start-line="4" selection-end-line="4" />
+-            </state>
+-          </provider>
+-        </entry>
+-      </file>
+-      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/src/code/Sudoku/Board.java">
+-          <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="198">
+-              <caret line="92" column="8" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
+-              <folding>
+-                <element signature="e#2293#2294#0" expanded="true" />
+-                <element signature="e#2354#2355#0" expanded="true" />
+-                <element signature="e#3494#3495#0" expanded="true" />
+-                <element signature="e#3528#3529#0" expanded="true" />
+-              </folding>
+-            </state>
+-          </provider>
+-        </entry>
+-      </file>
+-    </leaf>
+-  </component>
+-  <component name="FileTemplateManagerImpl">
+-    <option name="RECENT_TEMPLATES">
+-      <list>
+-        <option value="Class" />
+-      </list>
+-    </option>
++  <component name="CodeInsightWorkspaceSettings">
++    <option name="optimizeImportsOnTheFly" value="true" />
+   </component>
+-  <component name="Git.Settings">
+-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+-    <option name="RECENT_BRANCH_BY_REPOSITORY">
+-      <map>
+-        <entry key="$PROJECT_DIR$" value="master" />
+-      </map>
+-    </option>
+-  </component>
+-  <component name="IdeDocumentHistory">
+-    <option name="CHANGED_PATHS">
+-      <list>
+-        <option value="$PROJECT_DIR$/src/code/Network/NetworkAdapter.java" />
+-        <option value="$PROJECT_DIR$/src/code/Network/NetworkAdapterTest.java" />
+-        <option value="$PROJECT_DIR$/src/code/Sudoku/BoardPanel.java" />
+-        <option value="$PROJECT_DIR$/src/code/Sudoku/ClickListener.java" />
+-        <option value="$PROJECT_DIR$/src/code/Sudoku/HistoryNode.java" />
+-        <option value="$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java" />
+-        <option value="$PROJECT_DIR$/src/code/Sudoku/Board.java" />
+-        <option value="$PROJECT_DIR$/src/code/Sudoku/Solver.java" />
+-      </list>
+-    </option>
++  <component name="NodePackageJsonFileManager">
++    <packageJsonPaths />
+   </component>
+   <component name="ProjectFrameBounds" extendedState="6">
+-    <option name="x" value="260" />
+-    <option name="y" value="20" />
+-    <option name="width" value="1400" />
+-    <option name="height" value="1000" />
+-  </component>
+-  <component name="ProjectView">
+-    <navigator proportions="" version="1">
+-      <foldersAlwaysOnTop value="true" />
+-    </navigator>
+-    <panes>
+-      <pane id="PackagesPane" />
+-      <pane id="AndroidView" />
+-      <pane id="Scope" />
+-      <pane id="ProjectPane">
+-        <subPane>
+-          <expand>
+-            <path>
+-              <item name="Online Sudoku" type="b2602c69:ProjectViewProjectNode" />
+-              <item name="Online Sudoku" type="462c0819:PsiDirectoryNode" />
+-            </path>
+-            <path>
+-              <item name="Online Sudoku" type="b2602c69:ProjectViewProjectNode" />
+-              <item name="Online Sudoku" type="462c0819:PsiDirectoryNode" />
+-              <item name="src" type="462c0819:PsiDirectoryNode" />
+-            </path>
+-            <path>
+-              <item name="Online Sudoku" type="b2602c69:ProjectViewProjectNode" />
+-              <item name="Online Sudoku" type="462c0819:PsiDirectoryNode" />
+-              <item name="src" type="462c0819:PsiDirectoryNode" />
+-              <item name="code" type="462c0819:PsiDirectoryNode" />
+-            </path>
+-            <path>
+-              <item name="Online Sudoku" type="b2602c69:ProjectViewProjectNode" />
+-              <item name="Online Sudoku" type="462c0819:PsiDirectoryNode" />
+-              <item name="src" type="462c0819:PsiDirectoryNode" />
+-              <item name="code" type="462c0819:PsiDirectoryNode" />
+-              <item name="Network" type="462c0819:PsiDirectoryNode" />
+-            </path>
+-            <path>
+-              <item name="Online Sudoku" type="b2602c69:ProjectViewProjectNode" />
+-              <item name="Online Sudoku" type="462c0819:PsiDirectoryNode" />
+-              <item name="src" type="462c0819:PsiDirectoryNode" />
+-              <item name="code" type="462c0819:PsiDirectoryNode" />
+-              <item name="Sudoku" type="462c0819:PsiDirectoryNode" />
+-            </path>
+-          </expand>
+-          <select />
+-        </subPane>
+-      </pane>
+-    </panes>
++    <option name="x" value="-10" />
++    <option name="width" value="980" />
++    <option name="height" value="1040" />
+   </component>
+   <component name="PropertiesComponent">
+-    <property name="project.structure.last.edited" value="Modules" />
++    <property name="WebServerToolWindowFactoryState" value="false" />
++    <property name="aspect.path.notification.shown" value="true" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
++    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
++    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
++    <property name="project.structure.last.edited" value="Project" />
+     <property name="project.structure.proportion" value="0.0" />
+     <property name="project.structure.side.proportion" value="0.0" />
+-  </component>
+-  <component name="RunDashboard">
+-    <option name="ruleStates">
+-      <list>
+-        <RuleState>
+-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+-        </RuleState>
+-        <RuleState>
+-          <option name="name" value="StatusDashboardGroupingRule" />
+-        </RuleState>
+-      </list>
+-    </option>
++    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+   </component>
+   <component name="RunManager">
+-    <configuration name="Sudoku" type="Application" factoryName="Application">
+-      <option name="MAIN_CLASS_NAME" value="code.Sudoku.SudokuDialog" />
+-      <module name="Online Sudoku" />
+-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+-    </configuration>
+     <configuration default="true" type="Application" factoryName="Application">
+       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+     </configuration>
+@@ -188,156 +65,8 @@
+       <listeners />
+     </configuration>
+   </component>
+-  <component name="SvnConfiguration">
+-    <configuration />
+-  </component>
+-  <component name="TaskManager">
+-    <task active="true" id="Default" summary="Default task">
+-      <changelist id="72533dc4-f5d0-4df8-8a17-051696a9b3ef" name="Default" comment="" />
+-      <created>1523994778591</created>
+-      <option name="number" value="Default" />
+-      <option name="presentableId" value="Default" />
+-      <updated>1523994778591</updated>
+-    </task>
+-    <task id="LOCAL-00001" summary="Fixed Package Declarations">
+-      <created>1524367513356</created>
+-      <option name="number" value="00001" />
+-      <option name="presentableId" value="LOCAL-00001" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1524367513356</updated>
+-    </task>
+-    <option name="localTasksCounter" value="2" />
+-    <servers />
+-  </component>
+-  <component name="ToolWindowManager">
+-    <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
+-    <editor active="true" />
+-    <layout>
+-      <window_info anchor="right" id="Palette" order="3" />
+-      <window_info anchor="bottom" id="TODO" order="5" />
+-      <window_info anchor="right" id="Palette&#9;" order="4" />
+-      <window_info id="Image Layers" order="5" />
+-      <window_info anchor="right" id="Capture Analysis" order="5" />
+-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+-      <window_info anchor="right" id="Maven Projects" order="6" />
+-      <window_info anchor="bottom" id="Version Control" order="8" />
+-      <window_info anchor="right" x="1483" y="126" width="1920" height="302" id="Run" order="8" weight="0.31875" />
+-      <window_info anchor="bottom" id="Terminal" order="9" />
+-      <window_info id="Capture Tool" order="2" />
+-      <window_info id="Designer" order="3" />
+-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.123697914" />
+-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+-      <window_info id="UI Designer" order="4" />
+-      <window_info anchor="right" id="Theme Preview" order="7" />
+-      <window_info id="Favorites" order="6" side_tool="true" />
+-      <window_info anchor="bottom" id="Debug" order="2" weight="0.4" />
+-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+-      <window_info anchor="bottom" id="Find" order="1" />
+-      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+-      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+-      <window_info anchor="bottom" id="Message" order="0" />
+-      <window_info anchor="bottom" id="Messages" order="6" weight="0.3293348" />
+-    </layout>
+-  </component>
+-  <component name="VcsContentAnnotationSettings">
+-    <option name="myLimit" value="2678400000" />
+-  </component>
+-  <component name="VcsManagerConfiguration">
+-    <MESSAGE value="Fixed Package Declarations" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Package Declarations" />
+-  </component>
+-  <component name="editorHistoryManager">
+-    <entry file="file://$PROJECT_DIR$/src/code/Network/NetworkAdapter.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state>
+-          <caret selection-end-column="21" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/src/code/Network/NetworkAdapterTest.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="-3204">
+-          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/src/code/Sudoku/BoardPanel.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state>
+-          <caret column="20" selection-start-column="20" selection-end-column="20" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/src/code/Sudoku/ClickListener.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state>
+-          <caret column="20" selection-start-column="20" selection-end-column="20" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/src/code/Sudoku/HistoryNode.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state>
+-          <caret column="20" selection-start-column="20" selection-end-column="20" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state>
+-          <caret column="20" selection-start-column="20" selection-end-column="20" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/src/code/Sudoku/Board.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="198">
+-          <caret line="92" column="8" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
+-          <folding>
+-            <element signature="e#2293#2294#0" expanded="true" />
+-            <element signature="e#2354#2355#0" expanded="true" />
+-            <element signature="e#3494#3495#0" expanded="true" />
+-            <element signature="e#3528#3529#0" expanded="true" />
+-          </folding>
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/src/code/Sudoku/Solver.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="72">
+-          <caret line="4" selection-start-line="4" selection-end-line="4" />
+-        </state>
+-      </provider>
+-    </entry>
+-  </component>
+   <component name="masterDetails">
+     <states>
+-      <state key="ArtifactsStructureConfigurable.UI">
+-        <settings>
+-          <artifact-editor />
+-          <splitter-proportions>
+-            <option name="proportions">
+-              <list>
+-                <option value="0.2" />
+-              </list>
+-            </option>
+-          </splitter-proportions>
+-        </settings>
+-      </state>
+-      <state key="FacetStructureConfigurable.UI">
+-        <settings>
+-          <last-edited>No facets are configured</last-edited>
+-          <splitter-proportions>
+-            <option name="proportions">
+-              <list>
+-                <option value="0.2" />
+-              </list>
+-            </option>
+-          </splitter-proportions>
+-        </settings>
+-      </state>
+       <state key="GlobalLibrariesConfigurable.UI">
+         <settings>
+           <splitter-proportions>
+@@ -351,7 +80,7 @@
+       </state>
+       <state key="JdkListConfigurable.UI">
+         <settings>
+-          <last-edited>1.8</last-edited>
++          <last-edited>9</last-edited>
+           <splitter-proportions>
+             <option name="proportions">
+               <list>
+@@ -361,14 +90,13 @@
+           </splitter-proportions>
+         </settings>
+       </state>
+-      <state key="ModuleStructureConfigurable.UI">
++      <state key="ProjectJDKs.UI">
+         <settings>
+-          <last-edited>Online Sudoku</last-edited>
++          <last-edited>1.8</last-edited>
+           <splitter-proportions>
+             <option name="proportions">
+               <list>
+                 <option value="0.2" />
+-                <option value="0.6" />
+               </list>
+             </option>
+           </splitter-proportions>
