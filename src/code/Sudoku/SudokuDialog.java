@@ -48,14 +48,13 @@ public class SudokuDialog extends JFrame {
         super("Sudoku");
         setLocation(dim.width/2-155, dim.height/2-225);
         setSize(DEFAULT_SIZE);
-        initHistory();
+        initHistory(4);
         boardPanel = new BoardPanel(history.getBoard(), this::boardClicked);
         configureMenu();
         configureUI();
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
-
     }
 
     /**
@@ -93,6 +92,7 @@ public class SudokuDialog extends JFrame {
                 history.setElement(boardPanel.sy, boardPanel.sx, number);
                 boardPanel.invalid = !history.isValid(boardPanel.sy, boardPanel.sx);
                 showMessage(String.format("Inserted Number %d", number));
+                solved();
             }
             boardPanel.setBoard(history.getBoard());
         }
@@ -145,13 +145,13 @@ public class SudokuDialog extends JFrame {
                     null, options, options[2]);
             switch (n) {
                 case JOptionPane.YES_OPTION:
-                    history.reset(4);
+                    initHistory(4);
                     content.remove(numberButtons);
                     numberButtons = makeNumberButtons();
                     content.add(numberButtons);
                     break;
                 case JOptionPane.NO_OPTION:
-                    history.reset(9);
+                    initHistory(9);
                     content.remove(numberButtons);
                     numberButtons = makeNumberButtons();
                     content.add(numberButtons);
@@ -161,6 +161,7 @@ public class SudokuDialog extends JFrame {
                     break;
             }
             boardPanel.reset = true;
+            boardPanel.setBoard(history.getBoard());
             history.generateBoard();
             content.revalidate();
             repaint();
@@ -310,10 +311,9 @@ public class SudokuDialog extends JFrame {
     /**
      * Method used to create a HistoryNode for undo and redo.
      * */
-    private void initHistory() {
-        history = new HistoryNode(new Board(4));
+    private void initHistory(int i) {
+        history = new HistoryNode(new Board(i));
         history.generateBoard();
-
     }
 
     /**
@@ -370,6 +370,28 @@ public class SudokuDialog extends JFrame {
         }
     }
 
+    /**
+     * This method checks if all the numbers in the matrix meet the game rules.
+     * If so, prompts the user to start a new game or to quit.
+     */
+    private void solved() {
+        if (history.getBoard().isSolved() && !history.getBoard().getWasSolved()) {
+            boardPanel.win = true;
+            boardPanel.playSound();
+            Object[] options = {"New Game", "Exit"};
+            int solved = JOptionPane.showOptionDialog(null, "You Won!",
+                    "Congratulations", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                    null, options, options[1]);
+            if (solved == JOptionPane.YES_OPTION) {
+                initHistory(history.getBoard().size());
+                boardPanel.setBoard(history.getBoard());
+                boardPanel.repaint();
+            }
+            else {
+                System.exit(0);
+            }
+        }
+    }
     public static void main(String[] args) {
         new SudokuDialog();
     }

@@ -30,9 +30,9 @@ public class BoardPanel extends JPanel{
      */
     private Board board;
     private int squareSize, hx, hy;
-    private boolean win, hover;
+    private boolean hover;
     int sx, sy;
-    boolean highlightSqr, invalid, reset;
+    boolean highlightSqr, invalid, reset, win;
 
 
     /**
@@ -139,7 +139,6 @@ public class BoardPanel extends JPanel{
         drawNumbers(g);
         insideLines(g);
         outsideBox(g);
-        solved();
     }
 
     /**
@@ -188,27 +187,6 @@ public class BoardPanel extends JPanel{
     }
 
     /**
-     * This method checks if all the numbers in the matrix meet the game rules.
-     * If so, prompts the user to start a new game or to quit.
-     */
-    private void solved() {
-        if (board.isSolved() && !board.getWasSolved()) {
-            win = true;
-            playSound();
-            Object[] options = {"New Game", "Exit"};
-            int solved = JOptionPane.showOptionDialog(null, "You Won!",
-                    "Congratulations", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                    null, options, options[1]);
-            if (solved == JOptionPane.YES_OPTION) {
-                board.reset(board.size());
-            }
-            else {
-                System.exit(0);
-            }
-        }
-    }
-
-    /**
      * This method draw the outside lines to define the sub-grid of the board
      *
      * @param g This method receives the Graphics class in order to draw the lines
@@ -247,7 +225,7 @@ public class BoardPanel extends JPanel{
     /**
      * This method plays a sound depending on which variable was set to true..
      */
-    private void playSound() {
+    void playSound() {
         try {
             if(invalid) {
                 InputStream song1 = getClass().getResourceAsStream("/sound/error.wav");

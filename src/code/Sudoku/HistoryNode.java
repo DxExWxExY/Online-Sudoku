@@ -114,14 +114,6 @@ class HistoryNode {
      * Board Instance bypass
      * @see Board
      * */
-    void reset(int i) {
-        board.reset(i);
-    }
-
-    /**
-     * Board Instance bypass
-     * @see Board
-     * */
     void generateBoard() {
         board.generateBoard();
     }
