@@ -52,7 +52,7 @@ class HistoryNode {
      *
      * @return Current Board instance.
      * */
-    Board getBoard() {
+    public Board getBoard() {
         return this.board;
     }
 

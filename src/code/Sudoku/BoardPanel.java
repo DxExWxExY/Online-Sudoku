@@ -191,6 +191,7 @@ public class BoardPanel extends JPanel{
      * This method checks if all the numbers in the matrix meet the game rules.
      * If so, prompts the user to start a new game or to quit.
      */
+    // TODO: 4/24/2018 Pass to Sdoku Dialog
     private void solved() {
         if (board.isSolved() && !board.getWasSolved()) {
             win = true;
