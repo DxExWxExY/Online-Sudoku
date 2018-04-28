@@ -4,10 +4,12 @@ import code.Sudoku.SudokuDialog;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Objects;
 
@@ -56,11 +58,25 @@ public class NetworkUI extends SudokuDialog {
         new Thread(() -> {
             makeNetworkOptions();
             makeNetworkWindow();
-            startConnection();
+//            startConnection();
         }).run();
     }
+    /** Default port number on which this server to be run. */
+    private static final int PORT_NUMBER = findFreePort();
 
     private void startConnection() {
+        System.out.println("Sudoku server started on port "
+                + PORT_NUMBER + "!");
+        try {
+            ServerSocket s = new ServerSocket(PORT_NUMBER);
+            for (;;) {
+                Socket incoming = s.accept();
+                new ClientHandler(incoming).start();             //share board
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("sudoku online server stopped.");
 
     }
 
@@ -72,6 +88,7 @@ public class NetworkUI extends SudokuDialog {
         networkSettings.setVisible(true);
         networkSettings.add(config);
 
+
     }
 
     private void makeNetworkOptions() {
@@ -80,11 +97,18 @@ public class NetworkUI extends SudokuDialog {
             JLabel portL = new JLabel("Port Number");
             JTextArea ipT = new JTextArea(String.valueOf(InetAddress.getLocalHost()));
             JTextArea portT = new JTextArea(String.valueOf(findFreePort()));
+            JButton connectButton = new JButton("Connect");
+
+            connectButton.setFocusPainted(false);
+            connectButton.addActionListener(this::connectClicked);
+
+
             config.setLayout(new GridLayout(3,2, 0, 10));
             config.add(ipL);
             config.add(ipT);
             config.add(portL);
             config.add(portT);
+            config.add(connectButton);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
@@ -124,7 +148,85 @@ public class NetworkUI extends SudokuDialog {
         throw new IllegalStateException("Could not find a free TCP/IP port to start embedded Jetty HTTP Server on");
     }
 
+
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+    /** List of print writers associated with current clients,
+     * one for each. */
+    private PrintWriter client;
+
+
+    /** A thread to serve a client. This class receive messages from a
+     * client and broadcasts them to all clients including the message
+     * sender. */
+    private class ClientHandler extends Thread {
+
+        /** Socket to read client messages. */
+        private Socket incoming;
+
+        /** Create a hander to serve the client on the given socket. */
+        public ClientHandler(Socket incoming) {
+            this.incoming = incoming;
+        }
+
+        /** Start receiving and broadcasting messages. */
+        public void run() {
+            PrintWriter out = null;
+            try {
+                out = new PrintWriter(
+                        new OutputStreamWriter(incoming.getOutputStream()));
+
+                // inform the server of this new client
+//                ChatServer.this.addClient(out);
+
+//                out.print("Welcome to JavaChat! ");
+//                out.println("Enter BYE to exit.");
+//                out.flush();
+
+                BufferedReader in
+                        = new BufferedReader(
+                        new InputStreamReader(incoming.getInputStream()));
+                for (;;) {
+                    String msg = in.readLine();
+                    if (msg == null) {
+                        break;
+                    } else {
+                        if (msg.trim().equals("BYE"))
+                            break;
+
+                        System.out.println("Received: " + msg);
+                        // broadcast the receive message
+//                        ChatServer.this.broadcast(msg);
+                    }
+                }
+                incoming.close();
+//                ChatServer.this.removeClient(out);
+            } catch (Exception e) {
+                if (out != null) {
+//                    ChatServer.this.removeClient(out);
+                }
+                e.printStackTrace();
+            }
+        }
+    }
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+    private JTextField serverEdit;
+
+    /** Callback to be called when the connect button is clicked. */
+    private void connectClicked(ActionEvent event){
+        try {
+            Socket socket = new Socket(serverEdit.getText(), 8000);
+            System.out.println(serverEdit.getText());
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
-        new NetworkUI();
+//        new NetworkUI();
+        new NetworkUI().startConnection();
+
     }
 }
