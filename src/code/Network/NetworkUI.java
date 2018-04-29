@@ -129,9 +129,7 @@ public class NetworkUI extends SudokuDialog {
      * @throws IllegalStateException if unable to find a free port
      */
     private static int findFreePort() {
-        ServerSocket socket = null;
-        try {
-            socket = new ServerSocket(0);
+        try (ServerSocket socket = new ServerSocket(0)) {
             socket.setReuseAddress(true);
             int port = socket.getLocalPort();
             try {
@@ -140,14 +138,7 @@ public class NetworkUI extends SudokuDialog {
                 // Ignore IOException on close()
             }
             return port;
-        } catch (IOException e) {
-        } finally {
-            if (socket != null) {
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                }
-            }
+        } catch (IOException ignored) {
         }
         throw new IllegalStateException("Could not find a free TCP/IP port to start embedded Jetty HTTP Server on");
     }
