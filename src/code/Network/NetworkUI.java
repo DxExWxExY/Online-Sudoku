@@ -16,9 +16,8 @@ import java.util.Objects;
 public class NetworkUI extends SudokuDialog {
 
     private JFrame networkSettings = new JFrame("Connection Settings");
-    private JPanel config = new JPanel();
-    private JTextArea ipT ;
-    private JTextArea portT;
+    private JPanel config;
+    private JTextArea ipT, portT;
 //    int [][] share = history.getBoard().board;
 
 
@@ -65,7 +64,10 @@ public class NetworkUI extends SudokuDialog {
 //            startConnection();
         }).run();
     }
-    /** Default port number on which this server to be run. */
+
+    /**
+     * Default port number on which this server to be run.
+     */
     private static final int PORT_NUMBER = findFreePort();
 
     private void startConnection() {
@@ -73,7 +75,7 @@ public class NetworkUI extends SudokuDialog {
                 + PORT_NUMBER + "!");
         try {
             ServerSocket s = new ServerSocket(PORT_NUMBER);
-            for (;;) {
+            for (; ; ) {
                 Socket incoming = s.accept();
                 new ClientHandler(incoming).start();             //share board
             }
@@ -85,7 +87,7 @@ public class NetworkUI extends SudokuDialog {
     }
 
     private void makeNetworkWindow() {
-        networkSettings.setSize(new Dimension(300,150));
+        networkSettings.setSize(new Dimension(300, 150));
         networkSettings.setIconImage(Objects.requireNonNull(createImageIcon("online.png")).getImage());
         networkSettings.setResizable(false);
         networkSettings.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -97,6 +99,7 @@ public class NetworkUI extends SudokuDialog {
 
     private void makeNetworkOptions() {
         try {
+            config = new JPanel(new GridLayout(3, 2, 0, 10));
             JLabel ipL = new JLabel("Server Address");
             JLabel portL = new JLabel("Port Number");
             ipT = new JTextArea(String.valueOf(InetAddress.getLocalHost()));
@@ -106,8 +109,6 @@ public class NetworkUI extends SudokuDialog {
             connectButton.setFocusPainted(false);
             connectButton.addActionListener(this::connectClicked);
 
-
-            config.setLayout(new GridLayout(3,2, 0, 10));
             config.add(ipL);
             config.add(ipT);
             config.add(portL);
@@ -121,7 +122,7 @@ public class NetworkUI extends SudokuDialog {
 
     /**
      * Returns a free port number on localhost.
-     *
+     * <p>
      * Heavily inspired from org.eclipse.jdt.launching.SocketUtil (to avoid a dependency to JDT just because of this).
      * Slightly improved with close() missing in JDT. And throws exception instead of returning -1.
      *
@@ -147,21 +148,28 @@ public class NetworkUI extends SudokuDialog {
 //---------------------------------------------------------------------------------------------------------------------------------------
 
 
-
-    /** A thread to serve a client. This class receive messages from a
+    /**
+     * A thread to serve a client. This class receive messages from a
      * client and broadcasts them to all clients including the message
-     * sender. */
+     * sender.
+     */
     private class ClientHandler extends Thread {
 
-        /** Socket to read client messages. */
+        /**
+         * Socket to read client messages.
+         */
         private Socket incoming;
 
-        /** Create a hander to serve the client on the given socket. */
+        /**
+         * Create a handler to serve the client on the given socket.
+         */
         public ClientHandler(Socket incoming) {
             this.incoming = incoming;
         }
 
-        /** Start receiving and broadcasting messages. */
+        /**
+         * Start receiving and broadcasting messages.
+         */
         public void run() {
             PrintWriter out = null;
             try {
@@ -180,7 +188,7 @@ public class NetworkUI extends SudokuDialog {
                 BufferedReader in
                         = new BufferedReader(
                         new InputStreamReader(incoming.getInputStream()));
-                for (;;) {
+                for (; ; ) {
                     String msg = in.readLine();
                     if (msg == null) {
                         break;
@@ -206,10 +214,12 @@ public class NetworkUI extends SudokuDialog {
 //---------------------------------------------------------------------------------------------------------------------------------------
 
 
-    /** Callback to be called when the connect button is clicked. */
-    private void connectClicked(ActionEvent event){
+    /**
+     * Callback to be called when the connect button is clicked.
+     */
+    private void connectClicked(ActionEvent event) {
         try {
-            Socket socket = new Socket(ipT.getText(), Integer.parseInt( portT.getText()));
+            Socket socket = new Socket(ipT.getText(), Integer.parseInt(portT.getText()));
 //            System.out.println(serverEdit.getText());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -217,6 +227,7 @@ public class NetworkUI extends SudokuDialog {
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args) {
         new NetworkUI();
         new NetworkUI().startConnection();
