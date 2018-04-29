@@ -23,8 +23,9 @@ public class SudokuDialog extends JFrame {
     private final static String IMAGE_DIR = "/image/";
     protected final static Color BACKGROUND = new Color(47,76,76);
 
+
     /** Sudoku history. */
-    protected HistoryNode history;
+    public HistoryNode history;
 
     /** Special panel to display a Sudoku history. */
     protected BoardPanel boardPanel;

@@ -17,6 +17,10 @@ public class NetworkUI extends SudokuDialog {
 
     private JFrame networkSettings = new JFrame("Connection Settings");
     private JPanel config = new JPanel();
+    private JTextArea ipT ;
+    private JTextArea portT;
+//    int [][] share = history.getBoard().board;
+
 
     private NetworkUI() {
         super();
@@ -95,8 +99,8 @@ public class NetworkUI extends SudokuDialog {
         try {
             JLabel ipL = new JLabel("Server Address");
             JLabel portL = new JLabel("Port Number");
-            JTextArea ipT = new JTextArea(String.valueOf(InetAddress.getLocalHost()));
-            JTextArea portT = new JTextArea(String.valueOf(findFreePort()));
+            ipT = new JTextArea(String.valueOf(InetAddress.getLocalHost()));
+            portT = new JTextArea(String.valueOf(findFreePort()));
             JButton connectButton = new JButton("Connect");
 
             connectButton.setFocusPainted(false);
@@ -151,9 +155,6 @@ public class NetworkUI extends SudokuDialog {
 
 //---------------------------------------------------------------------------------------------------------------------------------------
 
-    /** List of print writers associated with current clients,
-     * one for each. */
-    private PrintWriter client;
 
 
     /** A thread to serve a client. This class receive messages from a
@@ -178,10 +179,12 @@ public class NetworkUI extends SudokuDialog {
 
                 // inform the server of this new client
 //                ChatServer.this.addClient(out);
-
 //                out.print("Welcome to JavaChat! ");
 //                out.println("Enter BYE to exit.");
 //                out.flush();
+
+                System.out.println("connected");
+
 
                 BufferedReader in
                         = new BufferedReader(
@@ -211,13 +214,12 @@ public class NetworkUI extends SudokuDialog {
     }
 //---------------------------------------------------------------------------------------------------------------------------------------
 
-    private JTextField serverEdit;
 
     /** Callback to be called when the connect button is clicked. */
     private void connectClicked(ActionEvent event){
         try {
-            Socket socket = new Socket(serverEdit.getText(), 8000);
-            System.out.println(serverEdit.getText());
+            Socket socket = new Socket(ipT.getText(), Integer.parseInt( portT.getText()));
+//            System.out.println(serverEdit.getText());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
         } catch (Exception e) {
@@ -225,7 +227,7 @@ public class NetworkUI extends SudokuDialog {
         }
     }
     public static void main(String[] args) {
-//        new NetworkUI();
+        new NetworkUI();
         new NetworkUI().startConnection();
 
     }
