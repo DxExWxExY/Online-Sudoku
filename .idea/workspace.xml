@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+    <list id="34dbd691-eae7-4701-8b8e-f4b2e7c19ce4" name="Pre Cutie" comment="" />
     <list default="true" id="72533dc4-f5d0-4df8-8a17-051696a9b3ef" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/code/Network/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/code/Network/NetworkUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/Network/NetworkUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/code/Sudoku/HistoryNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/Sudoku/HistoryNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java" afterDir="false" />
     </list>
-    <list id="34dbd691-eae7-4701-8b8e-f4b2e7c19ce4" name="Pre Cutie" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="C:\Users\DxExWxExY\Documents\CS Adv Obj Lab\Online Sudoku\.idea\shelf/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +22,8 @@
       <file leaf-file-name="SudokuDialog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="146" column="47" lean-forward="true" selection-start-line="143" selection-start-column="12" selection-end-line="146" selection-end-column="47" />
+            <state relative-caret-position="252">
+              <caret line="50" column="53" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="53" />
               <folding>
                 <element signature="docComment;class#SudokuDialog#0" />
                 <element signature="docComment;field#DEFAULT_SIZE#0;class#SudokuDialog#0" />
@@ -69,8 +68,38 @@
       <file leaf-file-name="HistoryNode.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/code/Sudoku/HistoryNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
+            <state relative-caret-position="2484">
+              <caret line="138" column="5" selection-start-line="138" selection-start-column="5" selection-end-line="138" selection-end-column="5" />
+              <folding>
+                <element signature="e#1038#1039#0" expanded="true" />
+                <element signature="e#1069#1070#0" expanded="true" />
+                <element signature="e#1197#1198#0" expanded="true" />
+                <element signature="e#1224#1225#0" expanded="true" />
+                <element signature="e#1364#1365#0" expanded="true" />
+                <element signature="e#1397#1398#0" expanded="true" />
+                <element signature="e#1498#1499#0" expanded="true" />
+                <element signature="e#1530#1531#0" expanded="true" />
+                <element signature="e#1631#1632#0" expanded="true" />
+                <element signature="e#1664#1665#0" expanded="true" />
+                <element signature="e#1770#1771#0" expanded="true" />
+                <element signature="e#1816#1817#0" expanded="true" />
+                <element signature="e#1923#1924#0" expanded="true" />
+                <element signature="e#1966#1967#0" expanded="true" />
+                <element signature="e#2082#2083#0" expanded="true" />
+                <element signature="e#2130#2131#0" expanded="true" />
+                <element signature="e#2234#2235#0" expanded="true" />
+                <element signature="e#2277#2278#0" expanded="true" />
+                <element signature="e#2392#2393#0" expanded="true" />
+                <element signature="e#2441#2442#0" expanded="true" />
+                <element signature="e#2531#2532#0" expanded="true" />
+                <element signature="e#2561#2562#0" expanded="true" />
+                <element signature="e#2654#2655#0" expanded="true" />
+                <element signature="e#2691#2692#0" expanded="true" />
+                <element signature="e#2774#2775#0" expanded="true" />
+                <element signature="e#2809#2810#0" expanded="true" />
+                <element signature="e#2836#2837#0" expanded="true" />
+                <element signature="e#2872#2873#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -78,13 +107,14 @@
       <file leaf-file-name="NetworkUI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/code/Network/NetworkUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+            <state relative-caret-position="1710">
+              <caret line="120" column="69" selection-start-line="120" selection-start-column="69" selection-end-line="120" selection-end-column="69" />
               <folding>
                 <element signature="docComment;method#makeToolBar#0;class#NetworkUI#0" />
+                <element signature="method#makeNetworkLog#0;class#NetworkUI#0" />
                 <element signature="docComment;method#findFreePort#0;class#NetworkUI#0" />
                 <element signature="method#findFreePort#0;class#NetworkUI#0" />
-                <element signature="docComment;method#connectClicked#0;class#NetworkUI#0" />
+                <element signature="method#onlineStatusUI#0;class#NetworkUI#0" />
               </folding>
             </state>
           </provider>
@@ -93,12 +123,10 @@
       <file leaf-file-name="ClientHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/code/Network/ClientHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
+            <state relative-caret-position="882">
               <caret line="55" column="12" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#582#583#0" expanded="true" />
-                <element signature="e#630#631#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,8 +171,8 @@
         <option value="$PROJECT_DIR$/src/code/Network/NetwworkUI.java" />
         <option value="$PROJECT_DIR$/src/code/Sudoku/BoardPanel.java" />
         <option value="$PROJECT_DIR$/src/code/Network/ClientHandler.java" />
-        <option value="$PROJECT_DIR$/src/code/Sudoku/HistoryNode.java" />
         <option value="$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java" />
+        <option value="$PROJECT_DIR$/src/code/Sudoku/HistoryNode.java" />
         <option value="$PROJECT_DIR$/src/code/Network/NetworkUI.java" />
       </list>
     </option>
@@ -196,8 +224,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -341,7 +369,14 @@
       <option name="project" value="LOCAL" />
       <updated>1525031274737</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="HistoryNode is Public">
+      <created>1525104094726</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1525104094726</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -355,14 +390,14 @@
     <layout>
       <window_info anchor="right" id="Palette" order="5" />
       <window_info anchor="bottom" id="TODO" order="7" />
-      <window_info active="true" anchor="bottom" id="Messages" order="9" visible="true" weight="0.3292517" />
+      <window_info anchor="bottom" id="Messages" order="9" weight="0.3292517" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="9" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="11" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.3292517" />
-      <window_info anchor="right" x="1483" y="126" width="1920" height="302" id="Run" order="14" weight="0.31835938" />
+      <window_info active="true" anchor="right" x="1483" y="126" width="1920" height="302" id="Run" order="14" visible="true" weight="0.31835938" />
       <window_info anchor="bottom" id="Terminal" order="15" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
@@ -416,7 +451,8 @@
     <MESSAGE value="Implemented Network UI" />
     <MESSAGE value="Merged Lacutie" />
     <MESSAGE value="Fixed UI Bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed UI Bug" />
+    <MESSAGE value="HistoryNode is Public" />
+    <option name="LAST_COMMIT_MESSAGE" value="HistoryNode is Public" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java">
@@ -654,9 +690,10 @@
           <caret line="111" column="48" lean-forward="true" selection-start-line="111" selection-start-column="48" selection-end-line="111" selection-end-column="48" />
           <folding>
             <element signature="docComment;method#makeToolBar#0;class#NetworkUI#0" />
+            <element signature="method#makeNetworkLog#0;class#NetworkUI#0" />
             <element signature="docComment;method#findFreePort#0;class#NetworkUI#0" />
             <element signature="method#findFreePort#0;class#NetworkUI#0" />
-            <element signature="docComment;method#connectClicked#0;class#NetworkUI#0" />
+            <element signature="method#onlineStatusUI#0;class#NetworkUI#0" />
           </folding>
         </state>
       </provider>
@@ -812,9 +849,10 @@
           <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
           <folding>
             <element signature="docComment;method#makeToolBar#0;class#NetworkUI#0" />
+            <element signature="method#makeNetworkLog#0;class#NetworkUI#0" />
             <element signature="docComment;method#findFreePort#0;class#NetworkUI#0" />
             <element signature="method#findFreePort#0;class#NetworkUI#0" />
-            <element signature="docComment;method#connectClicked#0;class#NetworkUI#0" />
+            <element signature="method#onlineStatusUI#0;class#NetworkUI#0" />
           </folding>
         </state>
       </provider>
@@ -970,9 +1008,10 @@
           <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
           <folding>
             <element signature="docComment;method#makeToolBar#0;class#NetworkUI#0" />
+            <element signature="method#makeNetworkLog#0;class#NetworkUI#0" />
             <element signature="docComment;method#findFreePort#0;class#NetworkUI#0" />
             <element signature="method#findFreePort#0;class#NetworkUI#0" />
-            <element signature="docComment;method#connectClicked#0;class#NetworkUI#0" />
+            <element signature="method#onlineStatusUI#0;class#NetworkUI#0" />
           </folding>
         </state>
       </provider>
@@ -1379,20 +1418,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/code/Network/ClientHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
+        <state relative-caret-position="882">
           <caret line="55" column="12" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#582#583#0" expanded="true" />
-            <element signature="e#630#631#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/src.zip!/java/awt/event/ActionListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="146" column="47" lean-forward="true" selection-start-line="143" selection-start-column="12" selection-end-line="146" selection-end-column="47" />
+        <state relative-caret-position="252">
+          <caret line="50" column="53" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="53" />
           <folding>
             <element signature="docComment;class#SudokuDialog#0" />
             <element signature="docComment;field#DEFAULT_SIZE#0;class#SudokuDialog#0" />
@@ -1435,27 +1479,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/code/Sudoku/HistoryNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/src.zip!/java/awt/event/ActionListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+        <state relative-caret-position="2484">
+          <caret line="138" column="5" selection-start-line="138" selection-start-column="5" selection-end-line="138" selection-end-column="5" />
+          <folding>
+            <element signature="e#1038#1039#0" expanded="true" />
+            <element signature="e#1069#1070#0" expanded="true" />
+            <element signature="e#1197#1198#0" expanded="true" />
+            <element signature="e#1224#1225#0" expanded="true" />
+            <element signature="e#1364#1365#0" expanded="true" />
+            <element signature="e#1397#1398#0" expanded="true" />
+            <element signature="e#1498#1499#0" expanded="true" />
+            <element signature="e#1530#1531#0" expanded="true" />
+            <element signature="e#1631#1632#0" expanded="true" />
+            <element signature="e#1664#1665#0" expanded="true" />
+            <element signature="e#1770#1771#0" expanded="true" />
+            <element signature="e#1816#1817#0" expanded="true" />
+            <element signature="e#1923#1924#0" expanded="true" />
+            <element signature="e#1966#1967#0" expanded="true" />
+            <element signature="e#2082#2083#0" expanded="true" />
+            <element signature="e#2130#2131#0" expanded="true" />
+            <element signature="e#2234#2235#0" expanded="true" />
+            <element signature="e#2277#2278#0" expanded="true" />
+            <element signature="e#2392#2393#0" expanded="true" />
+            <element signature="e#2441#2442#0" expanded="true" />
+            <element signature="e#2531#2532#0" expanded="true" />
+            <element signature="e#2561#2562#0" expanded="true" />
+            <element signature="e#2654#2655#0" expanded="true" />
+            <element signature="e#2691#2692#0" expanded="true" />
+            <element signature="e#2774#2775#0" expanded="true" />
+            <element signature="e#2809#2810#0" expanded="true" />
+            <element signature="e#2836#2837#0" expanded="true" />
+            <element signature="e#2872#2873#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/code/Network/NetworkUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+        <state relative-caret-position="1710">
+          <caret line="120" column="69" selection-start-line="120" selection-start-column="69" selection-end-line="120" selection-end-column="69" />
           <folding>
             <element signature="docComment;method#makeToolBar#0;class#NetworkUI#0" />
+            <element signature="method#makeNetworkLog#0;class#NetworkUI#0" />
             <element signature="docComment;method#findFreePort#0;class#NetworkUI#0" />
             <element signature="method#findFreePort#0;class#NetworkUI#0" />
-            <element signature="docComment;method#connectClicked#0;class#NetworkUI#0" />
+            <element signature="method#onlineStatusUI#0;class#NetworkUI#0" />
           </folding>
         </state>
       </provider>

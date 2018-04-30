@@ -25,7 +25,7 @@ public class SudokuDialog extends JFrame {
 
 
     /** Sudoku history. */
-    protected HistoryNode history;
+    public HistoryNode history;
 
     /** Special panel to display a Sudoku history. */
     private BoardPanel boardPanel;

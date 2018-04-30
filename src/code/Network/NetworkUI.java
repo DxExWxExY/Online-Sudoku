@@ -3,6 +3,7 @@ package code.Network;
 import code.Sudoku.SudokuDialog;
 
 import javax.swing.*;
+import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -15,10 +16,10 @@ import java.util.Objects;
 
 public class NetworkUI extends SudokuDialog {
 
-    private JFrame networkSettings = new JFrame("Connection Settings");
-    private JPanel config;
+    private JFrame networkSettings;
+    private JPanel config, log;
     private JButton connect;
-    private JTextArea ipT, portT;
+    private JTextArea ipT, portT, logT;
     private Thread connection;
     private ServerSocket server;
     /** Default port number on which this server to be run. */
@@ -66,6 +67,7 @@ public class NetworkUI extends SudokuDialog {
     private void networkDialog() {
        // new Thread(() -> {
             makeNetworkOptions();
+            makeNetworkLog();
             makeNetworkWindow();
        // }).run();
     }
@@ -73,9 +75,17 @@ public class NetworkUI extends SudokuDialog {
 
     private void makeNetworkOptions() {
         config = new JPanel(new GridLayout(3,2, 0, 10));
+        config.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder("Network Settings"),
+                BorderFactory.createEmptyBorder(30,5,30,5)));
+        config.setSize(new Dimension(300,150));
         JLabel ipL = new JLabel("Server Address");
         JLabel portL = new JLabel("Port Number");
-        ipT = new JTextArea("opuntia.cs.utep.edu");
+        try {
+            ipT = new JTextArea(String.valueOf(InetAddress.getLocalHost()));
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         portT = new JTextArea(String.valueOf(PORT_NUMBER));
         JButton connectButton = new JButton("Connect");
 
@@ -90,15 +100,31 @@ public class NetworkUI extends SudokuDialog {
 
     }
 
+    private void makeNetworkLog() {
+        log = new JPanel(new GridLayout(1,1));
+        log.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder("Network Log"),
+                BorderFactory.createEmptyBorder(5,5,5,5)));
+        logT = new JTextArea("Network Log",20,30);
+        logT.setLineWrap(true);
+        logT.setEditable(false);
+        JScrollPane scroll = new JScrollPane(logT);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        log.add(scroll);
+    }
+
     private void makeNetworkWindow() {
-        networkSettings.setSize(new Dimension(300,150));
+        Dimension pos = Toolkit.getDefaultToolkit().getScreenSize();
+        networkSettings = new JFrame("Connection Settings");
+        networkSettings.setLayout(new GridLayout(2,1));
+        networkSettings.setSize(new Dimension(300,400));
+        networkSettings.setLocation(pos.width/2-500, pos.height/2-300);
         networkSettings.setIconImage(Objects.requireNonNull(createImageIcon("online.png")).getImage());
         networkSettings.setResizable(false);
         networkSettings.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         networkSettings.setVisible(true);
         networkSettings.add(config);
-
-
+        networkSettings.add(log);
     }
 
     /**
@@ -125,7 +151,6 @@ public class NetworkUI extends SudokuDialog {
     }
 
     private void onlineStatusUI() {
-        networkSettings.dispose();
         toolbar.remove(connect);
         connect = makeOptionButtons("online.png", KeyEvent.VK_O);
         connect.addActionListener(e -> {
@@ -160,6 +185,7 @@ public class NetworkUI extends SudokuDialog {
         try {
             server = new ServerSocket(PORT_NUMBER);
             onlineStatusUI();
+            logT.append("\nServer Started on Port " + PORT_NUMBER + ".");
 //            while (true){
 //                Socket socket = server.accept();
 //                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
