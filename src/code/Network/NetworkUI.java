@@ -20,6 +20,7 @@ public class NetworkUI extends SudokuDialog {
     private JButton connect;
     private JTextArea ipT, portT;
     private Thread connection;
+    private ServerSocket server;
     /** Default port number on which this server to be run. */
     private static final int PORT_NUMBER = findFreePort();
 //    int [][] share = history.getBoard().board;
@@ -79,10 +80,7 @@ public class NetworkUI extends SudokuDialog {
         JButton connectButton = new JButton("Connect");
 
         connectButton.setFocusPainted(false);
-        connectButton.addActionListener(e -> {
-            connection = new Thread(this::connectionStart);
-            connection.run();
-        });
+        connectButton.addActionListener(e -> connectionStart());
 
         config.add(ipL);
         config.add(ipT);
@@ -126,39 +124,47 @@ public class NetworkUI extends SudokuDialog {
         throw new IllegalStateException("Could not find a free TCP/IP port to start embedded Jetty HTTP Server on");
     }
 
-    private void connectionStatus() {
+    private void onlineStatusUI() {
         networkSettings.dispose();
+        toolbar.remove(connect);
         connect = makeOptionButtons("online.png", KeyEvent.VK_O);
         connect.addActionListener(e -> {
             Object[] options = {"Yes", "Cancel"};
             int n = JOptionPane.showOptionDialog(null, "Do You Want to Disconnect?",
                     "Disconnect", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,
-                    (Icon) createImageIcon("online.png").getImage(), options, options[1]);
+                    null, options, options[1]);
             switch (n) {
                 case JOptionPane.YES_OPTION:
-                    connection.interrupt();
-                    connect = makeOptionButtons("offline.png", KeyEvent.VK_O);
-                    connect.addActionListener(a -> networkDialog());
-                    content.revalidate();
+                    //connection.interrupt();
+                    try {
+                        server.close();
+                        toolbar.remove(connect);
+                        connect = makeOptionButtons("offline.png", KeyEvent.VK_O);
+                        connect.addActionListener(a -> networkDialog());
+                        toolbar.add(connect);
+                        toolbar.revalidate();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                     break;
                 case JOptionPane.NO_OPTION:
                     break;
             }
         });
-        content.revalidate();
+        toolbar.add(connect);
+        toolbar.revalidate();
     }
 
     /** Callback to be called when the connect button is clicked. */
     private void connectionStart(){
         try {
-            ServerSocket server = new ServerSocket(PORT_NUMBER);
-            connectionStatus();
-            while (true){
-                Socket socket = server.accept();
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-
-            }
+            server = new ServerSocket(PORT_NUMBER);
+            onlineStatusUI();
+//            while (true){
+//                Socket socket = server.accept();
+//                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//                PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
