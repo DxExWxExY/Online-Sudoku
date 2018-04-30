@@ -195,7 +195,37 @@ public class NetworkUI extends SudokuDialog {
             e.printStackTrace();
         }
     }
+
+    /** Callback to be called when the connect button is clicked. */
+    private void connectClicked(ActionEvent event){
+        try {
+            Socket socket = new Socket(ipT.getText(), Integer.parseInt( portT.getText()));
+//            System.out.println(serverEdit.getText());
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startConnection() {
+        System.out.println("Sudoku server started on port "
+                + PORT_NUMBER + "!");
+        try {
+            ServerSocket s = new ServerSocket(PORT_NUMBER);
+            for (;;) {
+                Socket incoming = s.accept();
+                new ClientHandler(incoming).start();             //share board
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("sudoku online server stopped.");
+
+    }
+
     public static void main(String[] args) {
         new NetworkUI();
+        new NetworkUI().startConnection();
     }
 }
