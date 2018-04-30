@@ -19,16 +19,16 @@ import javax.swing.*;
 public class SudokuDialog extends JFrame {
 
     /** Default dimension of the dialog. */
-    protected final static Dimension DEFAULT_SIZE = new Dimension(310, 450);
+    private final static Dimension DEFAULT_SIZE = new Dimension(310, 450);
     private final static String IMAGE_DIR = "/image/";
     protected final static Color BACKGROUND = new Color(47,76,76);
 
 
     /** Sudoku history. */
-    public HistoryNode history;
+    protected HistoryNode history;
 
     /** Special panel to display a Sudoku history. */
-    protected BoardPanel boardPanel;
+    private BoardPanel boardPanel;
 
     /** Message bar to display various messages. */
     private JLabel msgBar = new JLabel("");
