@@ -3,6 +3,7 @@ package code.Network;
 import code.Sudoku.SudokuDialog;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,7 +24,8 @@ public class NetworkUI extends SudokuDialog {
      */
     private static final int PORT = findFreePort();
     private Socket socket;
-    private JTextArea ipT, portT, logT = new JTextArea("Network Log",20,30);
+    private JTextArea ipT, portT, logT = new JTextArea("Network Log",20,10);
+    private SudokuServer server;
 
 
     private NetworkUI() {
@@ -34,7 +36,7 @@ public class NetworkUI extends SudokuDialog {
         content.add(toolbar);
         content.add(numberButtons);
         content.revalidate();
-        new SudokuServer(logT, PORT);
+        server = new SudokuServer(logT, PORT);
     }
 
     /**
@@ -77,11 +79,7 @@ public class NetworkUI extends SudokuDialog {
         config.setSize(new Dimension(300,150));
         JLabel ipL = new JLabel("Server Address");
         JLabel portL = new JLabel("Port Number");
-        try {
-            ipT = new JTextArea(String.valueOf(InetAddress.getLocalHost()));
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+        ipT = new JTextArea("localhost");
         portT = new JTextArea(String.valueOf(PORT));
         JButton connectButton = new JButton("Connect");
         JButton test = new JButton("test");
@@ -105,8 +103,10 @@ public class NetworkUI extends SudokuDialog {
                 BorderFactory.createEmptyBorder(5,5,5,5)));
         logT.setLineWrap(true);
         logT.setEditable(false);
+        logT.setAutoscrolls(true);
         JScrollPane scroll = new JScrollPane(logT);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setAutoscrolls(true);
         log.add(scroll);
     }
 
@@ -180,13 +180,14 @@ public class NetworkUI extends SudokuDialog {
     /** Callback to be called when the connect button is clicked. */
     private void connectClicked(){
         try {
+            server.kill();
             socket = new Socket(ipT.getText(), Integer.parseInt(portT.getText()));
             logT.append("\n"+ipT.getText());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             onlineStatusUI();
         } catch (Exception e) {
-            e.printStackTrace();
+            logT.append("\nError: "+e);
         }
     }
 

@@ -1,10 +1,7 @@
 package code.Network;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 /** A thread to serve a client. This class receive messages from a
@@ -43,7 +40,15 @@ class ClientHandler extends Thread {
             }
             incoming.close();
         } catch (Exception e) {
-            logT.append("\nError");
+            logT.append("\nError: "+e);
+        }
+    }
+
+    void kill() {
+        try {
+            incoming.close();
+        } catch (IOException e) {
+            logT.append("\nError: "+e);
         }
     }
 }
