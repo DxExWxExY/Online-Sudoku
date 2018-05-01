@@ -22,6 +22,7 @@ class SudokuServer {
 
     /** Default port number on which this server to be run. */
     private int PORT_NUMBER;
+    private ClientHandler service;
 
     /** Create a new server. */
     SudokuServer(JTextArea logT, int port) {
@@ -36,10 +37,14 @@ class SudokuServer {
             ServerSocket s = new ServerSocket(PORT_NUMBER);
             for (;;) {
                 Socket incoming = s.accept();
-                new ClientHandler(incoming,logT).start();
+                service = new ClientHandler(incoming,logT);
+                service.start();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logT.append("\nError: "+e);
         }
+    }
+    public void kill() {
+        service.kill();
     }
 }
