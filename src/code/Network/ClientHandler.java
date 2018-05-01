@@ -16,6 +16,7 @@ class ClientHandler extends Thread {
     private Socket incoming;
     private JTextArea logT;
 
+
     /** Create a handler to serve the client on the given socket. */
     ClientHandler(Socket incoming, JTextArea logT) {
         this.incoming = incoming;
@@ -24,38 +25,25 @@ class ClientHandler extends Thread {
 
     /** Start receiving and broadcasting messages. */
     public void run() {
-        PrintWriter out = null;
         try {
-            out = new PrintWriter(new OutputStreamWriter(incoming.getOutputStream()));
-
-            // inform the server of this new client
-
-            logT.append("\nConnected");
-
-            out.print("Welcome to JavaChat! ");
-            out.println("Enter BYE to exit.");
-
-            BufferedReader in
-                    = new BufferedReader(
-                    new InputStreamReader(incoming.getInputStream()));
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(incoming.getOutputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(incoming.getInputStream()));
             for (;;) {
                 String msg = in.readLine();
                 if (msg == null) {
                     break;
                 } else {
-                    if (msg.trim().equals("BYE"))
+                    if (msg.equals("END")) {
                         break;
 
-                    System.out.println("Received: " + msg);
+                    } else {
+                        logT.append("\nReceived: " + msg);
+                    }
                 }
             }
             incoming.close();
-//                ChatServer.this.removeClient(out);
         } catch (Exception e) {
-            if (out != null) {
-//                    ChatServer.this.removeClient(out);
-            }
-            e.printStackTrace();
+            logT.append("\nError");
         }
     }
 }

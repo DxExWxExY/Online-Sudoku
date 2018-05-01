@@ -16,17 +16,14 @@ import java.util.Objects;
 
 public class NetworkUI extends SudokuDialog {
 
-    private JFrame networkSettings;
     private JPanel config, log;
     private JButton connect;
-    private JTextArea ipT, portT, logT;
-    private Thread connection;
-    private Socket socket;
     /**
      * Default port number on which this server to be run.
      */
     private static final int PORT = findFreePort();
-
+    private Socket socket;
+    private JTextArea ipT, portT, logT = new JTextArea("Network Log",20,30);
 
 
     private NetworkUI() {
@@ -37,6 +34,7 @@ public class NetworkUI extends SudokuDialog {
         content.add(toolbar);
         content.add(numberButtons);
         content.revalidate();
+        new SudokuServer(logT, PORT);
     }
 
     /**
@@ -71,7 +69,6 @@ public class NetworkUI extends SudokuDialog {
         makeNetworkWindow();
     }
 
-
     private void makeNetworkOptions() {
         config = new JPanel(new GridLayout(3,2, 0, 10));
         config.setBorder(BorderFactory.createCompoundBorder(
@@ -95,6 +92,7 @@ public class NetworkUI extends SudokuDialog {
         config.add(portL);
         config.add(portT);
         config.add(connectButton);
+        config.add(test);
 
     }
 
@@ -103,7 +101,6 @@ public class NetworkUI extends SudokuDialog {
         log.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("Network Log"),
                 BorderFactory.createEmptyBorder(5,5,5,5)));
-        logT = new JTextArea("Network Log",20,30);
         logT.setLineWrap(true);
         logT.setEditable(false);
         JScrollPane scroll = new JScrollPane(logT);
@@ -113,7 +110,7 @@ public class NetworkUI extends SudokuDialog {
 
     private void makeNetworkWindow() {
         Dimension pos = Toolkit.getDefaultToolkit().getScreenSize();
-        networkSettings = new JFrame("Connection Settings");
+        JFrame networkSettings = new JFrame("Connection Settings");
         networkSettings.setLayout(new GridLayout(2,1));
         networkSettings.setSize(new Dimension(300,400));
         networkSettings.setLocation(pos.width/2-500, pos.height/2-300);
