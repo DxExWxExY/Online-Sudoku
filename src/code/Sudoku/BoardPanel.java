@@ -30,7 +30,8 @@ public class BoardPanel extends JPanel{
      */
     private Board board;
     private int squareSize, hx, hy;
-    private boolean win, hover;
+    boolean win;
+    private boolean hover;
     int sx, sy;
     boolean highlightSqr, invalid, reset;
 
@@ -191,7 +192,6 @@ public class BoardPanel extends JPanel{
      * This method checks if all the numbers in the matrix meet the game rules.
      * If so, prompts the user to start a new game or to quit.
      */
-    // TODO: 4/24/2018 Pass to Sdoku Dialog
     private void solved() {
         if (board.isSolved() && !board.getWasSolved()) {
             win = true;
@@ -248,7 +248,7 @@ public class BoardPanel extends JPanel{
     /**
      * This method plays a sound depending on which variable was set to true..
      */
-    private void playSound() {
+    void playSound() {
         try {
             if(invalid) {
                 InputStream song1 = getClass().getResourceAsStream("/sound/error.wav");

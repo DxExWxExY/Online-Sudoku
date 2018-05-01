@@ -103,6 +103,7 @@ public class SudokuDialog extends JFrame {
         }
         boardPanel.highlightSqr = false;
         boardPanel.repaint();
+        solved();
     }
 
     /**
@@ -377,6 +378,27 @@ public class SudokuDialog extends JFrame {
                 JOptionPane.showMessageDialog(null, "This board CAN be solved.", "Can It Be Solved?", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "This board CANNOT be solved.", "Can It Be Solved?", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+
+    /**
+     * This method checks if all the numbers in the matrix meet the game rules.
+     * If so, prompts the user to start a new game or to quit.
+     */
+    private void solved() {
+        if (history.getBoard().isSolved() && !history.getBoard().getWasSolved()) {
+            boardPanel.win = true;
+            boardPanel.playSound();
+            Object[] options = {"New Game", "Exit"};
+            int solved = JOptionPane.showOptionDialog(null, "You Won!",
+                    "Congratulations", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                    null, options, options[1]);
+            if (solved == JOptionPane.YES_OPTION) {
+                newHistory(history.getBoard().size());
+            }
+            else {
+                System.exit(0);
             }
         }
     }
