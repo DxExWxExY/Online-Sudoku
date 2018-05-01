@@ -1,5 +1,6 @@
 package code.Network;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -13,10 +14,12 @@ class ClientHandler extends Thread {
 
     /** Socket to read client messages. */
     private Socket incoming;
+    private JTextArea logT;
 
     /** Create a handler to serve the client on the given socket. */
-    ClientHandler(Socket incoming) {
+    ClientHandler(Socket incoming, JTextArea logT) {
         this.incoming = incoming;
+        this.logT = logT;
     }
 
     /** Start receiving and broadcasting messages. */
@@ -26,13 +29,11 @@ class ClientHandler extends Thread {
             out = new PrintWriter(new OutputStreamWriter(incoming.getOutputStream()));
 
             // inform the server of this new client
-//                ChatServer.this.addClient(out);
-//                out.print("Welcome to JavaChat! ");
-//                out.println("Enter BYE to exit.");
-//                out.flush();
 
-            System.out.println("connected");
+            logT.append("\nConnected");
 
+            out.print("Welcome to JavaChat! ");
+            out.println("Enter BYE to exit.");
 
             BufferedReader in
                     = new BufferedReader(
@@ -46,8 +47,6 @@ class ClientHandler extends Thread {
                         break;
 
                     System.out.println("Received: " + msg);
-                    // broadcast the receive message
-//                        ChatServer.this.broadcast(msg);
                 }
             }
             incoming.close();

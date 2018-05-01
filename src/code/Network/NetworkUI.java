@@ -21,9 +21,12 @@ public class NetworkUI extends SudokuDialog {
     private JButton connect;
     private JTextArea ipT, portT, logT;
     private Thread connection;
-    private ServerSocket server;
-    /** Default port number on which this server to be run. */
-    private static final int PORT_NUMBER = findFreePort();
+    private Socket socket;
+    /**
+     * Default port number on which this server to be run.
+     */
+    private static final int PORT1 = findFreePort();
+    private static final int PORT2 = findFreePort();
 //    int [][] share = history.getBoard().board;
 
 
@@ -36,6 +39,9 @@ public class NetworkUI extends SudokuDialog {
         content.add(toolbar);
         content.add(numberButtons);
         content.revalidate();
+        makeNetworkOptions();
+        makeNetworkLog();
+        makeNetworkWindow();
     }
 
     /**
@@ -86,16 +92,18 @@ public class NetworkUI extends SudokuDialog {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        portT = new JTextArea(String.valueOf(PORT_NUMBER));
+        portT = new JTextArea(String.valueOf(PORT1));
         JButton connectButton = new JButton("Connect");
-
+        JButton test = new JButton("test");
+        test.addActionListener(e -> testClicked());
         connectButton.setFocusPainted(false);
-        connectButton.addActionListener(e -> connectionStart());
+        connectButton.addActionListener(e -> connectClicked());
 
         config.add(ipL);
         config.add(ipT);
         config.add(portL);
         config.add(portT);
+        config.add(test);
         config.add(connectButton);
 
     }
@@ -162,7 +170,7 @@ public class NetworkUI extends SudokuDialog {
                 case JOptionPane.YES_OPTION:
                     //connection.interrupt();
                     try {
-                        server.close();
+                        socket.close();
                         toolbar.remove(connect);
                         connect = makeOptionButtons("offline.png", KeyEvent.VK_O);
                         connect.addActionListener(a -> networkDialog());
@@ -181,26 +189,10 @@ public class NetworkUI extends SudokuDialog {
     }
 
     /** Callback to be called when the connect button is clicked. */
-    private void connectionStart(){
+    private void connectClicked(){
         try {
-            server = new ServerSocket(PORT_NUMBER);
-            onlineStatusUI();
-            logT.append("\nServer Started on Port " + PORT_NUMBER + ".");
-//            while (true){
-//                Socket socket = server.accept();
-//                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//                PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-//            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /** Callback to be called when the connect button is clicked. */
-    private void connectClicked(ActionEvent event){
-        try {
-            Socket socket = new Socket(ipT.getText(), Integer.parseInt( portT.getText()));
-//            System.out.println(serverEdit.getText());
+            socket = new Socket(ipT.getText(), Integer.parseInt(portT.getText()));
+            logT.append("\n"+ipT.getText());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
         } catch (Exception e) {
@@ -208,24 +200,19 @@ public class NetworkUI extends SudokuDialog {
         }
     }
 
-    private void startConnection() {
-        System.out.println("Sudoku server started on port "
-                + PORT_NUMBER + "!");
+    private void testClicked() {
         try {
-            ServerSocket s = new ServerSocket(PORT_NUMBER);
-            for (;;) {
-                Socket incoming = s.accept();
-                new ClientHandler(incoming).start();             //share board
-            }
-        } catch (Exception e) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            out.println("TEST");
+            out.flush();
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("sudoku online server stopped.");
-
     }
 
     public static void main(String[] args) {
         new NetworkUI();
-        new NetworkUI().startConnection();
     }
 }
