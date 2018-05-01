@@ -25,9 +25,7 @@ public class NetworkUI extends SudokuDialog {
     /**
      * Default port number on which this server to be run.
      */
-    private static final int PORT1 = findFreePort();
-    private static final int PORT2 = findFreePort();
-//    int [][] share = history.getBoard().board;
+    private static final int PORT = findFreePort();
 
 
 
@@ -39,9 +37,6 @@ public class NetworkUI extends SudokuDialog {
         content.add(toolbar);
         content.add(numberButtons);
         content.revalidate();
-        makeNetworkOptions();
-        makeNetworkLog();
-        makeNetworkWindow();
     }
 
     /**
@@ -71,11 +66,9 @@ public class NetworkUI extends SudokuDialog {
     }
 
     private void networkDialog() {
-       // new Thread(() -> {
-            makeNetworkOptions();
-            makeNetworkLog();
-            makeNetworkWindow();
-       // }).run();
+        makeNetworkOptions();
+        makeNetworkLog();
+        makeNetworkWindow();
     }
 
 
@@ -92,7 +85,7 @@ public class NetworkUI extends SudokuDialog {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        portT = new JTextArea(String.valueOf(PORT1));
+        portT = new JTextArea(String.valueOf(PORT));
         JButton connectButton = new JButton("Connect");
         JButton test = new JButton("test");
         test.addActionListener(e -> testClicked());
@@ -195,6 +188,7 @@ public class NetworkUI extends SudokuDialog {
             logT.append("\n"+ipT.getText());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            onlineStatusUI();
         } catch (Exception e) {
             e.printStackTrace();
         }
