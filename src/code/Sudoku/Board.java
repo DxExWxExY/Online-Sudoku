@@ -16,6 +16,7 @@ class  Board implements Cloneable{
     private int[][] board;
     private boolean[][] valid;
     private boolean[][] mutable;
+    private boolean[][] modified;
 
     /**
      * Create a new board of the given size.
@@ -27,13 +28,15 @@ class  Board implements Cloneable{
         this.board = new int[size][size];
         this.valid = new boolean[size][size];
         this.mutable = new boolean[size][size];
+        this.modified = new boolean[size][size];
     }
 
-    private Board(int size, int[][] board, boolean[][] valid, boolean[][] mutable) {
+    private Board(int size, int[][] board, boolean[][] valid, boolean[][] mutable, boolean[][] modified) {
         this.size = size;
         this.board = arrayClone(board);
         this.valid = arrayClone(valid);
         this.mutable = arrayClone(mutable);
+        this.mutable = arrayClone(modified);
         this.wasSolved = false;
     }
 
@@ -43,7 +46,7 @@ class  Board implements Cloneable{
      * @return Returns a copy of a board object.
      */
     Board cloneBoard(){
-        return new Board(size,this.board,this.valid,this.mutable);
+        return new Board(size,this.board,this.valid,this.mutable,this.modified);
 
     }
 
@@ -286,6 +289,7 @@ class  Board implements Cloneable{
         this.board = new int[size][size];
         this.valid = new boolean[size][size];
         this.mutable = new boolean[size][size];
+        this.modified = new boolean[size][size];
 
     }
 
@@ -303,6 +307,13 @@ class  Board implements Cloneable{
      * */
     boolean getWasSolved(){
         return this.wasSolved;
+    }
+
+    /**
+     * Method Used to Transmit Information Over a Network Connection.
+     * */
+    public String getData(int row, int col) {
+        return row+"-"+col+"-"+board[row][col]+"-"+valid[row][col]+"-"+mutable[row][col]+"-"+mutable[row][col]+"END";
     }
 
     //useless

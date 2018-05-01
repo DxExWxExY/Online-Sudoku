@@ -44,7 +44,7 @@ class SudokuServer {
             logT.append("\nError: "+e);
         }
     }
-    public void kill() {
+    void kill() {
         service.kill();
     }
 }
