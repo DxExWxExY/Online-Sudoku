@@ -87,8 +87,6 @@ public class NetworkUI extends SudokuDialog {
         }
         portT = new JTextArea(String.valueOf(PORT));
         JButton connectButton = new JButton("Connect");
-        JButton test = new JButton("test");
-        test.addActionListener(e -> testClicked());
         connectButton.setFocusPainted(false);
         connectButton.addActionListener(e -> connectClicked());
 
@@ -96,7 +94,6 @@ public class NetworkUI extends SudokuDialog {
         config.add(ipT);
         config.add(portL);
         config.add(portT);
-        config.add(test);
         config.add(connectButton);
 
     }
@@ -190,18 +187,6 @@ public class NetworkUI extends SudokuDialog {
             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             onlineStatusUI();
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void testClicked() {
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            out.println("TEST");
-            out.flush();
-
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
