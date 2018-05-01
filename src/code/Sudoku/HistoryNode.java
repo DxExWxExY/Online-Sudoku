@@ -2,7 +2,7 @@ package code.Sudoku;
 
 /** Class used to implement undo's and redo's.
  * */
-class HistoryNode {
+public class HistoryNode {
     private HistoryNode next;
     private HistoryNode previous;
     private Board board;
@@ -52,7 +52,7 @@ class HistoryNode {
      *
      * @return Current Board instance.
      * */
-    Board getBoard() {
+    public Board getBoard() {
         return this.board;
     }
 

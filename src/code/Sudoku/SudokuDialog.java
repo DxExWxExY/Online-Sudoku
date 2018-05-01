@@ -21,23 +21,25 @@ public class SudokuDialog extends JFrame {
     /** Default dimension of the dialog. */
     private final static Dimension DEFAULT_SIZE = new Dimension(310, 450);
     private final static String IMAGE_DIR = "/image/";
-    final static Color BACKGROUND = new Color(47,76,76);
+    protected final static Color BACKGROUND = new Color(47,76,76);
+
 
     /** Sudoku history. */
-    private HistoryNode history;
+    public HistoryNode history;
 
     /** Special panel to display a Sudoku history. */
     private BoardPanel boardPanel;
 
     /** Message bar to display various messages. */
     private JLabel msgBar = new JLabel("");
-    private JPanel content = new JPanel();
-    private JPanel numberButtons;
+    protected JPanel content = new JPanel();
+    protected JPanel toolbar = new JPanel();
+    protected JPanel numberButtons;
 
     /**
      * Create a new dialog.
      */
-    private SudokuDialog() {
+    public SudokuDialog() {
         this(Toolkit.getDefaultToolkit().getScreenSize());
     }
 
@@ -48,13 +50,14 @@ public class SudokuDialog extends JFrame {
         super("Sudoku");
         setLocation(dim.width/2-155, dim.height/2-225);
         setSize(DEFAULT_SIZE);
-        initHistory(4);
+        initHistory();
         boardPanel = new BoardPanel(history.getBoard(), this::boardClicked);
         configureMenu();
         configureUI();
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
+
     }
 
     /**
@@ -63,7 +66,7 @@ public class SudokuDialog extends JFrame {
      * @param x 0-based row index of the clicked square.
      * @param y 0-based column index of the clicked square.
      */
-    private void boardClicked(int x, int y) {
+    protected void boardClicked(int x, int y) {
 //        System.out.println("boardClicked");
         boardPanel.sx = x;
         boardPanel.sy = y;
@@ -92,7 +95,6 @@ public class SudokuDialog extends JFrame {
                 history.setElement(boardPanel.sy, boardPanel.sx, number);
                 boardPanel.invalid = !history.isValid(boardPanel.sy, boardPanel.sx);
                 showMessage(String.format("Inserted Number %d", number));
-                solved();
             }
             boardPanel.setBoard(history.getBoard());
         }
@@ -115,7 +117,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Configure the UI.
      */
-    private void configureMenu() {
+    protected void configureMenu() {
         JMenu menu = new JMenu("Menu");
         JMenuBar mb = new JMenuBar();
         JMenuItem newGame, exit;
@@ -145,13 +147,13 @@ public class SudokuDialog extends JFrame {
                     null, options, options[2]);
             switch (n) {
                 case JOptionPane.YES_OPTION:
-                    initHistory(4);
+                    newHistory(4);
                     content.remove(numberButtons);
                     numberButtons = makeNumberButtons();
                     content.add(numberButtons);
                     break;
                 case JOptionPane.NO_OPTION:
-                    initHistory(9);
+                    newHistory(9);
                     content.remove(numberButtons);
                     numberButtons = makeNumberButtons();
                     content.add(numberButtons);
@@ -172,7 +174,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Configure the UI.
      */
-    private void configureUI() {
+    protected void configureUI() {
         setIconImage(Objects.requireNonNull(createImageIcon("sudoku.png")).getImage());
         setLayout(new BorderLayout());
         JPanel buttons = makeControlPanel();
@@ -197,7 +199,7 @@ public class SudokuDialog extends JFrame {
      * @param name String of the file name.
      * @param command Key event to be associated with the button.
      * */
-    private JButton makeOptionButtons(String name, int command) {
+    protected JButton makeOptionButtons(String name, int command) {
         JButton button = new JButton();
         button.setPreferredSize(new Dimension(35,35));
         button.setIcon(createImageIcon(name));
@@ -230,7 +232,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Create a control panel consisting of new and number buttons.
      */
-    private JPanel makeToolBar() {
+    protected JPanel makeToolBar() {
         JPanel toolBar = new JPanel();
         JButton undo, redo, solve, can;
         undo = makeOptionButtons("undo.png", KeyEvent.VK_Z);
@@ -255,8 +257,9 @@ public class SudokuDialog extends JFrame {
     private JPanel makeControlPanel() {
         // buttons labeled 1, 2, ..., 9, and X.
         numberButtons = makeNumberButtons();
+        toolbar = makeToolBar();
         content.setLayout(new BoxLayout(content, BoxLayout.PAGE_AXIS));
-        content.add(makeToolBar());
+        content.add(toolbar);
         content.add(numberButtons);
         content.setBackground(BACKGROUND);
         return content;
@@ -287,7 +290,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Create an image icon from the given image file.
      */
-    private ImageIcon createImageIcon(String name) {
+    protected ImageIcon createImageIcon(String name) {
         URL imageUrl = getClass().getResource(IMAGE_DIR + name);
         if (imageUrl != null) {
             return new ImageIcon(imageUrl);
@@ -311,15 +314,23 @@ public class SudokuDialog extends JFrame {
     /**
      * Method used to create a HistoryNode for undo and redo.
      * */
-    private void initHistory(int i) {
-        history = new HistoryNode(new Board(i));
+    protected void initHistory() {
+        history = new HistoryNode(new Board(4));
+        history.generateBoard();
+    }
+
+    /**
+     * Method called when a new game is created.
+     * */
+    private void newHistory(int size) {
+        history = new HistoryNode(new Board(size));
         history.generateBoard();
     }
 
     /**
      * Goes back to previous game state, essentially "undoing" a move if possible
      */
-    private void undo() {
+    protected void undo() {
         if(history.getPrevious() != null) {
             history = history.getPrevious();
             boardPanel.setBoard(history.getBoard());
@@ -331,7 +342,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Goes forward to next game state, essentially "redoing" a move if possible
      */
-    private void redo() {
+    protected void redo() {
         if(history.getNext() != null) {
             history = history.getNext();
             boardPanel.highlightSqr = false;
@@ -343,7 +354,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Method called when the solve button is pressed.
      * */
-    private void solve() {
+    protected void solve() {
         if (history.getBoard().isSolvable()) {
             createHistory();
             history.setWasSolved();
@@ -360,7 +371,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Method called when the can solve button is called.
      * */
-    private void isSolvable() {
+    protected void isSolvable() {
         if (!history.getBoard().isSolved()) {
             if (history.getBoard().isSolvable()) {
                 JOptionPane.showMessageDialog(null, "This board CAN be solved.", "Can It Be Solved?", JOptionPane.INFORMATION_MESSAGE);
@@ -368,31 +379,5 @@ public class SudokuDialog extends JFrame {
                 JOptionPane.showMessageDialog(null, "This board CANNOT be solved.", "Can It Be Solved?", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-    }
-
-    /**
-     * This method checks if all the numbers in the matrix meet the game rules.
-     * If so, prompts the user to start a new game or to quit.
-     */
-    private void solved() {
-        if (history.getBoard().isSolved() && !history.getBoard().getWasSolved()) {
-            boardPanel.win = true;
-            boardPanel.playSound();
-            Object[] options = {"New Game", "Exit"};
-            int solved = JOptionPane.showOptionDialog(null, "You Won!",
-                    "Congratulations", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                    null, options, options[1]);
-            if (solved == JOptionPane.YES_OPTION) {
-                initHistory(history.getBoard().size());
-                boardPanel.setBoard(history.getBoard());
-                boardPanel.repaint();
-            }
-            else {
-                System.exit(0);
-            }
-        }
-    }
-    public static void main(String[] args) {
-        new SudokuDialog();
     }
 }
