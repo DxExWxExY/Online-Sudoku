@@ -21,49 +21,56 @@ import java.util.Arrays;
  */
 class SudokuServer {
 
-    /** Default port number on which this server to be run. */
+    /**
+     * Default port number on which this server to be run.
+     */
     private int PORT_NUMBER;
     private ClientHandler service;
 
-    /** Create a new server. */
+    /**
+     * Create a new server.
+     */
     SudokuServer(JTextArea logT, int port) {
         this.PORT_NUMBER = port;
         start(logT);
     }
 
-    /** Start the server. */
+    /**
+     * Start the server.
+     */
     private void start(JTextArea logT) {
         logT.append("\nSudoku Server on " + PORT_NUMBER + ".");
         try {
             ServerSocket s = new ServerSocket(PORT_NUMBER);
-            for (;;) {
+            for (; ; ) {
                 Socket incoming = s.accept();
 
-   NetworkAdapter network = new NetworkAdapter(incoming);
-   network.setMessageListener(new NetworkAdapter.MessageListener() {
-       public void messageReceived(NetworkAdapter.MessageType type, int x, int y, int z, int[] others) {
-           System.out.println("type: " + type + " x: " + x + " y: " + y + " z: " + z + " others: " + Arrays.toString(others));
-           switch (type) {
-           case JOIN:
-           case JOIN_ACK:  // x (response), y (size), others (board)
-           case NEW:     // x (size), others (board)
-           case NEW_ACK:   // x (response)
-           case FILL:
-               System.out.println("poner nuevo numero");
-               break;// x (x), y (y), z (number)
-           case FILL_ACK:  // x (x), y (y), z (number)
-           case QUIT:
+                NetworkAdapter network = new NetworkAdapter(incoming);
+                network.setMessageListener(new NetworkAdapter.MessageListener() {
+                    public void messageReceived(NetworkAdapter.MessageType type, int x, int y, int z, int[] others) {
+                        System.out.println("type: " + type + " x: " + x + " y: " + y + " z: " + z + " others: " + Arrays.toString(others));
+                        switch (type) {
+                            case JOIN:
+                            case JOIN_ACK:  // x (response), y (size), others (board)
+                            case NEW:     // x (size), others (board)
+                            case NEW_ACK:   // x (response)
+                            case FILL:
+                                //history.setData()
+                                break;// x (x), y (y), z (number)
+                            case FILL_ACK:  // x (x), y (y), z (number)
+                            case QUIT:
 
-         }
-       }
-     });
-   network.receiveMessages();
+                        }
+                    }
+                });
+                network.receiveMessages();
 
             }
         } catch (Exception e) {
-            logT.append("\nError: "+e);
+            logT.append("\nError: " + e);
         }
     }
+
     public void kill() {
         service.kill();
     }

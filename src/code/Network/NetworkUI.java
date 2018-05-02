@@ -26,6 +26,8 @@ public class NetworkUI extends SudokuDialog {
     private Socket socket;
     private JTextArea ipT, portT, logT = new JTextArea("Network Log",20,10);
     private SudokuServer server;
+    //--------------------
+
 
 
     private NetworkUI() {
@@ -36,7 +38,8 @@ public class NetworkUI extends SudokuDialog {
         content.add(toolbar);
         content.add(numberButtons);
         content.revalidate();
-        server = new SudokuServer(logT, PORT);
+        //server = new SudokuServer(logT, PORT);
+        Socket socket = new Socket();
     }
 
     /**
