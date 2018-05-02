@@ -40,6 +40,8 @@ class ClientHandler extends Thread {
                     } else {
                         logT.append("\nReceived: " + msg);
                         data.setData(msg);
+                        out.println("Got It");
+                        out.println(msg);
                     }
                 }
             }

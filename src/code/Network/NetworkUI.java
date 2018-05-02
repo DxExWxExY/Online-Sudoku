@@ -256,6 +256,16 @@ public class NetworkUI extends SudokuDialog {
                 out.println(history.getData(i,i));
                 out.flush();
             }
+            while (true){
+                String line = in.readLine();
+                if (line == null) {
+                    break;
+                }
+                else  {
+                    out.println("GOT IT!");
+                    history.setData(line);
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
