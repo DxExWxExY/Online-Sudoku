@@ -3,6 +3,7 @@ package code.Network;
 import javax.swing.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 
 /**
@@ -37,8 +38,27 @@ class SudokuServer {
             ServerSocket s = new ServerSocket(PORT_NUMBER);
             for (;;) {
                 Socket incoming = s.accept();
-                service = new ClientHandler(incoming,logT);
-                service.start();
+
+   NetworkAdapter network = new NetworkAdapter(incoming);
+   network.setMessageListener(new NetworkAdapter.MessageListener() {
+       public void messageReceived(NetworkAdapter.MessageType type, int x, int y, int z, int[] others) {
+           System.out.println("type: " + type + " x: " + x + " y: " + y + " z: " + z + " others: " + Arrays.toString(others));
+           switch (type) {
+           case JOIN:
+           case JOIN_ACK:  // x (response), y (size), others (board)
+           case NEW:     // x (size), others (board)
+           case NEW_ACK:   // x (response)
+           case FILL:
+               System.out.println("poner nuevo numero");
+               break;// x (x), y (y), z (number)
+           case FILL_ACK:  // x (x), y (y), z (number)
+           case QUIT:
+
+         }
+       }
+     });
+   network.receiveMessages();
+
             }
         } catch (Exception e) {
             logT.append("\nError: "+e);

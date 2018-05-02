@@ -19,7 +19,7 @@ import javax.swing.*;
 public class SudokuDialog extends JFrame {
 
     /** Default dimension of the dialog. */
-    private final static Dimension DEFAULT_SIZE = new Dimension(310, 450);
+    protected final static Dimension DEFAULT_SIZE = new Dimension(310, 450);
     private final static String IMAGE_DIR = "/image/";
     protected final static Color BACKGROUND = new Color(47,76,76);
 
@@ -28,7 +28,7 @@ public class SudokuDialog extends JFrame {
     public HistoryNode history;
 
     /** Special panel to display a Sudoku history. */
-    private BoardPanel boardPanel;
+    protected BoardPanel boardPanel;
 
     /** Message bar to display various messages. */
     private JLabel msgBar = new JLabel("");
@@ -303,7 +303,7 @@ public class SudokuDialog extends JFrame {
      * Creates history for undo and redo functions of Sudoku game
      *
      */
-    private void createHistory() {
+    public void createHistory() {
         try {
             history.setNext(new HistoryNode(history.getBoard().clone(), history));
         } catch (CloneNotSupportedException e) {
@@ -315,7 +315,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Method used to create a HistoryNode for undo and redo.
      * */
-    protected void initHistory() {
+    public void initHistory() {
         history = new HistoryNode(new Board(4));
         history.generateBoard();
     }
@@ -323,7 +323,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Method called when a new game is created.
      * */
-    private void newHistory(int size) {
+    public void newHistory(int size) {
         history = new HistoryNode(new Board(size));
         history.generateBoard();
     }
@@ -331,7 +331,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Goes back to previous game state, essentially "undoing" a move if possible
      */
-    protected void undo() {
+    public void undo() {
         if(history.getPrevious() != null) {
             history = history.getPrevious();
             boardPanel.setBoard(history.getBoard());
@@ -343,7 +343,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Goes forward to next game state, essentially "redoing" a move if possible
      */
-    protected void redo() {
+    public void redo() {
         if(history.getNext() != null) {
             history = history.getNext();
             boardPanel.highlightSqr = false;
@@ -355,7 +355,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Method called when the solve button is pressed.
      * */
-    protected void solve() {
+    public void solve() {
         if (history.getBoard().isSolvable()) {
             createHistory();
             history.setWasSolved();
@@ -372,7 +372,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Method called when the can solve button is called.
      * */
-    protected void isSolvable() {
+    public void isSolvable() {
         if (!history.getBoard().isSolved()) {
             if (history.getBoard().isSolvable()) {
                 JOptionPane.showMessageDialog(null, "This board CAN be solved.", "Can It Be Solved?", JOptionPane.INFORMATION_MESSAGE);

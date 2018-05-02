@@ -180,7 +180,7 @@ public class NetworkUI extends SudokuDialog {
     /** Callback to be called when the connect button is clicked. */
     private void connectClicked(){
         try {
-            server.kill();
+//            server.kill();
             socket = new Socket(ipT.getText(), Integer.parseInt(portT.getText()));
             logT.append("\n"+ipT.getText());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -192,6 +192,7 @@ public class NetworkUI extends SudokuDialog {
     }
 
     private void testClicked() {
+
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -204,6 +205,7 @@ public class NetworkUI extends SudokuDialog {
     }
 
     public static void main(String[] args) {
+        new NetworkUI();
         new NetworkUI();
     }
 }

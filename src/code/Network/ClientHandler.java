@@ -6,7 +6,7 @@ import java.net.Socket;
 
 /** A thread to serve a client. This class receive messages from a
  * client and broadcasts them to all clients including the message
- * sender. */
+// * sender. */
 class ClientHandler extends Thread {
 
     /** Socket to read client messages. */
