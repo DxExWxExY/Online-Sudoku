@@ -16,7 +16,6 @@ class  Board implements Cloneable{
     private int[][] board;
     private boolean[][] valid;
     private boolean[][] mutable;
-    private boolean[][] modified;
 
     /**
      * Create a new board of the given size.
@@ -28,15 +27,13 @@ class  Board implements Cloneable{
         this.board = new int[size][size];
         this.valid = new boolean[size][size];
         this.mutable = new boolean[size][size];
-        this.modified = new boolean[size][size];
     }
 
-    private Board(int size, int[][] board, boolean[][] valid, boolean[][] mutable, boolean[][] modified) {
+    private Board(int size, int[][] board, boolean[][] valid, boolean[][] mutable) {
         this.size = size;
         this.board = arrayClone(board);
         this.valid = arrayClone(valid);
         this.mutable = arrayClone(mutable);
-        this.mutable = arrayClone(modified);
         this.wasSolved = false;
     }
 
@@ -46,7 +43,7 @@ class  Board implements Cloneable{
      * @return Returns a copy of a board object.
      */
     Board cloneBoard(){
-        return new Board(size,this.board,this.valid,this.mutable,this.modified);
+        return new Board(size,this.board,this.valid,this.mutable);
 
     }
 
@@ -289,7 +286,6 @@ class  Board implements Cloneable{
         this.board = new int[size][size];
         this.valid = new boolean[size][size];
         this.mutable = new boolean[size][size];
-        this.modified = new boolean[size][size];
 
     }
 
@@ -312,12 +308,24 @@ class  Board implements Cloneable{
     /**
      * Method Used to Transmit Information Over a Network Connection.
      * */
-    public String getData(int row, int col) {
-        return row+"-"+col+"-"+board[row][col]+"-"+valid[row][col]+"-"+mutable[row][col]+"-"+mutable[row][col]+"END";
+    String getData(int row, int col) {
+        String data = String.valueOf(row)+String.valueOf(2);
+        data += "1";//String.valueOf(board[row][col]);
+        data += valid[row][col] ? "t" : "f";
+        data += mutable[row][col] ? "t" : "f";
+        return data;
+    }
+
+    void setData(String data) {
+        int i = Character.getNumericValue(data.charAt(0));
+        int j = Character.getNumericValue(data.charAt(1));
+        board[i][j] = Character.getNumericValue(data.charAt(2));
+        valid[i][j] = data.charAt(3) == 't';
+        mutable[i][j] = data.charAt(4) == 't';
     }
 
     //useless
-    void print(String msg) {
+    public void print(String msg) {
         System.out.println("==== "+msg+" ====");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {

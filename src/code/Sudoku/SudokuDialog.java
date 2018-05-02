@@ -28,10 +28,9 @@ public class SudokuDialog extends JFrame {
     public HistoryNode history;
 
     /** Special panel to display a Sudoku history. */
-    private BoardPanel boardPanel;
+    public BoardPanel boardPanel;
 
     /** Message bar to display various messages. */
-    private JLabel msgBar = new JLabel("");
     protected JPanel content = new JPanel();
     protected JPanel toolbar = new JPanel();
     protected JPanel numberButtons;
@@ -76,7 +75,6 @@ public class SudokuDialog extends JFrame {
         content.add(numberButtons);
         content.revalidate();
         boardPanel.repaint();
-        showMessage(String.format("Board clicked: x = %d, y = %d", x, y));
     }
 
     /**
@@ -89,12 +87,10 @@ public class SudokuDialog extends JFrame {
             createHistory();
             if (number == 0) {
                 history.deleteElement(boardPanel.sy, boardPanel.sx);
-                showMessage("Number Deleted");
             }
             else {
                 history.setElement(boardPanel.sy, boardPanel.sx, number);
                 boardPanel.invalid = !history.isValid(boardPanel.sy, boardPanel.sx);
-                showMessage(String.format("Inserted Number %d", number));
             }
             boardPanel.setBoard(history.getBoard());
         }
@@ -104,15 +100,6 @@ public class SudokuDialog extends JFrame {
         boardPanel.highlightSqr = false;
         boardPanel.repaint();
         solved();
-    }
-
-    /**
-     * Display the given string in the message bar.
-     *
-     * @param msg Message to be displayed.
-     */
-    private void showMessage(String msg) {
-        msgBar.setText(msg);
     }
 
     /**
@@ -189,8 +176,6 @@ public class SudokuDialog extends JFrame {
         history.add(boardPanel);
         history.setBackground(BACKGROUND);
         add(history, BorderLayout.CENTER);
-        msgBar.setBorder(BorderFactory.createEmptyBorder(10, 16, 10, 0));
-        msgBar.setBackground(BACKGROUND);
         //add(msgBar, BorderLayout.SOUTH);
     }
 
@@ -269,7 +254,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Method in charge of creating the number buttons.
      * */
-    private JPanel makeNumberButtons() {
+    protected JPanel makeNumberButtons() {
         JPanel numberButtons = new JPanel(new FlowLayout());
         int maxNumber = history.size() + 1;
         for (int i = 1; i <= maxNumber; i++) {
@@ -323,7 +308,7 @@ public class SudokuDialog extends JFrame {
     /**
      * Method called when a new game is created.
      * */
-    private void newHistory(int size) {
+    protected void newHistory(int size) {
         history = new HistoryNode(new Board(size));
         history.generateBoard();
     }

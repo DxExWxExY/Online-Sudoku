@@ -24,19 +24,14 @@ public class NetworkUI extends SudokuDialog {
      */
     private static final int PORT = findFreePort();
     private Socket socket;
-    private JTextArea ipT, portT, logT = new JTextArea("Network Log",20,10);
-    private SudokuServer server;
+    private JTextArea data, ipT, portT, logT = new JTextArea("Network Log",20,10);
+    public SudokuServer server;
 
 
     private NetworkUI() {
         super();
-        content.remove(toolbar);
-        content.remove(numberButtons);
-        toolbar = makeToolBar();
-        content.add(toolbar);
-        content.add(numberButtons);
-        content.revalidate();
-        server = new SudokuServer(logT, PORT);
+        data = new JTextArea();
+        server = new SudokuServer(logT, history, PORT);
     }
 
     /**
@@ -63,6 +58,73 @@ public class NetworkUI extends SudokuDialog {
         toolBar.add(connect);
         toolBar.setBackground(BACKGROUND);
         return toolBar;
+    }
+
+    /**
+     * Configure the UI.
+     */
+    @Override
+    protected void configureMenu() {
+        JMenu menu = new JMenu("Menu");
+        JMenuBar mb = new JMenuBar();
+        JMenuItem newGame, exit, settings;
+        setJMenuBar(mb);
+        /*Menu Items Declaration*/
+        newGame = new JMenuItem("New Game",KeyEvent.VK_N);
+        exit = new JMenuItem("Exit",KeyEvent.VK_Q);
+        settings = new JMenuItem("Network", KeyEvent.VK_O);
+        /*Menu Accelerators*/
+        newGame.setAccelerator(KeyStroke.getKeyStroke("alt A"));
+        exit.setAccelerator(KeyStroke.getKeyStroke("alt E"));
+        settings.setAccelerator(KeyStroke.getKeyStroke("alt O"));
+        /*Menu Items Icons*/
+        newGame.setIcon(createImageIcon("new.png"));
+        exit.setIcon(createImageIcon("exit.png"));
+        settings.setIcon(createImageIcon("net.png"));
+
+        menu.add(newGame);
+        menu.add(exit);
+        menu.add(settings);
+        menu.setMnemonic(KeyEvent.VK_B);
+        mb.add(menu);
+        setJMenuBar(mb);
+        setLayout(null);
+        setVisible(true);
+        /*Menu Items Listeners*/
+        newGame.addActionListener(e -> {
+            Object[] options = {"4x4", "9x9", "Exit"};
+            int n = JOptionPane.showOptionDialog(null, "Select a Sudoku Size",
+                    "New Game", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                    null, options, options[2]);
+            switch (n) {
+                case JOptionPane.YES_OPTION:
+                    super.newHistory(4);
+                    content.remove(numberButtons);
+                    numberButtons = super.makeNumberButtons();
+                    content.add(numberButtons);
+                    System.out.println(history.getData(0,0));
+                    // TODO: 5/1/2018 BUG HERE
+                    server.setBoard(history);
+                    System.out.println("zxcvbnm");
+                    break;
+                case JOptionPane.NO_OPTION:
+                    super.newHistory(9);
+                    content.remove(numberButtons);
+                    numberButtons = super.makeNumberButtons();
+                    content.add(numberButtons);
+                    break;
+                case JOptionPane.CANCEL_OPTION:
+                    System.exit(0);
+                    break;
+            }
+            boardPanel.reset = true;
+            boardPanel.setBoard(history.getBoard());
+            history.generateBoard();
+            content.revalidate();
+            repaint();
+        });
+        exit.addActionListener(e -> System.exit(0));
+        settings.addActionListener(e -> networkDialog());
     }
 
     private void networkDialog() {
@@ -157,7 +219,7 @@ public class NetworkUI extends SudokuDialog {
                     null, options, options[1]);
             switch (n) {
                 case JOptionPane.YES_OPTION:
-                    //connection.interrupt();
+                    server.start();
                     try {
                         socket.close();
                         toolbar.remove(connect);
@@ -180,13 +242,13 @@ public class NetworkUI extends SudokuDialog {
     /** Callback to be called when the connect button is clicked. */
     private void connectClicked(){
         try {
-            server.kill();
             socket = new Socket(ipT.getText(), Integer.parseInt(portT.getText()));
-            logT.append("\n"+ipT.getText());
+            logT.append("\nConnected to "+ipT.getText());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             onlineStatusUI();
         } catch (Exception e) {
+            e.printStackTrace();
             logT.append("\nError: "+e);
         }
     }
@@ -195,9 +257,10 @@ public class NetworkUI extends SudokuDialog {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            out.println("TEST");
-            out.flush();
-
+            for (int i = 0; i < 4; i++) {
+                out.println(history.getData(i,0));
+                out.flush();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

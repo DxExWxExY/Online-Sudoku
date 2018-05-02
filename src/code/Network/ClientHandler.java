@@ -1,5 +1,7 @@
 package code.Network;
 
+import code.Sudoku.HistoryNode;
+
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
@@ -12,12 +14,14 @@ class ClientHandler extends Thread {
     /** Socket to read client messages. */
     private Socket incoming;
     private JTextArea logT;
+    private HistoryNode data;
 
 
     /** Create a handler to serve the client on the given socket. */
-    ClientHandler(Socket incoming, JTextArea logT) {
+    ClientHandler(Socket incoming, HistoryNode data, JTextArea logT) {
         this.incoming = incoming;
         this.logT = logT;
+        this.data = data;
     }
 
     /** Start receiving and broadcasting messages. */
@@ -35,20 +39,18 @@ class ClientHandler extends Thread {
 
                     } else {
                         logT.append("\nReceived: " + msg);
+                        data.setData(msg);
                     }
                 }
             }
             incoming.close();
         } catch (Exception e) {
+            e.printStackTrace();
             logT.append("\nError: "+e);
         }
     }
 
-    void kill() {
-        try {
-            incoming.close();
-        } catch (IOException e) {
-            logT.append("\nError: "+e);
-        }
+    void setBoard(HistoryNode board) {
+        this.data = board;
     }
 }

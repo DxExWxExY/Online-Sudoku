@@ -122,7 +122,7 @@ public class HistoryNode {
      * Board Instance bypass
      * @see Board
      * */
-    void generateBoard() {
+    public void generateBoard() {
         board.generateBoard();
     }
 
@@ -136,5 +136,13 @@ public class HistoryNode {
 
     void setWasSolved() {
         board.setWasSolved();
+    }
+
+    public String getData(int i, int j) {
+        return board.getData(i, j);
+    }
+
+    public void setData(String data) {
+        board.setData(data);
     }
 }
