@@ -1,9 +1,11 @@
 package code.Network;
 
+import code.Sudoku.HistoryNode;
+
 import javax.swing.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 
 
 /**
@@ -21,57 +23,50 @@ import java.util.Arrays;
  */
 class SudokuServer {
 
-    /**
-     * Default port number on which this server to be run.
-     */
+    /** Default port number on which this server to be run. */
     private int PORT_NUMBER;
     private ClientHandler service;
+    private JTextArea logT;
+    private HistoryNode data;
+    private ServerSocket s;
+    Socket incoming;
 
-    /**
-     * Create a new server.
-     */
-    SudokuServer(JTextArea logT, int port) {
+    /** Create a new server. */
+    SudokuServer(JTextArea logT, HistoryNode data, int port) {
+        this.logT = logT;
         this.PORT_NUMBER = port;
-        start(logT);
+        this.data = data;
+        start();
     }
 
-    /**
-     * Start the server.
-     */
-    private void start(JTextArea logT) {
+    /** Start the server. */
+    void start() {
         logT.append("\nSudoku Server on " + PORT_NUMBER + ".");
         try {
-            ServerSocket s = new ServerSocket(PORT_NUMBER);
-            for (; ; ) {
-                Socket incoming = s.accept();
-
-                NetworkAdapter network = new NetworkAdapter(incoming);
-                network.setMessageListener(new NetworkAdapter.MessageListener() {
-                    public void messageReceived(NetworkAdapter.MessageType type, int x, int y, int z, int[] others) {
-                        System.out.println("type: " + type + " x: " + x + " y: " + y + " z: " + z + " others: " + Arrays.toString(others));
-                        switch (type) {
-                            case JOIN:
-                            case JOIN_ACK:  // x (response), y (size), others (board)
-                            case NEW:     // x (size), others (board)
-                            case NEW_ACK:   // x (response)
-                            case FILL:
-                                //history.setData()
-                                break;// x (x), y (y), z (number)
-                            case FILL_ACK:  // x (x), y (y), z (number)
-                            case QUIT:
-
-                        }
-                    }
-                });
-                network.receiveMessages();
-
+            s = new ServerSocket(PORT_NUMBER);
+            for (;;) {
+                incoming = s.accept();
+                service = new ClientHandler(incoming, data, logT);
+                service.start();
             }
         } catch (Exception e) {
-            logT.append("\nError: " + e);
+            e.printStackTrace();
+            logT.append("\nError: "+e);
         }
     }
 
-    public void kill() {
-        service.kill();
+    void close() {
+        try {
+            s.close();
+            incoming.close();
+            service.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(HistoryNode hist) {
+        this.data = hist;
+        service.update(hist);
     }
 }

@@ -1,12 +1,13 @@
 package code.Sudoku;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.InputStream;
-import javax.swing.*;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 
 
 /**
@@ -18,30 +19,24 @@ import sun.audio.AudioStream;
  * @author Yoonsik Cheon
  */
 @SuppressWarnings("serial")
-public class BoardPanel extends JPanel{
+public class BoardPanel extends JPanel implements HistoryEnabler{
 
-    /**
-     * Background color of the board.
-     */
+
     private static Color boardColor = new Color(70, 70, 70);
 
-    /**
-     * Board to be displayed.
-     */
-    private Board board;
+    private HistoryNode hPointer;
     private int squareSize, hx, hy;
-    boolean win;
-    private boolean hover;
+    private boolean hover, reset, invalid, win;
     int sx, sy;
-    boolean highlightSqr, invalid, reset;
+    boolean highlightSqr;
 
 
     /**
-     * Create a new board panel to display the given board.
+     * Constructor given a mouse click listener
+     * @param listener Determines whether the board panel was clicked
      */
-    BoardPanel(Board board, ClickListener listener) {
-//        System.out.println("BoardPanel");
-        this.board = board;
+    BoardPanel(ClickListener listener) {
+        hPointer = history;
         addMouseMotionListener(new MouseAdapter() {
             /**
              * {@inheritDoc}
@@ -91,48 +86,66 @@ public class BoardPanel extends JPanel{
     }
 
     /**
-     * Set the board to be displayed.
-     *
-     * @param board Receives an object of type Board.
-     * @see Board
+     * Resets the HistoryNode pointer and sets a sound flag
      */
-    void setBoard(Board board) {
-//        System.out.println("setBoard");
-        this.board = board;
+    public void reset() {
+        reset = true;
+        playSound();
+        resetPointer();
     }
 
     /**
-     * Given a screen coordinate, return the indexes of the corresponding square
-     * or -1 if there is no square.
-     * The indexes are encoded and returned as x*100 + y,
-     * where x and y are 0-based column/row indexes.
+     * Setter for this.invalid
+     * @param value value to set this.invalid to
      */
-    private int locateSquare(int x, int y) {
-//        System.out.println("locateSquare");
-        if (x < 0 || x > board.size() * squareSize
-                || y < 0 || y > board.size() * squareSize) {
-            return -1;
-        }
-        int xx = x / squareSize;
-        int yy = y / squareSize;
-        return xx * 100 + yy;
+    public void setInvalid(boolean value) {
+        invalid = value;
     }
+
+    /**
+     * Setter for this.highlightSqr
+     * @param value value to set this.highlightSqr to
+     */
+    public void setHighlightSqr(boolean value) {highlightSqr = value; }
+
+    /**
+     * Setter for this.win
+     * @value value to set this.win to
+     */
+    public void setWin(boolean value) {
+        win = value;
+    }
+    /**
+     * Getter for sx
+     * @return this.sx
+     */
+    public int getSx() {
+        return this.sx;
+    }
+
+    /**
+     * Getter for sy
+     * @return this.sy
+     */
+    public int getSy() { return this.sy; }
 
     /**
      * Draw the associated board.
      */
     @Override
     public void paint(Graphics g) {
-//        System.out.println("paint");
         super.paint(g);
-        // determine the square size
+
+        /* Determine the square size */
         Dimension dim = getSize();
-        squareSize = Math.min(dim.width, dim.height) / board.size();
-        // draw background
+        squareSize = Math.min(dim.width, dim.height) / hPointer.getBoard().getSize();
+
+        /* Draw the background */
         g.setColor(boardColor);
-        g.fillRect(0, 0, squareSize * board.size(), squareSize * board.size());
-        // WRITE YOUR CODE HERE ...
+        g.fillRect(0, 0, squareSize * hPointer.getBoard().getSize(), squareSize * hPointer.getBoard().getSize());
         setBackground(SudokuDialog.BACKGROUND);
+
+        /* Draw changes in board */
         playSound();
         highlightInvalid(g);
         highlightHovered(g);
@@ -140,87 +153,6 @@ public class BoardPanel extends JPanel{
         drawNumbers(g);
         insideLines(g);
         outsideBox(g);
-    }
-
-    /**
-     * This method draws the numbers in the matrix, the color
-     * depends whether it was a valid entry or not.
-     *
-     * @param g This method receives the Graphics class to draw the numbers.
-     */
-    private void drawNumbers(Graphics g) {
-        for (int i = 0; i < board.size(); i++) {
-            for (int j = 0; j < board.size(); j++) {
-                //if the number in the matrix are not 0's
-                if (board.getElement(i, j) != 0) {
-                    //if valid
-                    if (board.isValid(i, j)) {
-                        g.setColor(Color.WHITE);
-                        g.drawString(String.valueOf(board.getElement(i, j)), (j * squareSize) + (squareSize / 2 - 3), (i * squareSize) + (squareSize / 2 + 4));
-                    }
-                    //if not valid
-                    else if (!board.isValid(i, j)) {
-                        g.setColor(Color.BLACK);
-                        g.drawString(String.valueOf(board.getElement(i, j)), (j * squareSize) + (squareSize / 2 - 3), (i * squareSize) + (squareSize / 2 + 4));
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * This method highlights a number background if the entry was invalid.
-     *
-     * @param g This method receives the Graphics class in order to draw the square.
-     */
-    private void highlightInvalid(Graphics g) {
-        for (int i = 0; i < board.size(); i++) {
-            for (int j = 0; j < board.size(); j++) {
-                if (!board.isValid(i, j) && board.getElement(i, j) != 0) {
-                    g.setColor(Color.WHITE);
-                    g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
-                } else if (!board.isMutable(i, j)) {
-                    g.setColor(Color.DARK_GRAY);
-                    g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
-                }
-            }
-        }
-    }
-
-    /**
-     * This method draw the outside lines to define the sub-grid of the board
-     *
-     * @param g This method receives the Graphics class in order to draw the lines
-     */
-    private void outsideBox(Graphics g) {
-//        System.out.println("outsideBox");
-        g.setColor(Color.BLACK);
-        g.drawLine(0, 0, squareSize * board.size(), 0);             //top line
-        g.drawLine(0, 0, 0, squareSize * board.size());             //left line
-        g.drawLine(0, squareSize * board.size(), squareSize * board.size(), squareSize * board.size()); //bottom line
-        g.drawLine(squareSize * board.size(), 0, squareSize * board.size(), squareSize * board.size()); //right line
-        /*this draw the grid in the rectangle*/
-        for (int i = 0; i < 276; i++) {
-            if ((i % (squareSize * Math.sqrt(board.size())) == 0)) {
-                g.drawLine(i, 0, i, squareSize * board.size());
-                g.drawLine(0, i, squareSize * board.size(), i); //bottom line
-            }
-        }
-    }
-
-    /**
-     * This method draw the inside lines to define the total rows and columns of the board
-     *
-     * @param g method receives the Graphics class in order to draw the lines
-     */
-    private void insideLines(Graphics g) {
-//        System.out.println("insideLines");
-        g.setColor(Color.GRAY);
-        for (int i = 0; i < 276; i = i + squareSize) {
-            g.drawLine(i, 0, i, squareSize * board.size());
-            g.drawLine(0, i, squareSize * board.size(), i); //bottom line
-
-        }
     }
 
     /**
@@ -253,6 +185,105 @@ public class BoardPanel extends JPanel{
         }
     }
 
+    void isValidMove() {
+        invalid = !hPointer.isValid(sy, sx);
+    }
+
+    /**
+     * Given a screen coordinate, return the indexes of the corresponding square
+     * or -1 if there is no square.
+     * The indexes are encoded and returned as x*100 + y,
+     * where x and y are 0-based column/row indexes.
+     */
+    private int locateSquare(int x, int y) {
+        if (x < 0 || x > hPointer.getBoard().getSize() * squareSize
+                || y < 0 || y > hPointer.getBoard().getSize() * squareSize) {
+            return -1;
+        }
+        int xx = x / squareSize;
+        int yy = y / squareSize;
+        return xx * 100 + yy;
+    }
+
+    /**
+     * This method draws the numbers in the matrix, the color
+     * depends whether it was a valid entry or not.
+     *
+     * @param g This method receives the Graphics class to draw the numbers.
+     */
+    private void drawNumbers(Graphics g) {
+        for (int i = 0; i < hPointer.getBoard().getSize(); i++) {
+            for (int j = 0; j < hPointer.getBoard().getSize(); j++) {
+                //if the number in the matrix are not 0's
+                if (hPointer.getBoard().getElement(i, j) != 0) {
+                    //if valid
+                    if (hPointer.getBoard().isValid(i, j)) {
+                        g.setColor(Color.WHITE);
+                        g.drawString(String.valueOf(hPointer.getBoard().getElement(i, j)), (j * squareSize) + (squareSize / 2 - 3), (i * squareSize) + (squareSize / 2 + 4));
+                    }
+                    //if not valid
+                    else if (!hPointer.getBoard().isValid(i, j)) {
+                        g.setColor(Color.BLACK);
+                        g.drawString(String.valueOf(hPointer.getBoard().getElement(i, j)), (j * squareSize) + (squareSize / 2 - 3), (i * squareSize) + (squareSize / 2 + 4));
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * This method highlights a number background if the entry was invalid.
+     *
+     * @param g This method receives the Graphics class in order to draw the square.
+     */
+    private void highlightInvalid(Graphics g) {
+        for (int i = 0; i < hPointer.getBoard().getSize(); i++) {
+            for (int j = 0; j < hPointer.getBoard().getSize(); j++) {
+                if (!hPointer.getBoard().isValid(i, j) && hPointer.getBoard().getElement(i, j) != 0) {
+                    g.setColor(Color.WHITE);
+                    g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
+                } else if (!hPointer.getBoard().isMutable(i, j)) {
+                    g.setColor(Color.DARK_GRAY);
+                    g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
+                }
+            }
+        }
+    }
+
+    /**
+     * This method draws the outside lines to define the sub-grid of the board
+     *
+     * @param g This method receives the Graphics class in order to draw the lines
+     */
+    private void outsideBox(Graphics g) {
+        g.setColor(Color.BLACK);
+        g.drawLine(0, 0, squareSize * hPointer.getBoard().getSize(), 0);             //top line
+        g.drawLine(0, 0, 0, squareSize * hPointer.getBoard().getSize());             //left line
+        g.drawLine(0, squareSize * hPointer.getBoard().getSize(), squareSize * hPointer.getBoard().getSize(), squareSize * hPointer.getBoard().getSize()); //bottom line
+        g.drawLine(squareSize * hPointer.getBoard().getSize(), 0, squareSize * hPointer.getBoard().getSize(), squareSize * hPointer.getBoard().getSize()); //right line
+        /*this draw the grid in the rectangle*/
+        for (int i = 0; i < 276; i++) {
+            if ((i % (squareSize * Math.sqrt(hPointer.getBoard().getSize())) == 0)) {
+                g.drawLine(i, 0, i, squareSize * hPointer.getBoard().getSize());
+                g.drawLine(0, i, squareSize * hPointer.getBoard().getSize(), i); //bottom line
+            }
+        }
+    }
+
+    /**
+     * This method draw the inside lines to define the total rows and columns of the board
+     *
+     * @param g method receives the Graphics class in order to draw the lines
+     */
+    private void insideLines(Graphics g) {
+        g.setColor(Color.GRAY);
+        for (int i = 0; i < 276; i = i + squareSize) {
+            g.drawLine(i, 0, i, squareSize * hPointer.getBoard().getSize());
+            g.drawLine(0, i, squareSize * hPointer.getBoard().getSize(), i); //bottom line
+
+        }
+    }
+
     /**
      * This method paints the pixels of the square selected in the board.
      *
@@ -277,4 +308,17 @@ public class BoardPanel extends JPanel{
         }
     }
 
+    /* HistoryEnabler contract methods */
+
+    public void resetPointer() {
+        hPointer = history;
+    }
+
+    public void movePointerBackward() {
+        hPointer = hPointer.getPrevious();
+    }
+
+    public void movePointerForward() {
+        hPointer = hPointer.getNext();
+    }
 }
