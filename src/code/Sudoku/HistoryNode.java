@@ -25,13 +25,13 @@ public class HistoryNode {
         this.previous = null;
     }
 
-    void newGame(int size) {
+    public void newGame(int size) {
         board = new Board(size);
         this.next = null;
         this.previous = null;
     }
 
-    void newNode() {
+    public void newNode() {
         HistoryNode temp = this;
         while(temp.getNext() != null) {
             temp = temp.getNext();

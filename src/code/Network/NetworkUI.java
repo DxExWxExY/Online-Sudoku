@@ -18,7 +18,7 @@ import java.util.Objects;
 public class NetworkUI extends SudokuDialog {
 
     /**
-     * Default port number on which this server to be run.
+     * Default port number this computer will use to connect.
      */
     private static final int PORT = findFreePort();
 
@@ -31,7 +31,6 @@ public class NetworkUI extends SudokuDialog {
 
     private NetworkUI() {
         super();
-        server = new SudokuServer(logT, history, PORT);
     }
 
     /**
@@ -39,24 +38,30 @@ public class NetworkUI extends SudokuDialog {
      */
     @Override
     protected JPanel makeToolBar() {
+
+        /* Create tool bar JPanel and JButtons */
         JPanel toolBar = new JPanel();
-        JButton undo, redo, solve, can;
-        undo = makeOptionButtons("undo.png", KeyEvent.VK_Z);
-        redo = makeOptionButtons("redo.png", KeyEvent.VK_Y);
-        solve = makeOptionButtons("solve.png", KeyEvent.VK_S);
-        can = makeOptionButtons("can.png", KeyEvent.VK_C);
+        JButton undo = makeOptionButtons("undo.png", KeyEvent.VK_Z);
+        JButton redo = makeOptionButtons("redo.png", KeyEvent.VK_Y);
+        JButton solve = makeOptionButtons("solve.png", KeyEvent.VK_S);
+        JButton can = makeOptionButtons("can.png", KeyEvent.VK_C);
         connect = makeOptionButtons("offline.png", KeyEvent.VK_O);
+
+        /* Add action listeners */
         undo.addActionListener(e -> undo());
         redo.addActionListener(e -> redo());
         solve.addActionListener(e -> solve());
         can.addActionListener(e -> isSolvable());
         connect.addActionListener(e -> networkDialog());
+
+        /* Add buttons to tool bar */
         toolBar.add(undo);
         toolBar.add(redo);
         toolBar.add(solve);
         toolBar.add(can);
         toolBar.add(connect);
         toolBar.setBackground(BACKGROUND);
+
         return toolBar;
     }
 
@@ -65,57 +70,57 @@ public class NetworkUI extends SudokuDialog {
      */
     @Override
     protected void configureMenu() {
-        JMenu menu = new JMenu("Menu");
+
+        /* Declare menu items */
         JMenuBar mb = new JMenuBar();
-        JMenuItem newGame, exit, settings;
-        setJMenuBar(mb);
-        /*Menu Items Declaration*/
-        newGame = new JMenuItem("New Game",KeyEvent.VK_N);
-        exit = new JMenuItem("Exit",KeyEvent.VK_Q);
-        settings = new JMenuItem("Network", KeyEvent.VK_O);
-        /*Menu Accelerators*/
+        JMenu menu = new JMenu("Menu");
+        JMenuItem newGame = new JMenuItem("New Game",KeyEvent.VK_N);
+        JMenuItem exit = new JMenuItem("Exit",KeyEvent.VK_Q);
+        JMenuItem settings = new JMenuItem("Network", KeyEvent.VK_O);
+
+        /* Menu accelerators */
+        menu.setMnemonic(KeyEvent.VK_B);
         newGame.setAccelerator(KeyStroke.getKeyStroke("alt A"));
         exit.setAccelerator(KeyStroke.getKeyStroke("alt E"));
         settings.setAccelerator(KeyStroke.getKeyStroke("alt O"));
+
         /*Menu Items Icons*/
         newGame.setIcon(createImageIcon("new.png"));
         exit.setIcon(createImageIcon("exit.png"));
         settings.setIcon(createImageIcon("net.png"));
 
+        /* Incorporate menu items into menu, and menu into menu bar */
         menu.add(newGame);
         menu.add(exit);
         menu.add(settings);
-        menu.setMnemonic(KeyEvent.VK_B);
         mb.add(menu);
         setJMenuBar(mb);
         setLayout(null);
         setVisible(true);
+
         /*Menu Items Listeners*/
         newGame.addActionListener(e -> {
             Object[] options = {"4x4", "9x9", "Exit"};
             int n = JOptionPane.showOptionDialog(null, "Select a Sudoku Size",
                     "New Game", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     null, options, options[2]);
+
             switch (n) {
                 case JOptionPane.YES_OPTION:
-                    super.newHistory(4);
-                    content.remove(numberButtons);
-                    numberButtons = super.makeNumberButtons();
-                    content.add(numberButtons);
+                    history.newGame(4);
+                    resetNumberButtons();
                     break;
                 case JOptionPane.NO_OPTION:
-                    super.newHistory(9);
-                    content.remove(numberButtons);
-                    numberButtons = super.makeNumberButtons();
-                    content.add(numberButtons);
+                    history.newGame(9);
+                    resetNumberButtons();
                     break;
                 case JOptionPane.CANCEL_OPTION:
                     System.exit(0);
                     break;
             }
-            boardPanel.reset = true;
-            boardPanel.setBoard(history.getBoard());
-            history.generateBoard();
+
+            resetPointer();
+            boardPanel.reset();
             content.revalidate();
             repaint();
         });
@@ -123,7 +128,9 @@ public class NetworkUI extends SudokuDialog {
         settings.addActionListener(e -> networkDialog());
     }
 
-
+    /**
+     * 
+     */
     private void networkDialog() {
         makeNetworkOptions();
         makeNetworkLog();

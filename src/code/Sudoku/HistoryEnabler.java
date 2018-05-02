@@ -1,6 +1,6 @@
 package code.Sudoku;
 
-interface HistoryEnabler {
+public interface HistoryEnabler {
     /* HistoryNode object accessible to all classes that implement this interface */
     HistoryNode history = new HistoryNode();
 

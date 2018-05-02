@@ -24,14 +24,14 @@ public class SudokuDialog extends JFrame implements HistoryEnabler {
     protected final static Color BACKGROUND = new Color(47,76,76);
 
     /** Message bar to display various messages. */
-    private JPanel content = new JPanel();
-    private JPanel toolbar = new JPanel();
+    protected JPanel content = new JPanel();
+    protected JPanel toolbar = new JPanel();
     private JPanel numberButtons;
 
     /** Special panel to display a sudoku board */
-    private final BoardPanel boardPanel = new BoardPanel(this::boardClicked);
+    protected final BoardPanel boardPanel = new BoardPanel(this::boardClicked);
 
-    private HistoryNode hPointer;
+    protected HistoryNode hPointer;
 
     /**
      * Create a new dialog
@@ -112,13 +112,13 @@ public class SudokuDialog extends JFrame implements HistoryEnabler {
         JMenuItem newGame = new JMenuItem("New Game",KeyEvent.VK_N);
         JMenuItem exit = new JMenuItem("Exit",KeyEvent.VK_Q);
 
-        /*Menu Accelerators */
+        /*Menu accelerators */
         menu.setMnemonic(KeyEvent.VK_B);
         newGame.setAccelerator(KeyStroke.getKeyStroke("alt A"));
         exit.setAccelerator(KeyStroke.getKeyStroke("alt E"));
 
 
-        /*Menu Items Icons */
+        /*Menu item icons */
         newGame.setIcon(createImageIcon("new.png"));
         exit.setIcon(createImageIcon("exit.png"));
 
@@ -162,7 +162,7 @@ public class SudokuDialog extends JFrame implements HistoryEnabler {
     /**
      * Resets the number buttons when a new game begins.
      */
-    private void resetNumberButtons() {
+    protected void resetNumberButtons() {
         content.remove(numberButtons);
         numberButtons = makeNumberButtons();
         content.add(numberButtons);
@@ -171,7 +171,7 @@ public class SudokuDialog extends JFrame implements HistoryEnabler {
     /**
      * Configure the UI
      */
-    protected void configureUI() {
+    private void configureUI() {
         setIconImage(Objects.requireNonNull(createImageIcon("sudoku.png")).getImage());
         setLayout(new BorderLayout());
 
@@ -276,7 +276,7 @@ public class SudokuDialog extends JFrame implements HistoryEnabler {
      *  Method that iteratively makes all number JButtons and puts them in a JPanel
      * @return JPanel containing JButtons for possible numbers to place on the game board
      */
-    protected JPanel makeNumberButtons() {
+    private JPanel makeNumberButtons() {
         JPanel numberButtons = new JPanel(new FlowLayout());
         int maxNumber = hPointer.getBoard().getSize() + 1;
         for (int i = 1; i <= maxNumber; i++) {
