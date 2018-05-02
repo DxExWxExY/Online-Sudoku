@@ -19,14 +19,29 @@ public class HistoryNode {
 
     }
 
-    /**
-     * Constructor that creates a head node by cloning the current board (empty board).
-     * @param board The initial node at the beginning of the game.
-     */
-    HistoryNode(Board board) {
-        this.board = board.cloneBoard();
+    HistoryNode() {
+        board = new Board(4);
         this.next = null;
         this.previous = null;
+    }
+
+    void newGame(int size) {
+        board = new Board(size);
+        this.next = null;
+        this.previous = null;
+    }
+
+    void newNode() {
+        HistoryNode temp = this;
+        while(temp.getNext() != null) {
+            temp = temp.getNext();
+        }
+
+        try {
+            temp.setNext(new HistoryNode(this.getBoard().clone(), temp));
+        } catch(CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -64,74 +79,11 @@ public class HistoryNode {
     }
 
     /**
-     * Sets a Board instance in the current node.
-     * */
-    void setBoard(Board test) {
-        this.board = test;
-    }
-
-    /**
-     * Board Instance bypass
-     * @see Board
-     * */
-    boolean isMutable(int sy, int sx) {
-        return board.isMutable(sy, sx);
-    }
-
-    /**
-     * Board Instance bypass
-     * @see Board
-     * */
-    void deleteElement(int sy, int sx) {
-        board.deleteElement(sy, sx);
-    }
-
-    /**
-     * Board Instance bypass
-     * @see Board
-     * */
-    void setElement(int sy, int sx, int number) {
-        board.setElement(sy, sx, number);
-    }
-
-    /**
      * Board Instance bypass
      * @see Board
      * */
     boolean isValid(int sy, int sx) {
         return board.isValid(sy,sx);
-    }
-
-    /**
-     * Board Instance bypass
-     * @see Board
-     * */
-    boolean ruleChecker(int x, int y ,int num) {
-        return board.ruleChecker(x,y,num);
-    }
-
-    /**
-     * Board Instance bypass
-     * @see Board
-     * */
-    void reset(int i) {
-        board.reset(i);
-    }
-
-    /**
-     * Board Instance bypass
-     * @see Board
-     * */
-    public void generateBoard() {
-        board.generateBoard();
-    }
-
-    /**
-     * Board Instance bypass
-     * @see Board
-     * */
-    int size() {
-        return board.size();
     }
 
     void setWasSolved() {

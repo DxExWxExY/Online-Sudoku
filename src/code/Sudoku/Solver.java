@@ -23,14 +23,13 @@ class Solver {
             });
             f.get(1000, TimeUnit.MILLISECONDS);
         } catch (final TimeoutException e) {
-            original.reset(original.size());
+            original.reset(original.getSize());
             generateBoard();
         } catch (final Exception e) {
             throw new RuntimeException(e);
         } finally {
             service.shutdown();
         }
-
     }
 
     boolean isSolvable() {
@@ -52,10 +51,10 @@ class Solver {
     }
 
     boolean solveSudoku() {
-        for (int row = 0; row < original.size(); row++) {
-            for (int col = 0; col < original.size(); col++) {
-                if (original.getElement(row, col) == 0 && original.isMutable(row,col)) {
-                    for (int number = 1; number <= original.size(); number++) {
+        for (int row = 0; row < original.getSize(); row++) {
+            for (int col = 0; col < original.getSize(); col++) {
+                if (original.getElement(row, col) == 0 && original.isMutable(row, col)) {
+                    for (int number = 1; number <= original.getSize(); number++) {
                         if (original.ruleChecker(row, col, number)) {
                             original.setElement(row, col, number);
                             if (solveSudoku()) {
@@ -71,5 +70,6 @@ class Solver {
         }
         return true;
     }
-
 }
+
+

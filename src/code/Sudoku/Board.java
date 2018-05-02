@@ -1,7 +1,6 @@
 package code.Sudoku;
 
 import java.util.Random;
-import java.util.concurrent.*;
 
 /**
  * An abstraction of the Sudoku puzzle.
@@ -27,6 +26,7 @@ class  Board implements Cloneable{
         this.board = new int[size][size];
         this.valid = new boolean[size][size];
         this.mutable = new boolean[size][size];
+        generateBoard();
     }
 
     private Board(int size, int[][] board, boolean[][] valid, boolean[][] mutable) {
@@ -82,8 +82,8 @@ class  Board implements Cloneable{
      *
      * @return Returns the size of the board
      */
-    int size() {
-        return size;
+    int getSize() {
+        return this.size;
     }
 
     /**
@@ -306,8 +306,11 @@ class  Board implements Cloneable{
     }
 
     /**
-     * Method Used to Transmit Information Over a Network Connection.
-     * */
+     * Method used to transmit information over a network connection.
+     * @param row row of number
+     * @param col column of number
+     * @return string to send over a connection
+     */
     String getData(int row, int col) {
         String data = String.valueOf(row)+String.valueOf(2);
         data += "1";//String.valueOf(board[row][col]);
@@ -324,14 +327,4 @@ class  Board implements Cloneable{
         mutable[i][j] = data.charAt(4) == 't';
     }
 
-    //useless
-    public void print(String msg) {
-        System.out.println("==== "+msg+" ====");
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                System.out.print(board[i][j]+" ");
-            }
-            System.out.println();
-        }
-    }
 }

@@ -17,12 +17,13 @@ import java.util.Objects;
 
 public class NetworkUI extends SudokuDialog {
 
-    private JPanel config, log;
-    private JButton connect;
     /**
      * Default port number on which this server to be run.
      */
     private static final int PORT = findFreePort();
+
+    private JPanel config, log;
+    private JButton connect;
     private Socket socket;
     private JTextArea ipT, portT, logT = new JTextArea("Network Log",20,10);
     private SudokuServer server;
