@@ -30,6 +30,7 @@ class Solver {
         } finally {
             service.shutdown();
         }
+
     }
 
     boolean isSolvable() {

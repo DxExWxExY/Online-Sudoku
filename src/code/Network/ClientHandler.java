@@ -40,6 +40,8 @@ class ClientHandler extends Thread {
                     } else {
                         logT.append("\nReceived: " + msg);
                         data.setData(msg);
+                        out.println("Got It");
+                        out.println(msg);
                     }
                 }
             }
@@ -50,7 +52,15 @@ class ClientHandler extends Thread {
         }
     }
 
-    void setBoard(HistoryNode board) {
-        this.data = board;
+    void close() {
+        try {
+            incoming.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void update(HistoryNode hist) {
+        this.data = hist;
     }
 }

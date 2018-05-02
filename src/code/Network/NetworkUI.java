@@ -24,13 +24,12 @@ public class NetworkUI extends SudokuDialog {
      */
     private static final int PORT = findFreePort();
     private Socket socket;
-    private JTextArea data, ipT, portT, logT = new JTextArea("Network Log",20,10);
-    public SudokuServer server;
+    private JTextArea ipT, portT, logT = new JTextArea("Network Log",20,10);
+    private SudokuServer server;
 
 
     private NetworkUI() {
         super();
-        data = new JTextArea();
         server = new SudokuServer(logT, history, PORT);
     }
 
@@ -102,10 +101,6 @@ public class NetworkUI extends SudokuDialog {
                     content.remove(numberButtons);
                     numberButtons = super.makeNumberButtons();
                     content.add(numberButtons);
-                    System.out.println(history.getData(0,0));
-                    // TODO: 5/1/2018 BUG HERE
-                    server.setBoard(history);
-                    System.out.println("zxcvbnm");
                     break;
                 case JOptionPane.NO_OPTION:
                     super.newHistory(9);
@@ -126,6 +121,7 @@ public class NetworkUI extends SudokuDialog {
         exit.addActionListener(e -> System.exit(0));
         settings.addActionListener(e -> networkDialog());
     }
+
 
     private void networkDialog() {
         makeNetworkOptions();
@@ -219,7 +215,6 @@ public class NetworkUI extends SudokuDialog {
                     null, options, options[1]);
             switch (n) {
                 case JOptionPane.YES_OPTION:
-                    server.start();
                     try {
                         socket.close();
                         toolbar.remove(connect);
@@ -258,8 +253,18 @@ public class NetworkUI extends SudokuDialog {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             for (int i = 0; i < 4; i++) {
-                out.println(history.getData(i,0));
+                out.println(history.getData(i,i));
                 out.flush();
+            }
+            while (true){
+                String line = in.readLine();
+                if (line == null) {
+                    break;
+                }
+                else  {
+                    out.println("GOT IT!");
+                    history.setData(line);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
