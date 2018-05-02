@@ -33,7 +33,8 @@ public class BoardPanel extends JPanel{
     boolean win;
     private boolean hover;
     int sx, sy;
-    boolean highlightSqr, invalid, reset;
+    boolean highlightSqr, invalid;
+    public boolean reset;
 
 
     /**
@@ -96,7 +97,7 @@ public class BoardPanel extends JPanel{
      * @param board Receives an object of type Board.
      * @see Board
      */
-    void setBoard(Board board) {
+    public void setBoard(Board board) {
 //        System.out.println("setBoard");
         this.board = board;
     }

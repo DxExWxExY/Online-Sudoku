@@ -305,8 +305,27 @@ class  Board implements Cloneable{
         return this.wasSolved;
     }
 
+    /**
+     * Method Used to Transmit Information Over a Network Connection.
+     * */
+    String getData(int row, int col) {
+        String data = String.valueOf(row)+String.valueOf(2);
+        data += "1";//String.valueOf(board[row][col]);
+        data += valid[row][col] ? "t" : "f";
+        data += mutable[row][col] ? "t" : "f";
+        return data;
+    }
+
+    void setData(String data) {
+        int i = Character.getNumericValue(data.charAt(0));
+        int j = Character.getNumericValue(data.charAt(1));
+        board[i][j] = Character.getNumericValue(data.charAt(2));
+        valid[i][j] = data.charAt(3) == 't';
+        mutable[i][j] = data.charAt(4) == 't';
+    }
+
     //useless
-    void print(String msg) {
+    public void print(String msg) {
         System.out.println("==== "+msg+" ====");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {

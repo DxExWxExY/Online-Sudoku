@@ -1,5 +1,7 @@
 package code.Network;
 
+import code.Sudoku.HistoryNode;
+
 import javax.swing.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,28 +25,35 @@ class SudokuServer {
     /** Default port number on which this server to be run. */
     private int PORT_NUMBER;
     private ClientHandler service;
+    private JTextArea logT;
+    private HistoryNode data;
 
     /** Create a new server. */
-    SudokuServer(JTextArea logT, int port) {
+    SudokuServer(JTextArea logT, HistoryNode data, int port) {
+        this.logT = logT;
         this.PORT_NUMBER = port;
-        start(logT);
+        this.data = data;
+        start();
     }
 
     /** Start the server. */
-    private void start(JTextArea logT) {
+    void start() {
         logT.append("\nSudoku Server on " + PORT_NUMBER + ".");
         try {
             ServerSocket s = new ServerSocket(PORT_NUMBER);
             for (;;) {
                 Socket incoming = s.accept();
-                service = new ClientHandler(incoming,logT);
+                service = new ClientHandler(incoming, data, logT);
                 service.start();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             logT.append("\nError: "+e);
         }
     }
-    public void kill() {
-        service.kill();
+
+    void setBoard(HistoryNode board) {
+        this.data = board;
+        service.setBoard(board);
     }
 }
