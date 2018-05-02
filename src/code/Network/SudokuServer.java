@@ -3,6 +3,7 @@ package code.Network;
 import code.Sudoku.HistoryNode;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -27,6 +28,8 @@ class SudokuServer {
     private ClientHandler service;
     private JTextArea logT;
     private HistoryNode data;
+    private ServerSocket s;
+    Socket incoming;
 
     /** Create a new server. */
     SudokuServer(JTextArea logT, HistoryNode data, int port) {
@@ -40,9 +43,9 @@ class SudokuServer {
     void start() {
         logT.append("\nSudoku Server on " + PORT_NUMBER + ".");
         try {
-            ServerSocket s = new ServerSocket(PORT_NUMBER);
+            s = new ServerSocket(PORT_NUMBER);
             for (;;) {
-                Socket incoming = s.accept();
+                incoming = s.accept();
                 service = new ClientHandler(incoming, data, logT);
                 service.start();
             }
@@ -52,8 +55,18 @@ class SudokuServer {
         }
     }
 
-    void setBoard(HistoryNode board) {
-        this.data = board;
-        service.setBoard(board);
+    void close() {
+        try {
+            s.close();
+            incoming.close();
+            service.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(HistoryNode hist) {
+        this.data = hist;
+        service.update(hist);
     }
 }
