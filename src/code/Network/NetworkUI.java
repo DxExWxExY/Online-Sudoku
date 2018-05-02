@@ -141,19 +141,19 @@ public class NetworkUI extends SudokuDialog {
         JLabel ipL = new JLabel("Server Address");
         JLabel portL = new JLabel("Port Number");
         ipT = new JTextArea("localhost");
-        portT = new JTextArea(String.valueOf(PORT));
-        JButton connectButton = new JButton("Connect");
-        JButton test = new JButton("test");
-        test.addActionListener(e -> testClicked());
-        connectButton.setFocusPainted(false);
-        connectButton.addActionListener(e -> connectClicked());
+        portT = new JTextArea(String.valueOf(8000));
+        JButton host = new JButton("Host");
+        JButton join = new JButton("join");
+        join.addActionListener(e -> testClicked());
+        host.setFocusPainted(false);
+        host.addActionListener(e -> connectClicked());
 
         config.add(ipL);
         config.add(ipT);
         config.add(portL);
         config.add(portT);
-        config.add(connectButton);
-        config.add(test);
+        config.add(host);
+        config.add(join);
 
     }
 
@@ -190,8 +190,8 @@ public class NetworkUI extends SudokuDialog {
         connect = makeOptionButtons("online.png", KeyEvent.VK_O);
         connect.addActionListener(e -> {
             Object[] options = {"Yes", "Cancel"};
-            int n = JOptionPane.showOptionDialog(null, "Do You Want to Disconnect?",
-                    "Disconnect", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,
+            int n = JOptionPane.showOptionDialog(null, "Do You Want to join?",
+                    "join", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,
                     null, options, options[1]);
             switch (n) {
                 case JOptionPane.YES_OPTION:

@@ -81,7 +81,7 @@ public class SudokuDialog extends JFrame implements HistoryEnabler {
      */
     private void numberClicked(int number) {
         if (hPointer.getBoard().isMutable(boardPanel.getSy(), boardPanel.getSx())) {
-            history.newNode();
+            hPointer.newNode();
             movePointerForward();
             boardPanel.movePointerForward();
 
@@ -335,7 +335,7 @@ public class SudokuDialog extends JFrame implements HistoryEnabler {
      * */
     protected void solve() {
         if (hPointer.getBoard().isSolvable()) {
-            history.newNode();
+            hPointer.newNode();
             movePointerForward();
             boardPanel.movePointerForward();
 

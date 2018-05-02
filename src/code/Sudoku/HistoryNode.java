@@ -37,11 +37,7 @@ public class HistoryNode {
             temp = temp.getNext();
         }
 
-        try {
-            temp.setNext(new HistoryNode(this.getBoard().clone(), temp));
-        } catch(CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
+        temp.setNext(new HistoryNode(this.getBoard().cloneBoard(), temp));
     }
 
     /**
