@@ -185,7 +185,7 @@ public class BoardPanel extends JPanel implements HistoryEnabler{
         }
     }
 
-    void isValidMove() {
+    public void isValidMove() {
         invalid = !hPointer.isValid(sy, sx);
     }
 

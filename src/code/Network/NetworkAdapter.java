@@ -100,8 +100,8 @@ public abstract class NetworkAdapter extends Thread {
     }
     
     protected void sendBoard() {
-        for (int i = 0; i < history.size(); i++) {
-            for (int j = 0; j < history.size(); j++) {
+        for (int i = 0; i < history.getSize(); i++) {
+            for (int j = 0; j < history.getSize(); j++) {
                 setMessage(history.getData(i,j));
                 logT.append("\n"+sendMessage());
             }

@@ -158,7 +158,7 @@ public class NetworkUI extends SudokuDialog {
         test.addActionListener(e -> {
             try {
                 if (server.connected) {
-                    onlineStatusUI();
+                    onlineToolbar();
                     JButton disconnect = new JButton("Disconnect");
                     disconnect.addActionListener(a -> {
                     });
@@ -168,7 +168,7 @@ public class NetworkUI extends SudokuDialog {
                 }
             } catch (NullPointerException b) {
                 if (client.connected) {
-                    onlineStatusUI();
+                    onlineToolbar();
                     JButton disconnect = new JButton("Disconnect");
                     disconnect.addActionListener(a -> {
                     });
@@ -215,7 +215,7 @@ public class NetworkUI extends SudokuDialog {
         networkSettings.add(log);
     }
 
-    private void onlineStatusUI() {
+    private void onlineToolbar() {
         toolbar.remove(connect);
         connect = makeOptionButtons("online.png", KeyEvent.VK_O);
         connect.addActionListener(e -> {
@@ -280,13 +280,32 @@ public class NetworkUI extends SudokuDialog {
         config.revalidate();
         toolbar.revalidate();
     }
+    
+    private void onlineNumbers() {
+        content.remove(numberButtons);
+        JPanel numberOnlineButtons = new JPanel(new FlowLayout());
+        int maxNumber = hPointer.getSize() + 1;
+        for (int i = 1; i <= maxNumber; i++) {
+            int number = i % maxNumber;
+            JButton button = new JButton(number == 0 ? "X" : String.valueOf(number));
+            button.setFocusPainted(false);
+            button.setMargin(new Insets(0, 2, 0, 2));
+            button.addActionListener(e -> numberOnlineClicked(number));
+            numberOnlineButtons.add(button);
+        }
+        numberOnlineButtons.setAlignmentX(CENTER_ALIGNMENT);
+        numberOnlineButtons.setBackground(BACKGROUND);
+        content.add(numberOnlineButtons);
+        content.revalidate();
+    }
 
     private void joinClicked() {
         new Thread(() -> {
             client = new Client(Integer.parseInt(portT.getText()), ipT.getText(), hPointer, logT);
             logT.append("\nConnected to Server!");
             try {
-                onlineStatusUI();
+                onlineToolbar();
+                onlineNumbers();
                 client.whileChatting();
             } catch(IOException ignored) {
             }
@@ -295,12 +314,13 @@ public class NetworkUI extends SudokuDialog {
     }
 
     /** Callback to be called when the connect button is clicked. */
-    private void hostClicked(){
+    private void hostClicked() {
         new Thread(() -> {
             server = new Server(hPointer, logT);
             logT.append("\nConnected to Client!");
             try {
-                onlineStatusUI();
+                onlineToolbar();
+                onlineNumbers();
                 server.sendBoard();
                 server.whileChatting();
             } catch(IOException ignored) {
@@ -308,6 +328,42 @@ public class NetworkUI extends SudokuDialog {
 
         }).start();
         logT.append("\nServer Waiting...");
+    }
+
+    private void numberOnlineClicked(int number) {
+        logT.append("\nNumber Pressed");
+        if (hPointer.isMutable(boardPanel.getSy(), boardPanel.getSx())) {
+            hPointer.newNode();
+            movePointerForward();
+            boardPanel.movePointerForward();
+            if (number == 0) {
+                hPointer.deleteElement(boardPanel.getSy(), boardPanel.getSx());
+                try {
+                    server.setMessage(hPointer.getData(boardPanel.getSy(), boardPanel.getSx()));
+                    server.sendMessage();
+                } catch (NullPointerException e) {
+                    client.setMessage(hPointer.getData(boardPanel.getSy(), boardPanel.getSx()));
+                    client.sendMessage();
+                }
+            }
+            else {
+                hPointer.setElement(boardPanel.getSy(), boardPanel.getSx(), number);
+                try {
+                    server.setMessage(hPointer.getData(boardPanel.getSy(), boardPanel.getSx()));
+                    logT.append("\n"+server.sendMessage());
+                } catch (NullPointerException e) {
+                    client.setMessage(hPointer.getData(boardPanel.getSy(), boardPanel.getSx()));
+                    logT.append("\n"+client.sendMessage());
+                }
+                boardPanel.isValidMove();
+            }
+        }
+        else {
+            boardPanel.setInvalid(true);
+        }
+        boardPanel.setHighlightSqr(false);
+        boardPanel.repaint();
+        solved();
     }
 
     public static void main(String[] args) {

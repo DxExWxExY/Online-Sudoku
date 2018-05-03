@@ -26,7 +26,7 @@ public class SudokuDialog extends JFrame implements HistoryEnabler {
     /** Message bar to display various messages. */
     protected JPanel content = new JPanel();
     protected JPanel toolbar = new JPanel();
-    private JPanel numberButtons;
+    protected JPanel numberButtons;
 
     /** Special panel to display a sudoku board */
     protected final BoardPanel boardPanel = new BoardPanel(this::boardClicked);
@@ -67,9 +67,9 @@ public class SudokuDialog extends JFrame implements HistoryEnabler {
         boardPanel.sx = x;
         boardPanel.sy = y;
         boardPanel.highlightSqr = true;
-        content.remove(numberButtons);
-        numberButtons = makeNumberButtons();
-        content.add(numberButtons);
+        //content.remove(numberButtons);
+        //numberButtons = makeNumberButtons();
+        //content.add(numberButtons);
         content.revalidate();
         boardPanel.repaint();
     }
@@ -365,7 +365,7 @@ public class SudokuDialog extends JFrame implements HistoryEnabler {
      * This method checks if all the numbers in the matrix meet the game rules.
      * If so, prompts the user to start a new game or to quit.
      */
-    private void solved() {
+    protected void solved() {
         if (hPointer.getBoard().isSolved() && !hPointer.getBoard().getWasSolved()) {
             boardPanel.setWin(true);
             boardPanel.playSound();

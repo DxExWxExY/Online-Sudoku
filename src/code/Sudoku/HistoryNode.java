@@ -94,7 +94,23 @@ public class HistoryNode {
         board.setData(data);
     }
 
-    public int size() {
+    public boolean isMutable(int sy, int sx) {
+        return board.isMutable(sy,sx);
+    }
+
+    public void deleteElement(int sy, int sx) {
+        board.deleteElement(sy,sx);
+    }
+
+    public void setElement(int sy, int sx, int number) {
+        board.setElement(sy,sx,number);
+    }
+
+    public int getSize() {
         return board.getSize();
+    }
+
+    public boolean ruleChecker(int sy, int sx, int i) {
+        return board.ruleChecker(sy,sx,i);
     }
 }
