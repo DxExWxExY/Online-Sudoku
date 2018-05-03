@@ -1,5 +1,6 @@
 package code.Network;
 
+import code.Sudoku.BoardPanel;
 import code.Sudoku.HistoryNode;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ public abstract class NetworkAdapter extends Thread {
     Socket connection;
     HistoryNode history;
     JTextArea logT;
+    BoardPanel boardPanel;
 
     public NetworkAdapter(int serverPORT, String serverIP) {
         configureInstance(serverPORT, serverIP);
@@ -88,10 +90,12 @@ public abstract class NetworkAdapter extends Thread {
                 logT.append("\nReceived: "+message);
                 if (message.equals("end")) {
                     closeConnections();
-                } else if (message.matches("new")) {
-                    //new game protocol
                 } else {
+                    history.newNode();
+                    history = history.getNext();
+                    boardPanel.movePointerForward();
                     history.setData(message);
+                    boardPanel.repaint();
                 }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -106,6 +110,10 @@ public abstract class NetworkAdapter extends Thread {
                 logT.append("\n"+sendMessage());
             }
         }
+    }
+
+    protected void updateHistory(HistoryNode update) {
+        this.history = update;
     }
 
     protected String sendMessage() {

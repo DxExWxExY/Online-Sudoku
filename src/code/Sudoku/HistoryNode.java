@@ -54,7 +54,7 @@ public class HistoryNode {
      *
      * @return Next instance.
      * */
-    HistoryNode getNext() {
+    public HistoryNode getNext() {
         return next;
     }
 

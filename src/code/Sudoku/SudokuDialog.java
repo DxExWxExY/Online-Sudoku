@@ -67,9 +67,6 @@ public class SudokuDialog extends JFrame implements HistoryEnabler {
         boardPanel.sx = x;
         boardPanel.sy = y;
         boardPanel.highlightSqr = true;
-        //content.remove(numberButtons);
-        //numberButtons = makeNumberButtons();
-        //content.add(numberButtons);
         content.revalidate();
         boardPanel.repaint();
     }

@@ -1,5 +1,6 @@
 package code.Network;
 
+import code.Sudoku.BoardPanel;
 import code.Sudoku.HistoryNode;
 
 import javax.swing.*;
@@ -11,10 +12,11 @@ public class Client extends NetworkAdapter {
     private String serverIP;
     private int serverPORT;
 
-    Client(int serverPORT, String serverIP, HistoryNode history, JTextArea logT) {
+    Client(int serverPORT, String serverIP, HistoryNode history, JTextArea logT, BoardPanel boardPanel) {
         super(serverPORT, serverIP);
         this.history = history;
         this.logT = logT;
+        this.boardPanel = boardPanel;
     }
 
     @Override

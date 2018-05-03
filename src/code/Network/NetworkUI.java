@@ -301,7 +301,7 @@ public class NetworkUI extends SudokuDialog {
 
     private void joinClicked() {
         new Thread(() -> {
-            client = new Client(Integer.parseInt(portT.getText()), ipT.getText(), hPointer, logT);
+            client = new Client(Integer.parseInt(portT.getText()), ipT.getText(), hPointer, logT, boardPanel);
             logT.append("\nConnected to Server!");
             try {
                 onlineToolbar();
@@ -316,7 +316,7 @@ public class NetworkUI extends SudokuDialog {
     /** Callback to be called when the connect button is clicked. */
     private void hostClicked() {
         new Thread(() -> {
-            server = new Server(hPointer, logT);
+            server = new Server(hPointer, logT, boardPanel);
             logT.append("\nConnected to Client!");
             try {
                 onlineToolbar();
@@ -341,9 +341,11 @@ public class NetworkUI extends SudokuDialog {
                 try {
                     server.setMessage(hPointer.getData(boardPanel.getSy(), boardPanel.getSx()));
                     server.sendMessage();
+                    server.updateHistory(history);
                 } catch (NullPointerException e) {
                     client.setMessage(hPointer.getData(boardPanel.getSy(), boardPanel.getSx()));
                     client.sendMessage();
+                    client.updateHistory(history);
                 }
             }
             else {
