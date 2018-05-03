@@ -1,6 +1,7 @@
 package code.Network;
 
 import code.Network.NetworkAdapter;
+import code.Sudoku.HistoryNode;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,29 +15,36 @@ import java.net.Socket;
 public class Client extends NetworkAdapter {
     private String serverIP;
     private int serverPORT;
+    private HistoryNode local;
 
-    public Client(int serverPORT, String serverIP) {
+    public Client(int serverPORT, String serverIP, HistoryNode reference) {
         super(serverPORT, serverIP);
+        this.local = reference;
     }
 
     @Override
     protected void configureInstance(int serverPORT, String serverIP) {
         this.serverIP = serverIP;
         this.serverPORT = serverPORT;
+        new Thread(() -> {
+            while (true) {
+                try {
+                    connection = new Socket(InetAddress.getByName(serverIP), serverPORT);
+                    configureStreams();
+                    whileChatting();
+                } catch(IOException a) {
+                    a.printStackTrace();
+                } finally {
+                    closeConnections();
+                }
+            }
+        }).start();
 
-        try {
-            connect();
-            configureStreams();
-            whileChatting();
-        } catch(IOException a) {
-            a.printStackTrace();
-        } finally {
-            closeConnections();
-        }
     }
 
+    @Override
     protected void connect() throws IOException {
-        connection = new Socket(InetAddress.getByName(serverIP), serverPORT);
+
     }
 
 //    private void configureUI() {

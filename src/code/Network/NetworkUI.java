@@ -20,6 +20,7 @@ public class NetworkUI extends SudokuDialog {
     private JPanel config, log;
     private JButton connect;
     private Socket socket;
+    private Thread hostT;
     private JTextArea ipT, portT, logT = new JTextArea("Network Log",20,10);
     private NetworkAdapter host;
     private NetworkAdapter client;
@@ -133,7 +134,7 @@ public class NetworkUI extends SudokuDialog {
         makeNetworkWindow();
     }
 
-    private void makeNetworkOptions() {
+    private synchronized void makeNetworkOptions() {
         config = new JPanel(new GridLayout(3,2, 0, 10));
         config.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("Network Settings"),
@@ -163,6 +164,8 @@ public class NetworkUI extends SudokuDialog {
 
         JButton test = new JButton("Test");
         test.addActionListener(e -> {
+            int swag = this.host.getPORT();
+
             client.setMessage("Test");
             client.sendMessage();
         });
@@ -173,13 +176,12 @@ public class NetworkUI extends SudokuDialog {
         config.add(portT);
         config.add(host);
         config.add(join);
+        config.add(test);
 
     }
 
     private void joinClicked() {
-        new Thread(() -> {
-            client = new Client(Integer.parseInt(portT.getText()), ipT.getText());
-        }).start();
+        client = new Client(Integer.parseInt(portT.getText()), ipT.getText(), hPointer);
         logT.append("\nConnected to Server!");
     }
 
@@ -241,13 +243,10 @@ public class NetworkUI extends SudokuDialog {
     }
 
     /** Callback to be called when the connect button is clicked. */
-    private void hostClicked(){
-        new Thread(() -> {
-            host = new Server();
-            while (!host.connected);
-            onlineStatusUI();
-            logT.append("\nPlayer Joined");
-        }).start();
+    private synchronized void hostClicked(){
+        host = new Server(hPointer);
+        while (!host.connected);
+        onlineStatusUI();
         logT.append("\nServer Started");
     }
 

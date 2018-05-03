@@ -80,10 +80,6 @@ public abstract class NetworkAdapter extends Thread {
         while(connected) {
             try {
                 message = (String) input.readObject();
-                System.out.println("null message");
-                if (message == null) {
-
-                }
             }
             catch(ClassNotFoundException e) {
                 e.printStackTrace();
@@ -129,9 +125,9 @@ public abstract class NetworkAdapter extends Thread {
         throw new IllegalStateException("Could not find a free TCP/IP port to start embedded Jetty HTTP Server on");
     }
 
-    protected void configureInstance() {}
+    protected synchronized void configureInstance() {}
 
-    protected void configureInstance(int serverPORT, String serverIP) {}
+    protected synchronized void configureInstance(int serverPORT, String serverIP) {}
 
     protected abstract void connect() throws IOException;
 

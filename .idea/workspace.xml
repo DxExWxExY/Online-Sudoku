@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+    <list id="34dbd691-eae7-4701-8b8e-f4b2e7c19ce4" name="Pre Cutie" comment="" />
     <list default="true" id="72533dc4-f5d0-4df8-8a17-051696a9b3ef" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Online-Sudoku/code/Network/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Online-Sudoku/code/Network/ClientHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Online-Sudoku/code/Network/NetworkAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Online-Sudoku/code/Network/NetworkAdapter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Online-Sudoku/code/Sudoku/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Online-Sudoku/code/Sudoku/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Online-Sudoku/code/Sudoku/HistoryNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Online-Sudoku/code/Sudoku/HistoryNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Online-Sudoku/code/Sudoku/Solver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Online-Sudoku/code/Sudoku/Solver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/code/Network/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/Network/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/code/Network/NetworkAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/Network/NetworkAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/code/Network/NetworkUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/Network/NetworkUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/code/Network/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/Network/Server.java" afterDir="false" />
     </list>
-    <list id="34dbd691-eae7-4701-8b8e-f4b2e7c19ce4" name="Pre Cutie" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="C:\Users\DxExWxExY\Documents\CS Adv Obj Lab\Online Sudoku\.idea\shelf/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="NetworkUI.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="NetworkUI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/code/Network/NetworkUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-173">
-              <caret line="166" column="33" selection-start-line="166" selection-start-column="33" selection-end-line="166" selection-end-column="33" />
+            <state relative-caret-position="579">
+              <caret line="246" column="34" selection-start-line="246" selection-start-column="34" selection-end-line="246" selection-end-column="34" />
               <folding>
                 <element signature="docComment;method#makeToolBar#0;class#NetworkUI#0" />
                 <element signature="method#makeToolBar#0;class#NetworkUI#0" />
@@ -37,15 +34,17 @@
                 <element signature="e#2977#3850#0" />
                 <element signature="docComment;method#networkDialog#0;class#NetworkUI#0" />
                 <element signature="method#networkDialog#0;class#NetworkUI#0" />
+                <element signature="e#4912#4945#0" />
+                <element signature="e#4863#4883#0" />
                 <element signature="method#makeNetworkLog#0;class#NetworkUI#0" />
                 <element signature="method#makeNetworkWindow#0;class#NetworkUI#0" />
                 <element signature="method#onlineStatusUI#0;class#NetworkUI#0" />
                 <element signature="e#6488#7425#0" />
                 <element signature="docComment;method#connectClicked#0;class#NetworkUI#0" />
-                <element signature="e#9013#9014#0" expanded="true" />
-                <element signature="e#9082#9083#0" expanded="true" />
-                <element signature="e#8830#8831#0" expanded="true" />
-                <element signature="e#8861#8862#0" expanded="true" />
+                <element signature="method#showMessage#0;class#NetworkUI#0" />
+                <element signature="class#8962:9098" />
+                <element signature="e#8994#8995#0" expanded="true" />
+                <element signature="e#9025#9026#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -54,13 +53,8 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/code/Network/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-              <folding>
-                <element signature="e#381#382#0" expanded="true" />
-                <element signature="e#404#405#0" expanded="true" />
-                <element signature="method#connect#0;class#Server#0" />
-              </folding>
+            <state relative-caret-position="504">
+              <caret line="38" column="19" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -68,41 +62,32 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/code/Network/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+            <state relative-caret-position="54">
+              <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NetworkAdapter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NetworkAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/code/Network/NetworkAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="792">
-              <caret line="83" column="36" selection-start-line="83" selection-start-column="36" selection-end-line="83" selection-end-column="36" />
+            <state relative-caret-position="72">
+              <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
               <folding>
                 <element signature="e#647#743#0" />
                 <element signature="e#803#901#0" />
-                <element signature="e#933#934#0" expanded="true" />
-                <element signature="e#963#964#0" expanded="true" />
                 <element signature="e#970#1029#0" />
-                <element signature="e#1073#1074#0" expanded="true" />
-                <element signature="e#1111#1112#0" expanded="true" />
                 <element signature="e#1118#1251#0" />
+                <element signature="e#1118#1504#0" />
                 <element signature="e#1510#1566#0" />
                 <element signature="e#1510#1820#0" />
                 <element signature="e#1826#1927#0" />
+                <element signature="e#1826#2210#0" />
+                <element signature="e#2216#2589#0" />
                 <element signature="e#2595#3001#0" />
                 <element signature="e#2595#3493#0" />
+                <element signature="e#3671#3680#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SudokuDialog.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
             </state>
           </provider>
         </entry>
@@ -131,6 +116,7 @@
       <find>history.newNode</find>
       <find>runna</find>
       <find>HistoryEnabler</find>
+      <find>swag</find>
     </findStrings>
     <replaceStrings>
       <replace>PORT_NUMBER</replace>
@@ -161,9 +147,9 @@
         <option value="$PROJECT_DIR$/src/code/Sudoku/BoardPanel.java" />
         <option value="$PROJECT_DIR$/src/code/Sudoku/HistoryNode.java" />
         <option value="$PROJECT_DIR$/src/code/Sudoku/SudokuDialog.java" />
+        <option value="$PROJECT_DIR$/src/code/Network/NetworkUI.java" />
         <option value="$PROJECT_DIR$/src/code/Network/Server.java" />
         <option value="$PROJECT_DIR$/src/code/Network/Client.java" />
-        <option value="$PROJECT_DIR$/src/code/Network/NetworkUI.java" />
         <option value="$PROJECT_DIR$/src/code/Network/NetworkAdapter.java" />
       </list>
     </option>
@@ -399,7 +385,14 @@
       <option name="project" value="LOCAL" />
       <updated>1525309391858</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Listeners added">
+      <created>1525312725445</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1525312725445</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -409,7 +402,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="5" />
@@ -424,7 +416,7 @@
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15364583" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15364583" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292517" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -552,17 +544,17 @@
           <folding>
             <element signature="e#647#743#0" />
             <element signature="e#803#901#0" />
-            <element signature="e#933#934#0" expanded="true" />
-            <element signature="e#963#964#0" expanded="true" />
             <element signature="e#970#1029#0" />
-            <element signature="e#1073#1074#0" expanded="true" />
-            <element signature="e#1111#1112#0" expanded="true" />
             <element signature="e#1118#1251#0" />
+            <element signature="e#1118#1504#0" />
             <element signature="e#1510#1566#0" />
             <element signature="e#1510#1820#0" />
             <element signature="e#1826#1927#0" />
+            <element signature="e#1826#2210#0" />
+            <element signature="e#2216#2589#0" />
             <element signature="e#2595#3001#0" />
             <element signature="e#2595#3493#0" />
+            <element signature="e#3671#3680#0" />
           </folding>
         </state>
       </provider>
@@ -586,15 +578,17 @@
             <element signature="e#2977#3850#0" />
             <element signature="docComment;method#networkDialog#0;class#NetworkUI#0" />
             <element signature="method#networkDialog#0;class#NetworkUI#0" />
+            <element signature="e#4912#4945#0" />
+            <element signature="e#4863#4883#0" />
             <element signature="method#makeNetworkLog#0;class#NetworkUI#0" />
             <element signature="method#makeNetworkWindow#0;class#NetworkUI#0" />
             <element signature="method#onlineStatusUI#0;class#NetworkUI#0" />
             <element signature="e#6488#7425#0" />
             <element signature="docComment;method#connectClicked#0;class#NetworkUI#0" />
-            <element signature="e#9013#9014#0" expanded="true" />
-            <element signature="e#9082#9083#0" expanded="true" />
-            <element signature="e#8830#8831#0" expanded="true" />
-            <element signature="e#8861#8862#0" expanded="true" />
+            <element signature="method#showMessage#0;class#NetworkUI#0" />
+            <element signature="class#8962:9098" />
+            <element signature="e#8994#8995#0" expanded="true" />
+            <element signature="e#9025#9026#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -627,17 +621,17 @@
           <folding>
             <element signature="e#647#743#0" />
             <element signature="e#803#901#0" />
-            <element signature="e#933#934#0" expanded="true" />
-            <element signature="e#963#964#0" expanded="true" />
             <element signature="e#970#1029#0" />
-            <element signature="e#1073#1074#0" expanded="true" />
-            <element signature="e#1111#1112#0" expanded="true" />
             <element signature="e#1118#1251#0" />
+            <element signature="e#1118#1504#0" />
             <element signature="e#1510#1566#0" />
             <element signature="e#1510#1820#0" />
             <element signature="e#1826#1927#0" />
+            <element signature="e#1826#2210#0" />
+            <element signature="e#2216#2589#0" />
             <element signature="e#2595#3001#0" />
             <element signature="e#2595#3493#0" />
+            <element signature="e#3671#3680#0" />
           </folding>
         </state>
       </provider>
@@ -654,15 +648,17 @@
             <element signature="e#2977#3850#0" />
             <element signature="docComment;method#networkDialog#0;class#NetworkUI#0" />
             <element signature="method#networkDialog#0;class#NetworkUI#0" />
+            <element signature="e#4912#4945#0" />
+            <element signature="e#4863#4883#0" />
             <element signature="method#makeNetworkLog#0;class#NetworkUI#0" />
             <element signature="method#makeNetworkWindow#0;class#NetworkUI#0" />
             <element signature="method#onlineStatusUI#0;class#NetworkUI#0" />
             <element signature="e#6488#7425#0" />
             <element signature="docComment;method#connectClicked#0;class#NetworkUI#0" />
-            <element signature="e#9013#9014#0" expanded="true" />
-            <element signature="e#9082#9083#0" expanded="true" />
-            <element signature="e#8830#8831#0" expanded="true" />
-            <element signature="e#8861#8862#0" expanded="true" />
+            <element signature="method#showMessage#0;class#NetworkUI#0" />
+            <element signature="class#8962:9098" />
+            <element signature="e#8994#8995#0" expanded="true" />
+            <element signature="e#9025#9026#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -695,17 +691,17 @@
           <folding>
             <element signature="e#647#743#0" />
             <element signature="e#803#901#0" />
-            <element signature="e#933#934#0" expanded="true" />
-            <element signature="e#963#964#0" expanded="true" />
             <element signature="e#970#1029#0" />
-            <element signature="e#1073#1074#0" expanded="true" />
-            <element signature="e#1111#1112#0" expanded="true" />
             <element signature="e#1118#1251#0" />
+            <element signature="e#1118#1504#0" />
             <element signature="e#1510#1566#0" />
             <element signature="e#1510#1820#0" />
             <element signature="e#1826#1927#0" />
+            <element signature="e#1826#2210#0" />
+            <element signature="e#2216#2589#0" />
             <element signature="e#2595#3001#0" />
             <element signature="e#2595#3493#0" />
+            <element signature="e#3671#3680#0" />
           </folding>
         </state>
       </provider>
@@ -722,15 +718,17 @@
             <element signature="e#2977#3850#0" />
             <element signature="docComment;method#networkDialog#0;class#NetworkUI#0" />
             <element signature="method#networkDialog#0;class#NetworkUI#0" />
+            <element signature="e#4912#4945#0" />
+            <element signature="e#4863#4883#0" />
             <element signature="method#makeNetworkLog#0;class#NetworkUI#0" />
             <element signature="method#makeNetworkWindow#0;class#NetworkUI#0" />
             <element signature="method#onlineStatusUI#0;class#NetworkUI#0" />
             <element signature="e#6488#7425#0" />
             <element signature="docComment;method#connectClicked#0;class#NetworkUI#0" />
-            <element signature="e#9013#9014#0" expanded="true" />
-            <element signature="e#9082#9083#0" expanded="true" />
-            <element signature="e#8830#8831#0" expanded="true" />
-            <element signature="e#8861#8862#0" expanded="true" />
+            <element signature="method#showMessage#0;class#NetworkUI#0" />
+            <element signature="class#8962:9098" />
+            <element signature="e#8994#8995#0" expanded="true" />
+            <element signature="e#9025#9026#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -749,17 +747,17 @@
           <folding>
             <element signature="e#647#743#0" />
             <element signature="e#803#901#0" />
-            <element signature="e#933#934#0" expanded="true" />
-            <element signature="e#963#964#0" expanded="true" />
             <element signature="e#970#1029#0" />
-            <element signature="e#1073#1074#0" expanded="true" />
-            <element signature="e#1111#1112#0" expanded="true" />
             <element signature="e#1118#1251#0" />
+            <element signature="e#1118#1504#0" />
             <element signature="e#1510#1566#0" />
             <element signature="e#1510#1820#0" />
             <element signature="e#1826#1927#0" />
+            <element signature="e#1826#2210#0" />
+            <element signature="e#2216#2589#0" />
             <element signature="e#2595#3001#0" />
             <element signature="e#2595#3493#0" />
+            <element signature="e#3671#3680#0" />
           </folding>
         </state>
       </provider>
@@ -887,20 +885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/code/Sudoku/BoardPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="38" column="26" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/code/Network/SudokuServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/code/Sudoku/Board.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="543">
@@ -936,10 +920,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/code/Sudoku/BoardPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="38" column="26" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/code/Network/SudokuServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/code/Network/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="38" column="19" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/code/Network/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/code/Network/NetworkAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+          <folding>
+            <element signature="e#647#743#0" />
+            <element signature="e#803#901#0" />
+            <element signature="e#970#1029#0" />
+            <element signature="e#1118#1251#0" />
+            <element signature="e#1118#1504#0" />
+            <element signature="e#1510#1566#0" />
+            <element signature="e#1510#1820#0" />
+            <element signature="e#1826#1927#0" />
+            <element signature="e#1826#2210#0" />
+            <element signature="e#2216#2589#0" />
+            <element signature="e#2595#3001#0" />
+            <element signature="e#2595#3493#0" />
+            <element signature="e#3671#3680#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/code/Network/NetworkUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-173">
-          <caret line="166" column="33" selection-start-line="166" selection-start-column="33" selection-end-line="166" selection-end-column="33" />
+        <state relative-caret-position="579">
+          <caret line="246" column="34" selection-start-line="246" selection-start-column="34" selection-end-line="246" selection-end-column="34" />
           <folding>
             <element signature="docComment;method#makeToolBar#0;class#NetworkUI#0" />
             <element signature="method#makeToolBar#0;class#NetworkUI#0" />
@@ -948,56 +982,17 @@
             <element signature="e#2977#3850#0" />
             <element signature="docComment;method#networkDialog#0;class#NetworkUI#0" />
             <element signature="method#networkDialog#0;class#NetworkUI#0" />
+            <element signature="e#4912#4945#0" />
+            <element signature="e#4863#4883#0" />
             <element signature="method#makeNetworkLog#0;class#NetworkUI#0" />
             <element signature="method#makeNetworkWindow#0;class#NetworkUI#0" />
             <element signature="method#onlineStatusUI#0;class#NetworkUI#0" />
             <element signature="e#6488#7425#0" />
             <element signature="docComment;method#connectClicked#0;class#NetworkUI#0" />
-            <element signature="e#9013#9014#0" expanded="true" />
-            <element signature="e#9082#9083#0" expanded="true" />
-            <element signature="e#8830#8831#0" expanded="true" />
-            <element signature="e#8861#8862#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/code/Network/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/code/Network/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-          <folding>
-            <element signature="e#381#382#0" expanded="true" />
-            <element signature="e#404#405#0" expanded="true" />
-            <element signature="method#connect#0;class#Server#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/code/Network/NetworkAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="83" column="36" selection-start-line="83" selection-start-column="36" selection-end-line="83" selection-end-column="36" />
-          <folding>
-            <element signature="e#647#743#0" />
-            <element signature="e#803#901#0" />
-            <element signature="e#933#934#0" expanded="true" />
-            <element signature="e#963#964#0" expanded="true" />
-            <element signature="e#970#1029#0" />
-            <element signature="e#1073#1074#0" expanded="true" />
-            <element signature="e#1111#1112#0" expanded="true" />
-            <element signature="e#1118#1251#0" />
-            <element signature="e#1510#1566#0" />
-            <element signature="e#1510#1820#0" />
-            <element signature="e#1826#1927#0" />
-            <element signature="e#2595#3001#0" />
-            <element signature="e#2595#3493#0" />
+            <element signature="method#showMessage#0;class#NetworkUI#0" />
+            <element signature="class#8962:9098" />
+            <element signature="e#8994#8995#0" expanded="true" />
+            <element signature="e#9025#9026#0" expanded="true" />
           </folding>
         </state>
       </provider>
