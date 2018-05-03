@@ -312,8 +312,8 @@ class  Board implements Cloneable{
      * @return string to send over a connection
      */
     String getData(int row, int col) {
-        String data = String.valueOf(row)+String.valueOf(2);
-        data += "1";//String.valueOf(board[row][col]);
+        String data = String.valueOf(row)+String.valueOf(col);
+        data += String.valueOf(board[row][col]);
         data += valid[row][col] ? "t" : "f";
         data += mutable[row][col] ? "t" : "f";
         return data;

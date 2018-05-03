@@ -93,4 +93,8 @@ public class HistoryNode {
     public void setData(String data) {
         board.setData(data);
     }
+
+    public int size() {
+        return board.getSize();
+    }
 }

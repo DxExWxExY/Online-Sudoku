@@ -1,5 +1,8 @@
 package code.Network;
 
+import code.Sudoku.HistoryNode;
+
+import javax.swing.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,7 +16,9 @@ public abstract class NetworkAdapter extends Thread {
     boolean connected = false;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-    public Socket connection;
+    Socket connection;
+    HistoryNode history;
+    JTextArea logT;
 
     public NetworkAdapter(int serverPORT, String serverIP) {
         configureInstance(serverPORT, serverIP);
@@ -79,11 +84,26 @@ public abstract class NetworkAdapter extends Thread {
     protected void whileChatting() throws IOException {
         while (true) {
             try {
-                System.out.println("a");
                 message = (String) input.readObject();
-                System.out.println(message);
+                logT.append("\nReceived: "+message);
+                if (message.equals("end")) {
+                    closeConnections();
+                } else if (message.matches("new")) {
+                    //new game protocol
+                } else {
+                    history.setData(message);
+                }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+    
+    protected void sendBoard() {
+        for (int i = 0; i < history.size(); i++) {
+            for (int j = 0; j < history.size(); j++) {
+                setMessage(history.getData(i,j));
+                logT.append("\n"+sendMessage());
             }
         }
     }
@@ -95,35 +115,12 @@ public abstract class NetworkAdapter extends Thread {
             }
             output.writeObject(message);
             output.flush();
+            String report = "Sent: "+message;
             this.message = "";
-
-            return "Message was sent.";
+            return report;
         } catch(IOException e) {
-            return "Message was not sent.";
+            return "Not Sent";
         }
-    }
-
-    /**
-     * Returns a free port number on localhost.
-     *
-     * Heavily inspired from org.eclipse.jdt.launching.SocketUtil (to avoid a dependency to JDT just because of this).
-     * Slightly improved with close() missing in JDT. And throws exception instead of returning -1.
-     *
-     * @return a free port number on localhost
-     * @throws IllegalStateException if unable to find a free port
-     */
-    private static int findFreePort() {
-        try (ServerSocket socket = new ServerSocket(0)) {
-            socket.setReuseAddress(true);
-            int port = socket.getLocalPort();
-            try {
-                socket.close();
-            } catch (IOException ignored) {
-            }
-            return port;
-        } catch (IOException ignored) {
-        }
-        throw new IllegalStateException("Could not find a free TCP/IP port to start embedded Jetty HTTP Server on");
     }
 
     protected void configureInstance() {}
@@ -131,97 +128,4 @@ public abstract class NetworkAdapter extends Thread {
     protected void configureInstance(int serverPORT, String serverIP) {}
 
     protected abstract void connect() throws IOException;
-
-//    /**
-//     * Start accepting messages asynchronously from this network
-//     * adapter and notifying them to the registered listener.
-//     * This method doesn't block the caller. Instead, a new
-//     * background thread is created to read incoming messages.
-//     * To receive messages synchronously, use the
-//     * {@link #receiveMessages()} method.
-//     *
-//     * @see #setMessageListener(MessageListener)
-//     * @see #receiveMessages()
-//     */
-//    public void receiveMessagesAsync() {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                receiveMessages();
-//            }
-//        }).start();
-//    }
-//
-//    /** Parse the given message and notify to the registered listener. */
-//    private void parseMessage(String msg) {
-//        if (msg.startsWith(MessageType.QUIT.header)) {
-//                notifyMessage(MessageType.QUIT);
-//        } else if (msg.startsWith(MessageType.JOIN_ACK.header)) {
-//            parseJoinAckMessage(msgBody(msg));
-//        } else if (msg.startsWith(MessageType.JOIN.header)) {
-//            notifyMessage(MessageType.JOIN);
-//        } else if (msg.startsWith(MessageType.NEW_ACK.header)) {
-//        	parseNewAckMessage(msgBody(msg));
-//        } else if (msg.startsWith(MessageType.NEW.header)) {
-//        	parseNewMessage(msgBody(msg));
-//        } else if (msg.startsWith(MessageType.FILL_ACK.header)) {
-//            parseFillMessage(MessageType.FILL_ACK, msgBody(msg));
-//        } else if (msg.startsWith(MessageType.FILL.header)){
-//            parseFillMessage(MessageType.FILL, msgBody(msg));
-//        } else {
-//            notifyMessage(MessageType.UNKNOWN);
-//        }
-//    }
-//
-//    /**
-//     * Write messages asynchronously. This class uses a single
-//     * background thread to write messages asynchronously in a FIFO
-//     * fashion. To stop the background thread, call the stop() method.
-//     */
-//    private class MessageWriter {
-//
-//        /** Background thread to write messages asynchronously. */
-//        private Thread writerThread;
-//
-//        /** Store messages to be written asynchronously. */
-//        private BlockingQueue<String> messages = new LinkedBlockingQueue<>();
-//
-//        /** Write the given message asynchronously on a new thread. */
-//        public void write(final String msg) {
-//            if (writerThread == null) {
-//                writerThread = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        while (true) {
-//                            try {
-//                                String m = messages.take();
-//                                out.println(m);
-//                                out.flush();
-//                            } catch (InterruptedException e) {
-//                                return;
-//                            }
-//                        }
-//                    }
-//                });
-//                writerThread.start();
-//            }
-//
-//            synchronized (messages) {
-//                try {
-//                    messages.put(msg);
-//                    if (logger != null) {
-//                        logger.format(" > %s\n", msg);
-//                    }
-//                } catch (InterruptedException e) {
-//                }
-//            }
-//        }
-//
-//        /** Stop this message writer. */
-//        public void stop() {
-//            if (writerThread != null) {
-//                writerThread.interrupt();
-//            }
-//        }
-//    }
 }

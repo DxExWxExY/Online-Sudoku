@@ -3,23 +3,16 @@ package code.Network;
 import code.Sudoku.SudokuDialog;
 
 import javax.swing.*;
-import javax.swing.text.DefaultCaret;
-import javax.swing.text.Document;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.io.*;
+import java.io.IOException;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Objects;
 
 public class NetworkUI extends SudokuDialog {
     private JPanel config, log;
-    private JButton connect;
-    private Socket socket;
-    private Thread hostT;
+    private JButton connect, host, join, disconnect;
     private JTextArea ipT, portT, logT = new JTextArea("Network Log",20,10);
     private static NetworkAdapter server;
     private static NetworkAdapter client;
@@ -134,7 +127,7 @@ public class NetworkUI extends SudokuDialog {
     }
 
     private void makeNetworkOptions() {
-        config = new JPanel(new GridLayout(4,2, 0, 10));
+        config = new JPanel(new GridLayout(3,2, 0, 10));
         config.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("Network Settings"),
                 BorderFactory.createEmptyBorder(30,5,30,5)));
@@ -147,8 +140,8 @@ public class NetworkUI extends SudokuDialog {
             e.printStackTrace();
         }
         portT = new JTextArea("8000");
-        JButton host = new JButton("Host");
-        JButton join = new JButton("Join");
+        host = new JButton("Host");
+        join = new JButton("Join");
         join.addActionListener(e -> {
             joinClicked();
             host.setEnabled(false);
@@ -170,7 +163,7 @@ public class NetworkUI extends SudokuDialog {
                     disconnect.addActionListener(a -> {
                     });
                     config.add(disconnect);
-                    server.setMessage("SERVER MESSAGE");
+                    server.setMessage(hPointer.getData(0,0));
                     logT.append("\n"+server.sendMessage());
                 }
             } catch (NullPointerException b) {
@@ -180,7 +173,7 @@ public class NetworkUI extends SudokuDialog {
                     disconnect.addActionListener(a -> {
                     });
                     config.add(disconnect);
-                    client.setMessage("CLIENT MESSAGE");
+                    client.setMessage(hPointer.getData(0,0));
                     logT.append("\n"+client.sendMessage());
                 }
             }
@@ -192,8 +185,6 @@ public class NetworkUI extends SudokuDialog {
         config.add(portT);
         config.add(host);
         config.add(join);
-        config.add(test);
-
     }
 
     private void makeNetworkLog() {
@@ -235,14 +226,19 @@ public class NetworkUI extends SudokuDialog {
             switch (n) {
                 case JOptionPane.YES_OPTION:
                     try {
-                        socket.close();
+                        server.closeConnections();
                         toolbar.remove(connect);
                         connect = makeOptionButtons("offline.png", KeyEvent.VK_O);
                         connect.addActionListener(a -> networkDialog());
                         toolbar.add(connect);
                         toolbar.revalidate();
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
+                    } catch (NullPointerException b) {
+                        client.closeConnections();
+                        toolbar.remove(connect);
+                        connect = makeOptionButtons("offline.png", KeyEvent.VK_O);
+                        connect.addActionListener(a -> networkDialog());
+                        toolbar.add(connect);
+                        toolbar.revalidate();
                     }
                     break;
                 case JOptionPane.NO_OPTION:
@@ -251,46 +247,67 @@ public class NetworkUI extends SudokuDialog {
         });
         toolbar.add(connect);
         toolbar.revalidate();
+        config.remove(host);
+        config.remove(join);
+        disconnect = new JButton("Disconnect");
+        disconnect.addActionListener(o -> {
+            try {
+                server.closeConnections();
+                toolbar.remove(connect);
+                connect = makeOptionButtons("offline.png", KeyEvent.VK_O);
+                connect.addActionListener(a -> networkDialog());
+                config.add(host);
+                config.add(join);
+                config.remove(disconnect);
+                config.revalidate();
+                config.repaint();
+                toolbar.add(connect);
+                toolbar.revalidate();
+            } catch (NullPointerException i) {
+                toolbar.remove(connect);
+                connect = makeOptionButtons("offline.png", KeyEvent.VK_O);
+                connect.addActionListener(a -> networkDialog());
+                config.add(host);
+                config.add(join);
+                config.remove(disconnect);
+                config.revalidate();
+                config.repaint();
+                toolbar.add(connect);
+                toolbar.revalidate();server.closeConnections();
+            }
+        });
+        config.add(disconnect);
+        config.revalidate();
+        toolbar.revalidate();
     }
 
     private void joinClicked() {
         new Thread(() -> {
-            client = new Client(Integer.parseInt(portT.getText()), ipT.getText());
-            logT.append("\nConnected to server!");
+            client = new Client(Integer.parseInt(portT.getText()), ipT.getText(), hPointer, logT);
+            logT.append("\nConnected to Server!");
             try {
                 onlineStatusUI();
                 client.whileChatting();
-            } catch(IOException e) {
+            } catch(IOException ignored) {
             }
         }).start();
-
-        logT.append("\nWaiting for connection...");
+        logT.append("\nWaiting for Server...");
     }
 
     /** Callback to be called when the connect button is clicked. */
     private void hostClicked(){
         new Thread(() -> {
-            server = new Server();
-            logT.append("\nConnected to client!");
+            server = new Server(hPointer, logT);
+            logT.append("\nConnected to Client!");
             try {
                 onlineStatusUI();
+                server.sendBoard();
                 server.whileChatting();
-            } catch(IOException e) {
+            } catch(IOException ignored) {
             }
 
         }).start();
-
-        logT.append("\nWaiting for connection...");
-    }
-
-    private void showMessage(String text) {
-        SwingUtilities.invokeLater(
-                new Runnable() {
-                    public void run() {
-                        logT.append("\n"+text);
-                    }
-                }
-        );
+        logT.append("\nServer Waiting...");
     }
 
     public static void main(String[] args) {
