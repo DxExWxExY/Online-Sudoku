@@ -134,7 +134,7 @@ public class NetworkUI extends SudokuDialog {
     }
 
     private void makeNetworkOptions() {
-        config = new JPanel(new GridLayout(3,2, 0, 10));
+        config = new JPanel(new GridLayout(4,2, 0, 10));
         config.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("Network Settings"),
                 BorderFactory.createEmptyBorder(30,5,30,5)));
@@ -148,11 +148,11 @@ public class NetworkUI extends SudokuDialog {
         }
         portT = new JTextArea("8000");
         JButton host = new JButton("Host");
-        JButton join = new JButton("join");
+        JButton join = new JButton("Join");
         join.addActionListener(e -> {
             joinClicked();
-            join.setEnabled(false);
             host.setEnabled(false);
+            join.setEnabled(false);
         });
         host.setFocusPainted(false);
         host.addActionListener(e -> {
@@ -163,10 +163,27 @@ public class NetworkUI extends SudokuDialog {
 
         JButton test = new JButton("Test");
         test.addActionListener(e -> {
-            int swag = server.getPORT();
-            System.out.println(swag);
-            server.setMessage("Test");
-            server.sendMessage();
+            try {
+                if (server.connected) {
+                    onlineStatusUI();
+                    JButton disconnect = new JButton("Disconnect");
+                    disconnect.addActionListener(a -> {
+                    });
+                    config.add(disconnect);
+                    server.setMessage("SERVER MESSAGE");
+                    logT.append("\n"+server.sendMessage());
+                }
+            } catch (NullPointerException b) {
+                if (client.connected) {
+                    onlineStatusUI();
+                    JButton disconnect = new JButton("Disconnect");
+                    disconnect.addActionListener(a -> {
+                    });
+                    config.add(disconnect);
+                    client.setMessage("CLIENT MESSAGE");
+                    logT.append("\n"+client.sendMessage());
+                }
+            }
         });
 
         config.add(ipL);
@@ -177,19 +194,6 @@ public class NetworkUI extends SudokuDialog {
         config.add(join);
         config.add(test);
 
-    }
-
-    private void joinClicked() {
-        new Thread(() -> {
-            client = new Client(Integer.parseInt(portT.getText()), ipT.getText());
-            logT.append("\nConnected to server!");
-            try {
-                client.whileChatting();
-            } catch(IOException e) {
-            }
-        }).start();
-
-        logT.append("\nWaiting for connection...");
     }
 
     private void makeNetworkLog() {
@@ -249,12 +253,27 @@ public class NetworkUI extends SudokuDialog {
         toolbar.revalidate();
     }
 
+    private void joinClicked() {
+        new Thread(() -> {
+            client = new Client(Integer.parseInt(portT.getText()), ipT.getText());
+            logT.append("\nConnected to server!");
+            try {
+                onlineStatusUI();
+                client.whileChatting();
+            } catch(IOException e) {
+            }
+        }).start();
+
+        logT.append("\nWaiting for connection...");
+    }
+
     /** Callback to be called when the connect button is clicked. */
     private void hostClicked(){
         new Thread(() -> {
             server = new Server();
             logT.append("\nConnected to client!");
             try {
+                onlineStatusUI();
                 server.whileChatting();
             } catch(IOException e) {
             }

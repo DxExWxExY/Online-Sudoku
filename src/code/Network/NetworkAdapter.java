@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public abstract class NetworkAdapter extends Thread {
 
     private static final int PORT = 8000;
-    private String message = null;
+    private String message = "";
     boolean connected = false;
     private ObjectOutputStream output;
     private ObjectInputStream input;
@@ -44,7 +44,7 @@ public abstract class NetworkAdapter extends Thread {
      * @param str
      */
     public void setMessage(String str) {
-        str = message;
+        message = str;
     }
 
     /**
@@ -77,25 +77,25 @@ public abstract class NetworkAdapter extends Thread {
      * @throws IOException
      */
     protected void whileChatting() throws IOException {
-        try {
-            System.out.println("a");
-            message = (String) input.readObject();
+        while (true) {
+            try {
+                System.out.println("a");
+                message = (String) input.readObject();
+                System.out.println(message);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
-        catch(ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        if(connected)
-            whileChatting();
     }
 
     protected String sendMessage() {
         try {
-            if(message == null) {
+            if(message.equals("")) {
                 return "Message is null.";
             }
             output.writeObject(message);
             output.flush();
-            this.message = null;
+            this.message = "";
 
             return "Message was sent.";
         } catch(IOException e) {
