@@ -21,7 +21,8 @@ public class NetworkUI extends SudokuDialog {
     private JButton connect;
     private Socket socket;
     private JTextArea ipT, portT, logT = new JTextArea("Network Log",20,10);
-    private SudokuServer server;
+    private NetworkAdapter host;
+    private NetworkAdapter client;
 
 
     private NetworkUI() {
@@ -140,13 +141,25 @@ public class NetworkUI extends SudokuDialog {
         config.setSize(new Dimension(300,150));
         JLabel ipL = new JLabel("Server Address");
         JLabel portL = new JLabel("Port Number");
-        ipT = new JTextArea("localhost");
-        portT = new JTextArea(String.valueOf(8000));
+        try {
+            ipT = new JTextArea(String.valueOf(InetAddress.getLocalHost().getHostAddress()));
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        portT = new JTextArea("8000");
         JButton host = new JButton("Host");
         JButton join = new JButton("join");
-        join.addActionListener(e -> testClicked());
+        join.addActionListener(e -> {
+            joinClicked();
+            join.setEnabled(false);
+            host.setEnabled(false);
+        });
         host.setFocusPainted(false);
-        host.addActionListener(e -> connectClicked());
+        host.addActionListener(e -> {
+            hostClicked();
+            host.setEnabled(false);
+            join.setEnabled(false);
+        });
 
         config.add(ipL);
         config.add(ipT);
@@ -155,6 +168,12 @@ public class NetworkUI extends SudokuDialog {
         config.add(host);
         config.add(join);
 
+    }
+
+    private void joinClicked() {
+        new Thread(() -> {
+            client = new Client(Integer.parseInt(portT.getText()), ipT.getText());
+        }).start();
     }
 
     private void makeNetworkLog() {
@@ -215,48 +234,21 @@ public class NetworkUI extends SudokuDialog {
     }
 
     /** Callback to be called when the connect button is clicked. */
-    private void connectClicked(){
-        try {
-            socket = new Socket(ipT.getText(), Integer.parseInt(portT.getText()));
-            logT.append("\nConnected to "+ipT.getText());
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+    private void hostClicked(){
+        new Thread(() -> {
+            host = new Server();
+            while (!host.connected);
             onlineStatusUI();
-        } catch (Exception e) {
-            e.printStackTrace();
-            logT.append("\nError: "+e);
-        }
-    }
-
-    private void testClicked() {
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            for (int i = 0; i < 4; i++) {
-                out.println(history.getData(i,i));
-                out.flush();
-            }
-            while (true){
-                String line = in.readLine();
-                if (line == null) {
-                    break;
-                }
-                else  {
-                    out.println("GOT IT!");
-                    history.setData(line);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            logT.append("\nPlayer Joined");
+        }).start();
+        logT.append("\nServer Started");
     }
 
     private void showMessage(String text) {
         SwingUtilities.invokeLater(
                 new Runnable() {
                     public void run() {
-                        logT.append(text);
-
+                        logT.append("\n"+text);
                     }
                 }
         );

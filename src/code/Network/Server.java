@@ -1,3 +1,5 @@
+package code.Network;
+
 import code.Network.NetworkAdapter;
 
 import javax.swing.*;
@@ -22,7 +24,7 @@ public class Server extends NetworkAdapter {
             server = new ServerSocket(getPORT(), 100);
             while(true) {
                 try {
-                    connect();
+                    connection = server.accept();
                     configureStreams();
                     whileChatting();
                 } catch(EOFException e) {
@@ -37,7 +39,7 @@ public class Server extends NetworkAdapter {
     }
 
     protected void connect() throws IOException {
-        connection = server.accept();
+
     }
 
 //    private void configureGUI() {

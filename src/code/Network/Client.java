@@ -1,3 +1,5 @@
+package code.Network;
+
 import code.Network.NetworkAdapter;
 
 import javax.swing.*;

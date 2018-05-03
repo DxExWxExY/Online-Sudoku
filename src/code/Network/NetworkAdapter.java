@@ -6,14 +6,14 @@ import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public abstract class NetworkAdapter {
+public abstract class NetworkAdapter extends Thread {
 
-    private final int PORT = findFreePort();
+    private static final int PORT = 8000;
     private String message = null;
-    private boolean connected;
+    boolean connected;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-    protected Socket connection;
+    public Socket connection;
 
     public NetworkAdapter(int serverPORT, String serverIP) {
         configureInstance(serverPORT, serverIP);
@@ -111,7 +111,7 @@ public abstract class NetworkAdapter {
      * @return a free port number on localhost
      * @throws IllegalStateException if unable to find a free port
      */
-    private int findFreePort() {
+    private static int findFreePort() {
         try (ServerSocket socket = new ServerSocket(0)) {
             socket.setReuseAddress(true);
             int port = socket.getLocalPort();
