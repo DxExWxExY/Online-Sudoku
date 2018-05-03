@@ -15,36 +15,26 @@ import java.net.Socket;
 public class Client extends NetworkAdapter {
     private String serverIP;
     private int serverPORT;
-    private HistoryNode local;
 
-    public Client(int serverPORT, String serverIP, HistoryNode reference) {
+    public Client(int serverPORT, String serverIP) {
         super(serverPORT, serverIP);
-        this.local = reference;
     }
 
     @Override
     protected void configureInstance(int serverPORT, String serverIP) {
         this.serverIP = serverIP;
         this.serverPORT = serverPORT;
-        new Thread(() -> {
-            while (true) {
-                try {
-                    connection = new Socket(InetAddress.getByName(serverIP), serverPORT);
-                    configureStreams();
-                    whileChatting();
-                } catch(IOException a) {
-                    a.printStackTrace();
-                } finally {
-                    closeConnections();
-                }
+            try {
+                connect();
+                configureStreams();
+            } catch(IOException a) {
+                a.printStackTrace();
             }
-        }).start();
-
     }
 
     @Override
     protected void connect() throws IOException {
-
+        connection = new Socket(InetAddress.getByName(serverIP), serverPORT);
     }
 
 //    private void configureUI() {

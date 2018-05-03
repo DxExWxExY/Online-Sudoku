@@ -10,7 +10,7 @@ public abstract class NetworkAdapter extends Thread {
 
     private static final int PORT = 8000;
     private String message = null;
-    boolean connected;
+    boolean connected = false;
     private ObjectOutputStream output;
     private ObjectInputStream input;
     public Socket connection;
@@ -41,10 +41,10 @@ public abstract class NetworkAdapter extends Thread {
 
     /**
      * Sets the message t
-     * @param message
+     * @param str
      */
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessage(String str) {
+        str = message;
     }
 
     /**
@@ -77,14 +77,15 @@ public abstract class NetworkAdapter extends Thread {
      * @throws IOException
      */
     protected void whileChatting() throws IOException {
-        while(connected) {
-            try {
-                message = (String) input.readObject();
-            }
-            catch(ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+        try {
+            System.out.println("a");
+            message = (String) input.readObject();
         }
+        catch(ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        if(connected)
+            whileChatting();
     }
 
     protected String sendMessage() {
@@ -125,9 +126,9 @@ public abstract class NetworkAdapter extends Thread {
         throw new IllegalStateException("Could not find a free TCP/IP port to start embedded Jetty HTTP Server on");
     }
 
-    protected synchronized void configureInstance() {}
+    protected void configureInstance() {}
 
-    protected synchronized void configureInstance(int serverPORT, String serverIP) {}
+    protected void configureInstance(int serverPORT, String serverIP) {}
 
     protected abstract void connect() throws IOException;
 

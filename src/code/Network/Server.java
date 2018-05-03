@@ -14,35 +14,25 @@ import java.net.Socket;
 
 public class Server extends NetworkAdapter {
     private ServerSocket server;
-    private HistoryNode local;
 
-    public Server(HistoryNode reference) {
+    public Server() {
         super();
-        this.local = reference;
     }
 
     @Override
     protected void configureInstance() {
-        new Thread(() -> {
-            while (true) {
-                try {
-                    server = new ServerSocket(getPORT(), 100);
-                    connection = server.accept();
-                    configureStreams();
-                    whileChatting();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    closeConnections();
-                }
-            }
-        }).start();
-
+        try {
+            server = new ServerSocket(getPORT(), 100);
+            connect();
+            configureStreams();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void connect() throws IOException {
-
+        connection = server.accept();
     }
 
 //    private void configureGUI() {

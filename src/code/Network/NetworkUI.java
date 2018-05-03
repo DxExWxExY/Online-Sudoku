@@ -16,14 +16,13 @@ import java.net.UnknownHostException;
 import java.util.Objects;
 
 public class NetworkUI extends SudokuDialog {
-
     private JPanel config, log;
     private JButton connect;
     private Socket socket;
     private Thread hostT;
     private JTextArea ipT, portT, logT = new JTextArea("Network Log",20,10);
-    private NetworkAdapter host;
-    private NetworkAdapter client;
+    private static NetworkAdapter server;
+    private static NetworkAdapter client;
 
 
     private NetworkUI() {
@@ -134,7 +133,7 @@ public class NetworkUI extends SudokuDialog {
         makeNetworkWindow();
     }
 
-    private synchronized void makeNetworkOptions() {
+    private void makeNetworkOptions() {
         config = new JPanel(new GridLayout(3,2, 0, 10));
         config.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("Network Settings"),
@@ -164,10 +163,10 @@ public class NetworkUI extends SudokuDialog {
 
         JButton test = new JButton("Test");
         test.addActionListener(e -> {
-            int swag = this.host.getPORT();
-
-            client.setMessage("Test");
-            client.sendMessage();
+            int swag = server.getPORT();
+            System.out.println(swag);
+            server.setMessage("Test");
+            server.sendMessage();
         });
 
         config.add(ipL);
@@ -181,8 +180,16 @@ public class NetworkUI extends SudokuDialog {
     }
 
     private void joinClicked() {
-        client = new Client(Integer.parseInt(portT.getText()), ipT.getText(), hPointer);
-        logT.append("\nConnected to Server!");
+        new Thread(() -> {
+            client = new Client(Integer.parseInt(portT.getText()), ipT.getText());
+            logT.append("\nConnected to server!");
+            try {
+                client.whileChatting();
+            } catch(IOException e) {
+            }
+        }).start();
+
+        logT.append("\nWaiting for connection...");
     }
 
     private void makeNetworkLog() {
@@ -243,11 +250,18 @@ public class NetworkUI extends SudokuDialog {
     }
 
     /** Callback to be called when the connect button is clicked. */
-    private synchronized void hostClicked(){
-        host = new Server(hPointer);
-        while (!host.connected);
-        onlineStatusUI();
-        logT.append("\nServer Started");
+    private void hostClicked(){
+        new Thread(() -> {
+            server = new Server();
+            logT.append("\nConnected to client!");
+            try {
+                server.whileChatting();
+            } catch(IOException e) {
+            }
+
+        }).start();
+
+        logT.append("\nWaiting for connection...");
     }
 
     private void showMessage(String text) {
