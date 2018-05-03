@@ -130,7 +130,7 @@ public class HistoryNode {
      * Board Instance bypass
      * @see Board
      * */
-    int size() {
+    public int size() {
         return board.size();
     }
 

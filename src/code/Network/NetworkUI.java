@@ -141,9 +141,9 @@ public class NetworkUI extends SudokuDialog {
         portT = new JTextArea(String.valueOf(PORT));
         JButton connectButton = new JButton("Connect");
         JButton test = new JButton("test");
-        test.addActionListener(e -> testClicked());
+        test.addActionListener(e -> {});
         connectButton.setFocusPainted(false);
-        connectButton.addActionListener(e -> connectClicked());
+        connectButton.addActionListener(e -> {});
 
         config.add(ipL);
         config.add(ipT);
@@ -232,33 +232,6 @@ public class NetworkUI extends SudokuDialog {
         });
         toolbar.add(connect);
         toolbar.revalidate();
-    }
-
-    /** Callback to be called when the connect button is clicked. */
-    private void connectClicked(){
-        try {
-            socket = new Socket(ipT.getText(), Integer.parseInt(portT.getText()));
-            logT.append("\nConnected to "+ipT.getText());
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            onlineStatusUI();
-        } catch (Exception e) {
-            e.printStackTrace();
-            logT.append("\nError: "+e);
-        }
-    }
-
-    private void testClicked() {
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            for (int i = 0; i < 4; i++) {
-                out.println(history.getData(i,i));
-                out.flush();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void main(String[] args) {
