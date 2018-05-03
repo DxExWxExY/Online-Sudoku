@@ -161,6 +161,12 @@ public class NetworkUI extends SudokuDialog {
             join.setEnabled(false);
         });
 
+        JButton test = new JButton("Test");
+        test.addActionListener(e -> {
+            client.setMessage("Test");
+            client.sendMessage();
+        });
+
         config.add(ipL);
         config.add(ipT);
         config.add(portL);
@@ -174,6 +180,7 @@ public class NetworkUI extends SudokuDialog {
         new Thread(() -> {
             client = new Client(Integer.parseInt(portT.getText()), ipT.getText());
         }).start();
+        logT.append("\nConnected to Server!");
     }
 
     private void makeNetworkLog() {

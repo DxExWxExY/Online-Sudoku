@@ -80,6 +80,10 @@ public abstract class NetworkAdapter extends Thread {
         while(connected) {
             try {
                 message = (String) input.readObject();
+                System.out.println("null message");
+                if (message == null) {
+
+                }
             }
             catch(ClassNotFoundException e) {
                 e.printStackTrace();

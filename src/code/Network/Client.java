@@ -28,8 +28,6 @@ public class Client extends NetworkAdapter {
             connect();
             configureStreams();
             whileChatting();
-        } catch(EOFException e) {
-            e.printStackTrace();
         } catch(IOException a) {
             a.printStackTrace();
         } finally {
